@@ -1,6 +1,7 @@
 import { Express } from 'express';
+import morganLoader from './morgan';
 
 export default (app: Express) => {
-  // load morgan
+  morganLoader(app);
   console.log('morgan loaded');
 };
