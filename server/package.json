@@ -1,0 +1,20 @@
+{
+  "name": "cashbook-03",
+  "version": "1.0.0",
+  "description": "우아한 테크캠프 4-5주차 가계부 서비스 - 윤민상, 전상인",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoonminsang/cashbook-03.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoonminsang/cashbook-03/issues"
+  },
+  "homepage": "https://github.com/yoonminsang/cashbook-03#readme"
+}
