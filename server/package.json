@@ -4,8 +4,8 @@
   "description": "우아한 테크캠프 4-5주차 가계부 서비스 - 윤민상, 전상인",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsc && node ./dist/app.js",
-    "dev": "nodemon ./src/app.ts",
+    "start": "npx tsc && NODE_ENV=production node ./dist/app.js",
+    "dev": "NODE_ENV=development nodemon ./src/app.ts",
     "build": "npx tsc"
   },
   "repository": {
