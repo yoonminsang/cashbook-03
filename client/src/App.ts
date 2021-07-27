@@ -1,4 +1,5 @@
 import Calendar from './pages/Calendar';
+import Error from './pages/Error';
 import Main from './pages/Main';
 import Statistics from './pages/Statistics';
 import Router from './Router';
@@ -26,9 +27,9 @@ const routes = {
   '/calendar': Calendar,
   '/Statistics': Statistics,
 };
-const path = window.location.pathname;
+const error = new Error();
 new Router({
   $app,
   routes,
-  path,
+  error,
 });
