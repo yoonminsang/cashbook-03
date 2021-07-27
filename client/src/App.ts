@@ -4,7 +4,7 @@ import Statistics from './pages/Statistics';
 import Router from './Router';
 import { store } from './store';
 
-const STATE = {
+const GLOBALSTATE = {
   date: 'date',
   user: 'user',
   data: 'data',
@@ -14,11 +14,11 @@ const STATE = {
 
 // dummy data
 const today = new Date();
-store.setState(STATE.date, {
+store.setState(GLOBALSTATE.date, {
   year: today.getFullYear(),
   month: today.getMonth(),
 });
-store.setState(STATE.user, { id: 1, nickname: '민상', email: 'woowa@' });
+store.setState(GLOBALSTATE.user, { id: 1, nickname: '민상', email: 'woowa@' });
 
 const $app = document.querySelector('#root');
 const routes = {
