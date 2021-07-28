@@ -40,7 +40,7 @@ export const initCategory = async function (sequelize: Sequelize) {
     },
   );
 
-  await Category.sync({ force: true });
+  await Category.sync();
   console.log('Category Model Created');
 
   await Promise.all(INITIAL_DATA.map((row) => Category.create(row)));
