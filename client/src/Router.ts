@@ -23,7 +23,7 @@ class Router {
       }
     }
     this.$app.innerHTML = '';
-    this.$app.append(this.error.html);
+    this.$app.appendChild(this.error.html);
   };
 
   linkChange = () => {
