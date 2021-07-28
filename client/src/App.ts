@@ -11,7 +11,7 @@ import { GLOBALSTATE, store } from './store';
 const today = new Date();
 store.setState(GLOBALSTATE.date, {
   year: today.getFullYear(),
-  month: today.getMonth(),
+  month: today.getMonth() + 1,
 });
 store.setState(GLOBALSTATE.user, { id: 1, nickname: '민상', email: 'woowa@' });
 
@@ -19,7 +19,7 @@ const $app = document.querySelector('#app');
 const routes = {
   '/': Main,
   '/calendar': Calendar,
-  '/Statistics': Statistics,
+  '/statistics': Statistics,
 };
 const error = new Error();
 new Router({
