@@ -1,11 +1,9 @@
 export const store = (function () {
-  let state = {};
+  const state = {};
   let observer = {};
   return {
-    setState(type, changeState) {
-      const nextState = { ...state };
-      nextState[type] = changeState;
-      state = nextState;
+    setState(type, changeState: any) {
+      state[type] = changeState;
       this.notify(type);
     },
 
@@ -17,12 +15,10 @@ export const store = (function () {
       if (!observer[type]) {
         observer[type] = [];
       }
-      const nextObserver = { ...observer };
-      nextObserver[type].push({
+      observer[type].push({
         identifier,
         cb: () => cb(type, this.getState(type)),
       });
-      observer = nextObserver;
       this.notify(type);
     },
 
