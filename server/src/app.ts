@@ -3,6 +3,7 @@ import express from 'express';
 import loader from './loaders';
 import controller from './controllers';
 import path from 'path';
+import errorHandler from './error';
 
 async function startServer() {
   const app = express();
@@ -13,6 +14,8 @@ async function startServer() {
   app.use('/api', controller());
 
   app.use('*', express.static(path.join(__dirname, '../../client/dist')));
+
+  app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`);
