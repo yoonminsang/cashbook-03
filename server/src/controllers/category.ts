@@ -13,16 +13,28 @@ export default class CategoryController {
     return router;
   }
 
-  get(req: Request, res: Response, next: NextFunction) {
-    categoryService.getCategories().then((data) => {
-      res.status(200).json({ data });
-    });
+  async get(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await categoryService.getCategories();
+
+      if (data.length) {
+        res.status(200).json({ data });
+      } else {
+        res.status(404).end();
+      }
+    } catch (error) {}
   }
 
-  getById(req: Request, res: Response, next: NextFunction) {
-    const id = parseInt(req.params.id);
-    categoryService.getCategoryById(id).then((data) => {
-      res.status(200).json({ data });
-    });
+  async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = parseInt(req.params.id);
+      const data = await categoryService.getCategoryById(id);
+
+      if (data) {
+        res.status(200).json({ data });
+      } else {
+        res.status(404).end();
+      }
+    } catch (error) {}
   }
 }
