@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import CategoryService from '../service/category-service';
+import CategoryService from '../service/category';
 
 const categoryService = new CategoryService();
 
@@ -14,7 +14,7 @@ export default class CategoryController {
 
   get(req: Request, res: Response, next: NextFunction) {
     categoryService.getCategories().then((data) => {
-      res.send(data);
+      res.status(200).json({ data });
     });
   }
 }
