@@ -12,24 +12,23 @@ class Router {
     this.keys = Object.keys(routes);
     this.error = error;
     this.route();
-    this.linkChange();
-    this.backChange();
+    this.addLinkChangeHandler();
+    this.addBackChangeHandler();
   }
 
   route = () => {
     const url = window.location.pathname;
-    for (let i = 0; i < this.keys.length; i++) {
-      if (this.keys[i] === url) {
-        new this.routes[this.keys[i]]({ $app: this.$app });
-        return;
-      }
+    const Page = this.routes[url];
+    if (Page) {
+      new Page({ $app: this.$app });
+      return;
     }
     store.unsubscribeAll();
     this.$app.innerHTML = '';
     this.$app.appendChild(this.error.html);
   };
 
-  linkChange = () => {
+  addLinkChangeHandler = () => {
     this.$app.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       const closest = target.closest('a');
@@ -41,11 +40,11 @@ class Router {
     });
   };
 
-  backChange = () => {
-    window.onpopstate = (e) => {
+  addBackChangeHandler = () => {
+    window.addEventListener('popstate', (e) => {
       e.preventDefault();
       this.route();
-    };
+    });
   };
 }
 
