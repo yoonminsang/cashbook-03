@@ -6,4 +6,8 @@ export default class CategoryService {
   async getCategories() {
     return await categoryRepository.getAll();
   }
+
+  async getCategoryById(id: number) {
+    return await categoryRepository.get(id);
+  }
 }
