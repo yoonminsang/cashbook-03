@@ -4,10 +4,16 @@ const categoryRepository = new CategoryRepository();
 
 export default class CategoryService {
   async getCategories() {
-    return await categoryRepository.getAll();
+    const categories = await categoryRepository.getAll();
+    if (!categories.length) throw new Error('NO_DATA');
+
+    return categories;
   }
 
   async getCategoryById(id: number) {
-    return await categoryRepository.get(id);
+    const category = await categoryRepository.get(id);
+    if (!category) throw new Error('NO_DATA');
+
+    return category;
   }
 }
