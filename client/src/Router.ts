@@ -22,7 +22,8 @@ class Router {
         return;
       }
     }
-    this.error.render({ $app: this.$app });
+    this.$app.innerHTML = '';
+    this.$app.append(this.error.html);
   };
 
   linkChange = () => {

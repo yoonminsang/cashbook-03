@@ -21,7 +21,8 @@ const routes = {
   '/calendar': Calendar,
   '/statistics': Statistics,
 };
-const error = new Error();
+const $div = document.createElement('div');
+const error = new Error({ $target: $div });
 new Router({
   $app,
   routes,
