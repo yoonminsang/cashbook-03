@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/yoonminsang/cashbook-03#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "typescript": "^4.3.5"
   },
