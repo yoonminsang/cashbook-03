@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
+import { ErrorStatus } from '../error';
 import CategoryService from '../service/category';
 
 const categoryService = new CategoryService();
@@ -16,13 +17,13 @@ export default class CategoryController {
   async get(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await categoryService.getCategories();
+      res.status(200).json({ data });
+    } catch (error) {
+      if (error.message === 'NO_DATA')
+        return next(new ErrorStatus(500, 'Category not initialized'));
 
-      if (data.length) {
-        res.status(200).json({ data });
-      } else {
-        res.status(404).end();
-      }
-    } catch (error) {}
+      next(error);
+    }
   }
 
   async getById(req: Request, res: Response, next: NextFunction) {
@@ -30,11 +31,12 @@ export default class CategoryController {
       const id = parseInt(req.params.id);
       const data = await categoryService.getCategoryById(id);
 
-      if (data) {
-        res.status(200).json({ data });
-      } else {
-        res.status(404).end();
-      }
-    } catch (error) {}
+      res.status(200).json({ data });
+    } catch (error) {
+      if (error.message === 'NO_DATA')
+        next(new ErrorStatus(404, 'Unknown category ID'));
+
+      next(error);
+    }
   }
 }
