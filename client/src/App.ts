@@ -3,13 +3,7 @@ import Error from './pages/Error';
 import Main from './pages/Main';
 import Statistics from './pages/Statistics';
 import Router from './Router';
-import { store } from './store';
-
-const GLOBALSTATE = {
-  date: 'date',
-  user: 'user',
-  data: 'data',
-};
+import { GLOBALSTATE, store } from './store';
 
 // 날짜, 자동로그인, db 데이터 store로 setState
 
@@ -21,7 +15,7 @@ store.setState(GLOBALSTATE.date, {
 });
 store.setState(GLOBALSTATE.user, { id: 1, nickname: '민상', email: 'woowa@' });
 
-const $app = document.querySelector('#root');
+const $app = document.querySelector('#app');
 const routes = {
   '/': Main,
   '/calendar': Calendar,
