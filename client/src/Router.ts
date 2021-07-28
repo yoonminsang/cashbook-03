@@ -1,3 +1,5 @@
+import { store } from './store';
+
 class Router {
   $app: HTMLElement;
   routes: object;
@@ -22,6 +24,7 @@ class Router {
         return;
       }
     }
+    store.unsubscribeAll();
     this.$app.innerHTML = '';
     this.$app.appendChild(this.error.html);
   };

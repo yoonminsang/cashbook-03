@@ -32,6 +32,10 @@ export const store = (function () {
       );
     },
 
+    unsubscribeAll() {
+      observer = {};
+    },
+
     notify(type) {
       if (observer[type]) observer[type].forEach(({ cb }) => cb());
     },
