@@ -4,6 +4,7 @@ import Main from './pages/Main';
 import Statistics from './pages/Statistics';
 import Router from './Router';
 import { GLOBALSTATE, store } from './store';
+import './public/styles/index.scss';
 
 // 날짜, 자동로그인, db 데이터 store로 setState
 
