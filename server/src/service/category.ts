@@ -1,9 +1,9 @@
-import Category from '../model/category';
+import CategoryRepository from '../repository/category';
+
+const categoryRepository = new CategoryRepository();
 
 export default class CategoryService {
   async getCategories() {
-    return await Category.findAll({
-      attributes: ['name', 'is_income'],
-    });
+    return await categoryRepository.getAll();
   }
 }
