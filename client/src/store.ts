@@ -1,29 +1,37 @@
 export const store = (function () {
-  const state = {};
-  const observer = {};
+  let state = {};
+  let observer = {};
   return {
-    setState(type, nextState) {
-      state[type] = nextState;
-      this.noify(type);
+    setState(type, changeState) {
+      const nextState = { ...state };
+      nextState[type] = changeState;
+      state = nextState;
+      this.notify(type);
     },
+
     getState(type) {
       return state[type];
     },
+
     subscribe(type, identifier, cb) {
       if (!observer[type]) {
         observer[type] = [];
       }
-      observer[type].push({
+      const nextObserver = { ...observer };
+      nextObserver[type].push({
         identifier,
-        cb: () => cb(state[type], this.getState(type)),
+        cb: () => cb(type, this.getState(type)),
       });
+      observer = nextObserver;
       this.notify(type);
     },
+
     unsubscribe(type, identifier) {
       observer[type] = observer[type].filter(
         ({ identifier: idf }) => idf === identifier,
       );
     },
+
     notify(type) {
       if (observer[type]) observer[type].forEach(({ cb }) => cb());
     },
