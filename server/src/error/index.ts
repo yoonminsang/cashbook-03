@@ -17,11 +17,11 @@ export default (
 ) => {
   console.error(err);
 
-  if (err instanceof Error) {
-    res.status(500).end();
-  }
-
   if (err instanceof ErrorStatus) {
     res.status(err.status).end();
+  }
+
+  if (err instanceof Error) {
+    res.status(500).end();
   }
 };
