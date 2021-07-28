@@ -6,21 +6,21 @@ const identifier = 'header';
 
 class HeaderContainer extends View {
   state: any;
-  header: InstanceType<typeof Header>;
+  Header: Function;
   $year: HTMLElement;
   $month: HTMLElement;
   constructor({ $target }) {
     super({ $target });
-    this.header = new Header();
+    this.Header = Header;
     this.$target = $target;
     this.render();
     this.state = { date: undefined, user: undefined };
     this.componentDidMount();
-    this.event();
+    this.addEventHandler();
   }
 
   render = () => {
-    this.$target.innerHTML = this.header.render({
+    this.$target.innerHTML = this.Header({
       date: this.state?.date,
       user: this.state?.user,
     });
@@ -38,7 +38,7 @@ class HeaderContainer extends View {
     this.render();
   };
 
-  event = () => {
+  addEventHandler = () => {
     this.$target.addEventListener('click', (e) => {});
   };
 }
