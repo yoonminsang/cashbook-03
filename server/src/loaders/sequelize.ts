@@ -1,6 +1,6 @@
 import config from '../config';
 import { Sequelize } from 'sequelize';
-import { modelInitFunctions } from '../model';
+import { modelInitFunctions, setRelations } from '../model';
 
 const dbOptions = config.db;
 
@@ -24,4 +24,8 @@ export const sequelizeLoader = async function () {
 
   await Promise.all(modelInitFunctions.map((init) => init(sequelize)));
   console.log('All models synchronized & Initialized');
+
+  setRelations();
+  await sequelize.sync({ alter: true });
+  console.log('Relations Set');
 };
