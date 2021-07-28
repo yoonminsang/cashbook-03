@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import { GLOBALSTATE, store } from '../store';
 import View from '../utils/View';
 
-const identifier = 'header';
+const IDENTIFIER = 'header';
 
 class HeaderContainer extends View {
   state: any;
@@ -13,8 +13,8 @@ class HeaderContainer extends View {
     super({ $target });
     this.Header = Header;
     this.$target = $target;
-    this.render();
     this.state = { date: undefined, user: undefined };
+    this.render();
     this.componentDidMount();
     this.addEventHandler();
   }
@@ -27,8 +27,8 @@ class HeaderContainer extends View {
   };
 
   componentDidMount = () => {
-    store.subscribe(GLOBALSTATE.date, identifier, this.setState);
-    store.subscribe(GLOBALSTATE.user, identifier, this.setState);
+    store.subscribe(GLOBALSTATE.date, IDENTIFIER, this.setState);
+    store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.setState);
   };
 
   setState = (type?: string, changeState?: any) => {
