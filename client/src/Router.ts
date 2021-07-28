@@ -14,7 +14,7 @@ class Router {
     this.backChange();
   }
 
-  route() {
+  route = () => {
     const url = window.location.pathname;
     for (let i = 0; i < this.keys.length; i++) {
       if (this.keys[i] === url) {
@@ -23,9 +23,9 @@ class Router {
       }
     }
     this.error.render({ $app: this.$app });
-  }
+  };
 
-  linkChange() {
+  linkChange = () => {
     this.$app.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       const closest = target.closest('a');
@@ -35,14 +35,14 @@ class Router {
       window.history.pushState(null, '', path);
       this.route();
     });
-  }
+  };
 
-  backChange() {
+  backChange = () => {
     window.onpopstate = (e) => {
       e.preventDefault();
       this.route();
     };
-  }
+  };
 }
 
 export default Router;
