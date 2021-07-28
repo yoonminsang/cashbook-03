@@ -41,10 +41,13 @@ export const initCategory = async function (sequelize: Sequelize) {
   );
 
   await Category.sync();
-  console.log('Category Model Created');
+  console.log('Category synced');
 
-  await Promise.all(INITIAL_DATA.map((row) => Category.create(row)));
-  console.log('Catgory table initialized');
+  const rows = await Category.findAll();
+  if (!rows.length) {
+    await Promise.all(INITIAL_DATA.map((row) => Category.create(row)));
+  }
+  console.log('Catgory Table Initialized');
 };
 
 export default Category;
