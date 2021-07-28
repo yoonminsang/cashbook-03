@@ -34,7 +34,7 @@ export default class CategoryController {
       res.status(200).json({ data });
     } catch (error) {
       if (error.message === 'NO_DATA')
-        next(new ErrorStatus(404, 'Unknown category ID'));
+        return next(new ErrorStatus(404, 'Unknown category ID'));
 
       next(error);
     }
