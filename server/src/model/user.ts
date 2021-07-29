@@ -6,7 +6,8 @@ export const initUser = async function (sequelize: Sequelize) {
   User.init(
     {
       id: {
-        type: DataTypes.CHAR(36),
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false,
       },

@@ -1,6 +1,5 @@
 import User from '../model/user';
 import bcrypt from 'bcrypt';
-import { v4 as uuidv4 } from 'uuid';
 
 export default class UserRepository {
   async get(id: string) {
@@ -22,10 +21,8 @@ export default class UserRepository {
   }
 
   async insertUser(email: string, password: string, nickname: string) {
-    const id = uuidv4();
     const hash = await bcrypt.hash(password + '', 10);
     return await User.create({
-      id,
       email,
       password: hash,
       nickname,
@@ -39,9 +36,7 @@ export default class UserRepository {
   }
 
   async insertOAuthUser(email: string, nickname: string, provider: string) {
-    const id = uuidv4();
     return await User.create({
-      id,
       email,
       nickname,
     });
