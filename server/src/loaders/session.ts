@@ -1,10 +1,8 @@
 import config from '../config';
 import { Express } from 'express';
-import session, * as expressSession from 'express-session';
-import expressMysqlSession from 'express-mysql-session';
+import session from 'express-session';
 import passport from 'passport';
 import passportConfig from '../passport/index';
-const MySQLStore = expressMysqlSession(expressSession);
 
 export default (app: Express) => {
   passportConfig();
@@ -14,7 +12,6 @@ export default (app: Express) => {
       resave: false,
       saveUninitialized: false,
       secret: config.secret!,
-      store: new MySQLStore(config.db),
       cookie: {
         httpOnly: true,
         secure: false,
