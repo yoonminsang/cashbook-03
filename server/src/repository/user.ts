@@ -39,6 +39,7 @@ export default class UserRepository {
     return await User.create({
       email,
       nickname,
+      provider,
     });
   }
 }
