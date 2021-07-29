@@ -17,4 +17,23 @@ export default class AccountService {
     if (!accounts.length) throw new Error('NO_DATA');
     return accounts;
   }
+
+  async postAccount(
+    user_id: string,
+    content: string,
+    amount: string,
+    timestamp: string,
+    category_id: string,
+    payment_id: string,
+  ) {
+    await accountRepository.postAccount(
+      user_id,
+      content,
+      amount,
+      timestamp,
+      category_id,
+      payment_id,
+    );
+    return 'post account success';
+  }
 }
