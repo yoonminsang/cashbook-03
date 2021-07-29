@@ -1,5 +1,6 @@
 import passport from 'passport';
 import UserRepository from '../repository/user';
+import github from './github';
 import local from './local';
 
 const passportConfig = () => {
@@ -16,5 +17,6 @@ const passportConfig = () => {
   });
 
   local();
+  github();
 };
 export default passportConfig;
