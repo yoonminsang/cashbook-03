@@ -17,10 +17,13 @@ export default class AccountController {
 
   async get(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId, year, month } = req.body;
+      const {
+        user: { id: user_id },
+      } = req;
+      const { year, month } = req.body;
       const yearMonth = new Date(year, month - 1);
 
-      const data = await accountService.getAccountsByMonth(userId, yearMonth);
+      const data = await accountService.getAccountsByMonth(user_id, yearMonth);
 
       res.status(200).json({ data });
     } catch (error) {
