@@ -35,7 +35,7 @@ export default class AuthController {
         );
       req.logIn(user, (loginError) => {
         if (loginError) return next(loginError);
-        return res.redirect('/api/auth');
+        return res.status(200).json({ message: '로그인' });
       });
     })(req, res, next);
   }
