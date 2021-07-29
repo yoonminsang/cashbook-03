@@ -13,4 +13,22 @@ export default class AccountRepository {
       },
     });
   }
+
+  async postAccount(
+    user_id: string,
+    content: string,
+    amount: string,
+    timestamp: string,
+    category_id: string,
+    payment_id: string,
+  ) {
+    return await Account.create({
+      user_id,
+      content,
+      amount,
+      timestamp,
+      category_id,
+      payment_id,
+    });
+  }
 }
