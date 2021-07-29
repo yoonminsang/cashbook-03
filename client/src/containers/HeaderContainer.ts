@@ -7,8 +7,6 @@ const IDENTIFIER = 'header';
 class HeaderContainer extends View {
   state: any;
   Header: Function;
-  $year: HTMLElement;
-  $month: HTMLElement;
   constructor({ $target }) {
     super({ $target });
     this.Header = Header;
