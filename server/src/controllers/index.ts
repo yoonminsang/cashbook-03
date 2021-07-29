@@ -4,6 +4,7 @@ import CategoryController from './category';
 import UserController from './user';
 import PaymentController from './payment';
 import AccountController from './account';
+import AuthController from './auth';
 
 export default () => {
   const router = Router();
@@ -12,6 +13,7 @@ export default () => {
   router.use('/user', new UserController().configureRoutes());
   router.use('/payment', new PaymentController().configureRoutes());
   router.use('/account', new AccountController().configureRoutes());
+  router.use('/auth', new AuthController().configureRoutes());
 
   router.use((req: Request, res: Response, next: NextFunction) =>
     next(new ErrorStatus(404, 'Unknown Endpoint')),
