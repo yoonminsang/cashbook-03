@@ -13,17 +13,14 @@ class HeaderContainer extends View {
     super({ $target });
     this.Header = Header;
     this.$target = $target;
-    this.state = { date: undefined, user: undefined };
+    this.state = { date: undefined, user: undefined, tab: location.pathname };
     this.render();
     this.componentDidMount();
     this.addEventHandler();
   }
 
   render = () => {
-    this.$target.innerHTML = this.Header({
-      date: this.state?.date,
-      user: this.state?.user,
-    });
+    this.$target.innerHTML = this.Header(this.state);
   };
 
   componentDidMount = () => {

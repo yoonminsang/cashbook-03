@@ -1,4 +1,5 @@
-const Header = ({ date, user }) => {
+const Header = ({ date, user, tab }) => {
+  const classActive = "class='active'";
   return `
     <div class="main-header">
       <div class="main-header__container">
@@ -21,9 +22,15 @@ const Header = ({ date, user }) => {
         </div>
         <nav class="main-header__nav">
           <ul class="main-header__nav__list">
-            <li><a href="/"><i class="wci wci-file-text"></i></a></li>
-            <li><a href="/calendar"><i class="wci wci-calendar"></i></a></li>
-            <li><a href="/statistics"><i class="wci wci-chart"></i></a></li>
+            <li ${
+              tab === '/' ? classActive : ''
+            }><a href="/"><i class="wci wci-file-text"></i></a></li>
+            <li ${
+              tab === '/calendar' ? classActive : ''
+            }><a href="/calendar"><i class="wci wci-calendar"></i></a></li>
+            <li ${
+              tab === '/statistics' ? classActive : ''
+            }><a href="/statistics"><i class="wci wci-chart"></i></a></li>
           </ul>
         </nav>
       </div>
