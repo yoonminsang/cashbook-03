@@ -77,6 +77,15 @@
       }
     }
   }
+
+  &__user {
+    position: absolute;
+    right: -120px;
+
+    & > * {
+      @include bold(large);
+    }
+  }
 }
 
 .change-month {

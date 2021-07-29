@@ -10,6 +10,20 @@
 
 #app {
   background-color: $background;
+  min-height: 100vh;
+}
+
+button {
+  font-family: Noto Sans KR, sans-serif;
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  color: inherit;
+  background: none;
+  cursor: pointer;
 }
 
 @import '../../components/Header/Header.scss';
+@import '../../components//SignHeader/SignHeader.scss';
+@import '../../components//SignMain/SignMain.scss';

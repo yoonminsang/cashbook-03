@@ -33,6 +33,13 @@ const Header = ({ date, user, tab }) => {
             }><a href="/statistics"><i class="wci wci-chart"></i></a></li>
           </ul>
         </nav>
+        <div class="main-header__user">
+          ${
+            user
+              ? '<button class="logout-button">로그아웃</button>'
+              : '<a href="/login" class="login-button">로그인</a>'
+          }
+        </div>
       </div>
     </div>
     `;
