@@ -17,7 +17,7 @@ export const initUser = async function (sequelize: Sequelize) {
       password: {
         type: DataTypes.CHAR(60),
       },
-      is_oauth: {
+      provider: {
         type: DataTypes.STRING(20),
       },
       nickname: {
