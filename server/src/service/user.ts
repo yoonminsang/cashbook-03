@@ -11,7 +11,7 @@ export default class UserService {
   }
 
   async signUp(email: string, password: string, nickname: string) {
-    const existEmail = await userRepository.getEmail(email);
+    const existEmail = await userRepository.getByEmail(email);
     if (existEmail) throw new Error('EMAIL_DUPLICATE');
     await userRepository.insertUser(email, password, nickname);
 

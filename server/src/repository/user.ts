@@ -7,7 +7,13 @@ export default class UserRepository {
     return await User.findByPk(id);
   }
 
-  async getEmail(email: string) {
+  async getUserForDeserialize(id: string) {
+    return await User.findByPk(id, {
+      attributes: ['id', 'email', 'nickname'],
+    });
+  }
+
+  async getByEmail(email: string) {
     return await User.findOne({
       where: {
         email: email,
