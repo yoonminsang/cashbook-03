@@ -20,6 +20,8 @@ export const initUser = async function (sequelize: Sequelize) {
       },
       provider: {
         type: DataTypes.STRING(20),
+        allowNull: false,
+        defaultValue: 'local',
       },
       nickname: {
         type: DataTypes.STRING(20),
