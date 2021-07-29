@@ -17,14 +17,13 @@ class Router {
   }
 
   route = () => {
+    store.unsubscribeAll();
     const url = window.location.pathname;
     const Page = this.routes[url];
     if (Page) {
-      store.unsubscribeAll();
       new Page({ $app: this.$app });
       return;
     }
-
     this.$app.innerHTML = '';
     this.$app.appendChild(this.error.html);
   };
