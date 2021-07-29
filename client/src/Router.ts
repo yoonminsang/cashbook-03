@@ -20,10 +20,11 @@ class Router {
     const url = window.location.pathname;
     const Page = this.routes[url];
     if (Page) {
+      store.unsubscribeAll();
       new Page({ $app: this.$app });
       return;
     }
-    store.unsubscribeAll();
+
     this.$app.innerHTML = '';
     this.$app.appendChild(this.error.html);
   };
@@ -34,7 +35,7 @@ class Router {
       const closest = target.closest('a');
       if (!closest) return;
       e.preventDefault();
-      const path = target.getAttribute('href');
+      const path = closest.getAttribute('href');
       window.history.pushState(null, '', path);
       this.route();
     });
