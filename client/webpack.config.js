@@ -46,6 +46,10 @@ export default () => {
           exclude: /(node_modules)/,
         },
         {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: 'asset/resource',
+        },
+        {
           test: /\.s[ac]ss$/i,
           use: [
             mode !== 'production'

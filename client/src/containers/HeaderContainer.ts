@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import { GLOBALSTATE, store } from '../store';
 import View from '../utils/View';
 
