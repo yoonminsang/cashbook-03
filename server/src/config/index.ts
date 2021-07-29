@@ -9,4 +9,5 @@ export default {
   port: process.env.PORT || 3000,
   cors: corsOptions,
   db: dbOptions,
+  secret: process.env.COOKIE_SECRET,
 };
