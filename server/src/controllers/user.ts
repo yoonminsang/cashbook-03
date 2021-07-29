@@ -9,7 +9,7 @@ export default class UserController {
     const router = Router();
 
     router.get('/:id', this.getById);
-    router.post('/signup');
+    router.post('/signup', this.signup);
     return router;
   }
 
