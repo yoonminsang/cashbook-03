@@ -18,7 +18,7 @@ export default (
   console.error(err);
 
   if (err instanceof ErrorStatus) {
-    res.status(err.status).end();
+    res.status(err.status).json({ message: err.message }).end();
   }
 
   if (err instanceof Error) {

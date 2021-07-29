@@ -6,7 +6,8 @@ export const initUser = async function (sequelize: Sequelize) {
   User.init(
     {
       id: {
-        type: DataTypes.CHAR(36),
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false,
       },
@@ -17,8 +18,10 @@ export const initUser = async function (sequelize: Sequelize) {
       password: {
         type: DataTypes.CHAR(60),
       },
-      is_oauth: {
+      provider: {
         type: DataTypes.STRING(20),
+        allowNull: false,
+        defaultValue: 'local',
       },
       nickname: {
         type: DataTypes.STRING(20),
