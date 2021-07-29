@@ -5,7 +5,7 @@ const Header = ({ date, user, tab }) => {
       <div class="main-header__container">
         <div class="main-header__logo">우아한 가계부</div>
         <div class="main-header__time">
-          <div class="main-header__time__left">
+          <div class="main-header__time__left change-month">
             <i class="wci wci-chevron-left"></i>
           </div>
           <div class="main-header__time__text">
@@ -16,7 +16,7 @@ const Header = ({ date, user, tab }) => {
               date ? date.year : ''
             }</div>
           </div>
-          <div class="main-header__time__right">
+          <div class="main-header__time__right change-month">
             <i class="wci wci-chevron-right"></i>
           </div>
         </div>

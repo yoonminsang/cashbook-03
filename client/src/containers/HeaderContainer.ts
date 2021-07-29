@@ -36,7 +36,30 @@ class HeaderContainer extends View {
   };
 
   addEventHandler = () => {
-    this.$target.addEventListener('click', (e) => {});
+    this.$target.addEventListener('click', this.onMonthChangeClick);
+  };
+
+  onMonthChangeClick = (e: Event) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('.change-month')) return;
+
+    const isPrev = target.closest('.main-header__time__left') ? true : false;
+
+    store.setState(
+      GLOBALSTATE.date,
+      this.getYearMonth(
+        parseInt(this.state.date.year),
+        parseInt(this.state.date.month),
+        isPrev,
+      ),
+    );
+    return;
+  };
+
+  getYearMonth = (year: number, month: number, isPrev: boolean) => {
+    const result = new Date(year, isPrev ? month - 2 : month);
+
+    return { year: result.getFullYear(), month: result.getMonth() + 1 };
   };
 }
 export default HeaderContainer;
