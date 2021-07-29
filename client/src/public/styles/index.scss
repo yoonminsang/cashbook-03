@@ -3,3 +3,12 @@
 @import './mixins';
 
 @import './font';
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  background-color: $background;
+}
+
