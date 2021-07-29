@@ -14,7 +14,7 @@ export default class AuthController {
       return res.status(409).json({ message: 'oauth login fail' });
     });
     router.post('/login', isNotLoggedIn, this.localLogin);
-    router.get('/lotout', isLoggedIn, this.logout);
+    router.get('/logout', isLoggedIn, this.logout);
     router.get('/github', isNotLoggedIn, passport.authenticate('github'));
     router.get(
       '/github/callback',
