@@ -9,4 +9,12 @@ export default class UserService {
 
     return user;
   }
+
+  async signUp(email: string, password: string, nickname: string) {
+    const existEmail = await userRepository.getEmail(email);
+    if (existEmail) throw new Error('EMAIL_DUPLICATE');
+    await userRepository.insertUser(email, password, nickname);
+
+    return 'singup success';
+  }
 }
