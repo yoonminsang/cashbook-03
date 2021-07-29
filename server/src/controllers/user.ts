@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { ErrorStatus } from '../error';
 import UserService from '../service/user';
+import { isNotLoggedIn } from '../middleware/authMiddleWare';
 
 const userService = new UserService();
 
@@ -9,7 +10,7 @@ export default class UserController {
     const router = Router();
 
     router.get('/:id', this.getById);
-    router.post('/signup', this.signup);
+    router.post('/signup', isNotLoggedIn, this.signup);
     return router;
   }
 
