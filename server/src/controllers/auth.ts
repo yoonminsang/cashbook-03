@@ -1,21 +1,21 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import { ErrorStatus } from '../error';
-import UserService from '../service/user';
+import { isLoggedIn, isNotLoggedIn } from '../middleware/authMiddleWare';
 
 export default class AuthController {
   configureRoutes() {
     const router = Router();
 
     router.get('/success', (req, res) => {
-      return res.json({ message: 'oauth login success' });
+      return res.status(200).json({ message: 'oauth login success' });
     });
     router.get('/fail', (req, res) => {
-      return res.json({ message: 'oauth login fail' });
+      return res.status(409).json({ message: 'oauth login fail' });
     });
-    router.post('/login', this.localLogin);
-    router.get('/lotout', this.logout);
-    router.get('/github', passport.authenticate('github'));
+    router.post('/login', isNotLoggedIn, this.localLogin);
+    router.get('/logout', isLoggedIn, this.logout);
+    router.get('/github', isNotLoggedIn, passport.authenticate('github'));
     router.get(
       '/github/callback',
       passport.authenticate('github', { failureRedirect: '/api/auth/fail' }),
@@ -35,7 +35,7 @@ export default class AuthController {
         );
       req.logIn(user, (loginError) => {
         if (loginError) return next(loginError);
-        return res.redirect('/api/auth');
+        return res.status(200).json({ message: '로그인' });
       });
     })(req, res, next);
   }

@@ -30,7 +30,9 @@ export const initUser = async function (sequelize: Sequelize) {
     },
     {
       freezeTableName: true,
-      timestamps: false,
+      timestamps: true,
+      createdAt: 'created',
+      updatedAt: false,
       sequelize,
       tableName: 'User',
     },

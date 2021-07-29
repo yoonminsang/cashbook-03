@@ -21,7 +21,7 @@ export default class UserRepository {
   }
 
   async insertUser(email: string, password: string, nickname: string) {
-    const hash = await bcrypt.hash(password + '', 10);
+    const hash = await bcrypt.hash(password, 10);
     return await User.create({
       email,
       password: hash,
@@ -39,6 +39,7 @@ export default class UserRepository {
     return await User.create({
       email,
       nickname,
+      provider,
     });
   }
 }

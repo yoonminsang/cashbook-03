@@ -1,5 +1,4 @@
 import { DataTypes, Sequelize, Model } from 'sequelize';
-
 class Account extends Model {}
 
 export const initAccount = async function (sequelize: Sequelize) {
@@ -15,7 +14,7 @@ export const initAccount = async function (sequelize: Sequelize) {
         allowNull: false,
       },
       amount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
         allowNull: false,
       },
       timestamp: {
