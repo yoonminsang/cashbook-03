@@ -31,4 +31,19 @@ export default class UserRepository {
       nickname,
     });
   }
+
+  async getByOAuthEmail(email: string, provider: string) {
+    await User.findOne({
+      where: { email, provider },
+    });
+  }
+
+  async insertOAuthUser(email: string, nickname: string, provider: string) {
+    const id = uuidv4();
+    return await User.create({
+      id,
+      email,
+      nickname,
+    });
+  }
 }
