@@ -7,8 +7,22 @@ export default class AuthController {
   configureRoutes() {
     const router = Router();
 
+    router.get('/success', (req, res) => {
+      return res.json({ message: 'oauth login success' });
+    });
+    router.get('/fail', (req, res) => {
+      return res.json({ message: 'oauth login fail' });
+    });
     router.post('/login', this.localLogin);
-    router.get('/lotout');
+    router.get('/lotout', this.logout);
+    router.get('/github', passport.authenticate('github'));
+    router.get(
+      '/github/callback',
+      passport.authenticate('github', { failureRedirect: '/api/auth/fail' }),
+      (req, res) => {
+        res.redirect('/api/auth/success');
+      },
+    );
     return router;
   }
 
@@ -25,8 +39,6 @@ export default class AuthController {
       });
     })(req, res, next);
   }
-
-  async githubLogin(req: Request, res: Response, next: NextFunction) {}
 
   async logout(req: Request, res: Response, next: NextFunction) {
     req.logout();
