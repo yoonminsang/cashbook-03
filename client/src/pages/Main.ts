@@ -9,7 +9,6 @@ class Main {
   render = () => {
     const $fragment = document.createDocumentFragment();
     const $header = document.createElement('header');
-    $header.className = 'header';
     const headerContainer = new HeaderContainer({ $target: $header });
     $fragment.append(headerContainer.html);
     this.$app.innerHTML = '';

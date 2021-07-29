@@ -46,6 +46,10 @@ export default () => {
           exclude: /(node_modules)/,
         },
         {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: 'asset/resource',
+        },
+        {
           test: /\.s[ac]ss$/i,
           use: [
             mode !== 'production'
@@ -91,6 +95,7 @@ export default () => {
       port: 9000,
       writeToDisk: true,
       hot: true,
+      historyApiFallback: true,
       proxy: {
         '/api/': {
           // /api/로 시작하는 url은 아래의 전체 도메인을 추가하고, 옵션을 적용
