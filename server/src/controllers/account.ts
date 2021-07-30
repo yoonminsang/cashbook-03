@@ -10,16 +10,17 @@ export default class AccountController {
     const router = Router();
 
     router.get('/', isLoggedIn, this.get);
-    router.get('/', isLoggedIn, this.post);
+    router.post('/', isLoggedIn, this.post);
 
     return router;
   }
 
-  async get(req: Request, res: Response, next: NextFunction) {
+  async get(req: any, res: Response, next: NextFunction) {
     try {
       const {
         user: { id: user_id },
       } = req;
+
       const { year, month } = req.body;
       const yearMonth = new Date(year, month - 1);
 
@@ -34,14 +35,13 @@ export default class AccountController {
     }
   }
 
-  async post(req: Request, res: Response, next: NextFunction) {
+  async post(req: any, res: Response, next: NextFunction) {
     try {
       const {
         user: { id: user_id },
       } = req;
 
       const { content, amount, timestamp, category_id, payment_id } = req.body;
-
       const data = await accountService.postAccount(
         user_id,
         content,
@@ -50,7 +50,6 @@ export default class AccountController {
         category_id,
         payment_id,
       );
-
       res.status(200).json({ data });
     } catch (error) {
       next(error);
