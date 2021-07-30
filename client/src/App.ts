@@ -7,17 +7,38 @@ import Signup from './pages/Signup';
 import Router from './Router';
 import { GLOBALSTATE, store } from './store';
 import './public/styles/index.scss';
+import { check } from './utils/api/auth';
 
-// 날짜, 자동로그인, db 데이터 store로 setState
+const checkUser = async () => {
+  try {
+    const {
+      data: { user },
+    } = await check();
+    store.setState(GLOBALSTATE.user, user);
+  } catch (e) {
+    const {
+      response: {
+        data: { message },
+      },
+    } = e;
+    if (message) throw new Error(message);
+    console.error(e);
+  }
+};
 
-// dummy data
-const today = new Date();
-store.setState(GLOBALSTATE.date, {
-  year: today.getFullYear(),
-  month: today.getMonth() + 1,
-});
-// store.setState(GLOBALSTATE.user, { id: 1, nickname: '민상', email: 'woowa@' });
-store.setState(GLOBALSTATE.user, null);
+const init = async () => {
+  const today = new Date();
+  store.setState(GLOBALSTATE.date, {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+  });
+  if (localStorage.getItem('user')) {
+    checkUser();
+  } else {
+    store.setState(GLOBALSTATE.user, null);
+  }
+};
+init();
 
 const $app = document.querySelector('#app');
 const routes = {
