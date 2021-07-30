@@ -10,7 +10,7 @@ export default () => {
   passport.use(
     new LocalStrategy(
       {
-        usernameField: 'eamil',
+        usernameField: 'email',
         passwordField: 'password',
       },
       async (email, password, done) => {
