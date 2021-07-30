@@ -35,13 +35,6 @@ export default () => {
           test: /\.(js|ts)$/, // .js, .ts 확장자로 끝나는 모든 파일
           use: {
             loader: 'babel-loader', // babel-loader 적용
-            options: {
-              presets: ['@babel/preset-env', '@babel/preset-typescript'],
-              plugins: [
-                '@babel/proposal-class-properties',
-                '@babel/proposal-object-rest-spread',
-              ],
-            },
           },
           exclude: /(node_modules)/,
         },

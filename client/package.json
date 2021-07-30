@@ -22,7 +22,6 @@
   "homepage": "https://github.com/yoonminsang/cashbook-03#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "css-minimizer-webpack-plugin": "^3.0.2",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
@@ -36,6 +35,7 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.6",
+    "css-minimizer-webpack-plugin": "^3.0.2",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "file-loader": "^6.2.0",
