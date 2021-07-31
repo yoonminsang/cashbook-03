@@ -32,11 +32,11 @@ export default class UserRepository {
   }
 
   async getByOAuthEmail(email: string, provider: string) {
-    const exUser = await User.findOne({
+    const existUser = await User.findOne({
       where: { email, provider },
       raw: true,
     });
-    return exUser;
+    return existUser;
   }
 
   async insertOAuthUser(email: string, nickname: string, provider: string) {
