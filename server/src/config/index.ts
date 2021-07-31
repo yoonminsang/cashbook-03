@@ -12,4 +12,5 @@ export default {
   secret: process.env.COOKIE_SECRET,
   clientID: process.env.ClientId,
   clientSecret: process.env.ClientSecret,
+  frontUrl: process.env.FRONT_URL,
 };

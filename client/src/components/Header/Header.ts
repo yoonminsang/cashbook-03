@@ -36,7 +36,7 @@ const Header = ({ date, user, tab }) => {
         <div class="main-header__user">
           ${
             user
-              ? '<button class="logout-button">로그아웃</button>'
+              ? '<button class="logout-button js-logout">로그아웃</button>'
               : '<a href="/login" class="login-button">로그인</a>'
           }
         </div>

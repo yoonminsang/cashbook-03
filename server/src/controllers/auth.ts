@@ -1,3 +1,4 @@
+import config from '../config';
 import { Router, Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import { ErrorStatus } from '../error';
@@ -7,32 +8,34 @@ export default class AuthController {
   configureRoutes() {
     const router = Router();
 
-    router.get('/success', (req, res) => {
-      return res.status(200).json({ message: 'oauth login success' });
-    });
-    router.get('/fail', (req, res) => {
-      return res.status(409).json({ message: 'oauth login fail' });
-    });
-    router.post('/login', isNotLoggedIn, this.localLogin);
-    router.get('/logout', isLoggedIn, this.logout);
+    router.get('/check', this.getUser);
+    router.post('/login', this.localLogin);
+    router.post('/logout', isLoggedIn, this.logout);
     router.get('/github', isNotLoggedIn, passport.authenticate('github'));
     router.get(
       '/github/callback',
-      passport.authenticate('github', { failureRedirect: '/api/auth/fail' }),
+      passport.authenticate('github', {
+        failureRedirect: config.frontUrl + '/login',
+      }),
       (req, res) => {
-        res.redirect('/api/auth/success');
+        res.redirect(config.frontUrl!);
       },
     );
     return router;
   }
 
+  async getUser(req: Request, res: Response) {
+    const user = req.user || null;
+    return res.status(200).json({ user });
+  }
+
   async localLogin(req: Request, res: Response, next: NextFunction) {
     passport.authenticate('local', (authError, user, info) => {
       if (authError) return next(authError);
+
       if (!user)
-        return next(
-          new ErrorStatus(409, 'The username or password do not match'),
-        );
+        return next(new ErrorStatus(409, '아이디 또는 비밀번호가 틀립니다'));
+
       req.logIn(user, (loginError) => {
         if (loginError) return next(loginError);
         return res.status(200).json({ message: '로그인' });

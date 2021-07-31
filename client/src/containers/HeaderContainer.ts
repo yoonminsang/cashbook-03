@@ -1,5 +1,6 @@
 import Header from '../components/Header/Header';
 import { GLOBALSTATE, store } from '../store';
+import { logout } from '../utils/api/auth';
 import View from '../utils/View';
 
 const IDENTIFIER = 'header';
@@ -26,7 +27,7 @@ class HeaderContainer extends View {
     store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.setState);
   };
 
-  setState = (type?: string, changeState?: any) => {
+  setState = (type: string, changeState: any) => {
     const nextState = { ...this.state };
     nextState[type] = changeState;
     this.state = nextState;
@@ -34,13 +35,17 @@ class HeaderContainer extends View {
   };
 
   addEventHandler = () => {
-    this.$target.addEventListener('click', this.onMonthChangeClick);
+    this.$target.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('.change-month')) {
+        this.onMonthChangeClick(target);
+      } else if (target.closest('.js-logout')) {
+        this.logoutHandler();
+      }
+    });
   };
 
-  onMonthChangeClick = (e: Event) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest('.change-month')) return;
-
+  onMonthChangeClick = async (target) => {
     const isPrev = target.closest('.main-header__time__left') ? true : false;
 
     store.setState(
@@ -51,7 +56,26 @@ class HeaderContainer extends View {
         isPrev,
       ),
     );
-    return;
+  };
+
+  logoutHandler = async () => {
+    try {
+      const {
+        data: { message },
+      } = await logout();
+      console.log(message);
+
+      localStorage.removeItem('user');
+      location.href = '/';
+    } catch (e) {
+      const {
+        response: {
+          data: { message },
+        },
+      } = e;
+      if (message) throw new Error(message);
+      console.error(e);
+    }
   };
 
   getYearMonth = (year: number, month: number, isPrev: boolean) => {

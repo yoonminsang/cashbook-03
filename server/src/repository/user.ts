@@ -1,5 +1,5 @@
 import User from '../model/user';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export default class UserRepository {
   async get(id: string) {
@@ -9,6 +9,7 @@ export default class UserRepository {
   async getUserForDeserialize(id: string) {
     return await User.findByPk(id, {
       attributes: ['id', 'email', 'nickname'],
+      raw: true,
     });
   }
 
@@ -17,6 +18,7 @@ export default class UserRepository {
       where: {
         email: email,
       },
+      raw: true,
     });
   }
 
@@ -30,16 +32,20 @@ export default class UserRepository {
   }
 
   async getByOAuthEmail(email: string, provider: string) {
-    await User.findOne({
+    const existUser = await User.findOne({
       where: { email, provider },
+      raw: true,
     });
+    return existUser;
   }
 
   async insertOAuthUser(email: string, nickname: string, provider: string) {
-    return await User.create({
-      email,
-      nickname,
-      provider,
-    });
+    return (
+      await User.create({
+        email,
+        nickname,
+        provider,
+      })
+    ).get({ plain: true });
   }
 }

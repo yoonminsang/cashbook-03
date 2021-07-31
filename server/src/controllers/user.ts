@@ -36,7 +36,7 @@ export default class UserController {
       res.status(200).json({ message });
     } catch (error) {
       if (error.message === 'EMAIL_DUPLICATE')
-        return next(new ErrorStatus(409, error.message));
+        return next(new ErrorStatus(409, '존재하는 이메일입니다'));
 
       next(error);
     }

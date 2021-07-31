@@ -4,7 +4,6 @@ import loader from './loaders';
 import controller from './controllers';
 import path from 'path';
 import errorHandler from './error';
-
 async function startServer() {
   const app = express();
   const PORT = config.port;
@@ -13,8 +12,10 @@ async function startServer() {
 
   app.use('/api', controller());
 
-  app.use('*', express.static(path.join(__dirname, '../../client/dist')));
-
+  app.use('/', express.static(path.join(__dirname, '../../client/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+  });
   app.use(errorHandler);
 
   app.listen(PORT, () => {
