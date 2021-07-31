@@ -9,4 +9,16 @@ export default class PaymentService {
 
     return payments;
   }
+
+  async addPayment(userId: string, name: string) {
+    if (!name) throw new Error('NO_DATA');
+
+    try {
+      await paymentRepository.addNewPayment(userId, name);
+
+      return 'SUCCESS';
+    } catch (e) {
+      throw e;
+    }
+  }
 }

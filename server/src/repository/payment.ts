@@ -8,4 +8,11 @@ export default class PaymentRepository {
       },
     });
   }
+
+  async addNewPayment(userId: string, name: string) {
+    return await Payment.create({
+      user_id: userId,
+      name,
+    });
+  }
 }

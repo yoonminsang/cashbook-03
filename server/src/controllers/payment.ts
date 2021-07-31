@@ -10,6 +10,7 @@ export default class PaymentController {
     const router = Router();
 
     router.get('/', isLoggedIn, this.get);
+    router.post('/', isLoggedIn, this.post);
 
     return router;
   }
@@ -25,6 +26,24 @@ export default class PaymentController {
     } catch (error) {
       if (error.message === 'NO_DATA')
         return next(new ErrorStatus(500, 'Payment not initialized'));
+
+      next(error);
+    }
+  }
+
+  async post(req: any, res: Response, next: NextFunction) {
+    try {
+      const {
+        user: { id: userId },
+      } = req;
+      const { name } = req.body;
+
+      const message = await paymentService.addPayment(userId, name);
+
+      res.status(200).json({ message });
+    } catch (error) {
+      if (error.message === 'NO_DATA')
+        return next(new ErrorStatus(400, 'name is required'));
 
       next(error);
     }
