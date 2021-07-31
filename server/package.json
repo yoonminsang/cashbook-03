@@ -4,7 +4,7 @@
   "description": "우아한 테크캠프 4-5주차 가계부 서비스 - 윤민상, 전상인",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsc && NODE_ENV=production node ./dist/app.js",
+    "start": "npx tsc && NODE_ENV=production pm2 start ./dist/app.js",
     "dev": "NODE_ENV=development nodemon ./src/app.ts",
     "build": "npx tsc"
   },
@@ -42,6 +42,7 @@
     "passport": "^0.4.1",
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
+    "pm2": "^5.1.0",
     "sequelize": "^6.6.5",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
