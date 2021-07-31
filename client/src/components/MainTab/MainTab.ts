@@ -4,7 +4,7 @@ const MainTab = ({}) => {
     <div class="main-tab-inner">
         <div class="date">
             <div class="sub-head">일자</div>
-            <div class="sub-content">20210731</div>
+            <input class="sub-content" type="date"/>
         </div>
         <div class="classification">
             <div class="sub-head">분류</div>
