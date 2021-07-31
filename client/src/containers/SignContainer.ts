@@ -64,18 +64,15 @@ class SignContainer extends View {
 
   loginSubmitHelper = (e, cb) => {
     e.preventDefault();
-    const $email: HTMLInputElement = this.$target.querySelector('.js-email');
-    const $password: HTMLInputElement =
-      this.$target.querySelector('.js-password');
     const $error: HTMLElement = this.$target.querySelector('.js-error');
+    const [email, password] = [...e.target.querySelectorAll('input')].map(
+      ($input: HTMLInputElement) => $input.value,
+    );
 
-    const email = $email.value;
-    const password = $password.value;
-
-    cb(email, password, $error);
+    cb({ email, password, $error });
   };
 
-  loginSubmitHandler = async (email, password, $error) => {
+  loginSubmitHandler = async ({ email, password, $error }) => {
     try {
       const {
         data: { message },
@@ -103,31 +100,19 @@ class SignContainer extends View {
 
   signupSubmitHelper = (e, cb) => {
     e.preventDefault();
-    const $email: HTMLInputElement = this.$target.querySelector('.js-email');
-    const $password: HTMLInputElement =
-      this.$target.querySelector('.js-password');
-    const $passwordConfirm: HTMLInputElement = this.$target.querySelector(
-      '.js-password-confirm',
-    );
-    const $nickname: HTMLInputElement =
-      this.$target.querySelector('.js-nickname');
     const $error: HTMLElement = this.$target.querySelector('.js-error');
-
-    const email = $email.value;
-    const password = $password.value;
-    const passwordConfirm = $passwordConfirm.value;
-    const nickname = $nickname.value;
-
-    console.log(email, passwordConfirm, password, nickname);
+    const [email, nickname, password, passwordConfirm] = [
+      ...e.target.querySelectorAll('input'),
+    ].map(($input: HTMLInputElement) => $input.value);
 
     if (password !== passwordConfirm) {
       $error.textContent = '비밀번호를 확인해주세요';
     } else {
-      cb(email, password, nickname, $error);
+      cb({ email, nickname, password, $error });
     }
   };
 
-  signupSubmitHandler = async (email, password, nickname, $error) => {
+  signupSubmitHandler = async ({ email, password, nickname, $error }) => {
     try {
       const {
         data: { message },
