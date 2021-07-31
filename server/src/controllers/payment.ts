@@ -20,7 +20,7 @@ export default class PaymentController {
       const {
         user: { id: userId },
       } = req;
-      const data = await paymentService.getPayments(userId);
+      const data = await paymentService.getPaymentNames(userId);
 
       res.status(200).json({ data });
     } catch (error) {
