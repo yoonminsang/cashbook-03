@@ -1,0 +1,136 @@
+.main-tab {
+  position: absolute;
+  top: 162px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+
+  .main-tab-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    width: 1000px;
+    height: 76px;
+    background: $off-white;
+    border: 1px solid #ccd3d3;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    > div {
+      margin: 16px 0;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid $line;
+      position: relative;
+
+      .sub-head {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        text-transform: uppercase;
+        color: $primary-3;
+        margin-bottom: 4px;
+        padding-left: 1px;
+      }
+
+      .sub-content {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 23px;
+        text-transform: uppercase;
+        color: $title-active;
+        width: 100%;
+
+        &.input-content {
+          width: 172px;
+          &::placeholder {
+            color: $label;
+          }
+        }
+        &.input-price {
+          width: 96px;
+          direction: rtl;
+          &::placeholder {
+            color: $label;
+          }
+        }
+        &.operator {
+          font-size: 20px;
+          padding: 0 5px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .label {
+      color: $label !important;
+    }
+
+    .wci-chevron-down {
+      font-size: 16px;
+      line-height: 23px;
+      padding-left: 5px;
+    }
+
+    .price {
+      border: 0;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .drop-down {
+      opacity: 1;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      padding: 0px;
+      width: 148px;
+      background: $off-white;
+      border: 1px solid $line;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1),
+        0px 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      position: absolute;
+      top: 65px;
+      left: 0px;
+      > li {
+        margin: 0 24px;
+        padding: 16px 0;
+      }
+      > li:not(:last-child) {
+        border-bottom: 1px solid $line;
+      }
+      &.blind {
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+
+    .save-button-large {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 8px;
+      border: 2px solid $primary;
+      box-sizing: border-box;
+      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      margin-right: 16px;
+      color: $primary;
+      &.active {
+        background: $primary;
+        border-radius: 10px;
+        color: $off-white;
+      }
+    }
+  }
+}
