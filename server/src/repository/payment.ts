@@ -6,6 +6,7 @@ export default class PaymentRepository {
       where: {
         user_id: userId,
       },
+      raw: true,
     });
   }
 
