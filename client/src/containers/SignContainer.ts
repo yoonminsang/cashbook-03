@@ -96,6 +96,12 @@ class SignContainer extends View {
     this.$target.addEventListener('submit', (e) =>
       this.signupSubmitHelper(e, this.signupSubmitHandler),
     );
+    this.$target.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('.js-github')) {
+        location.href = '/api/auth/github';
+      }
+    });
   };
 
   signupSubmitHelper = (e, cb) => {
