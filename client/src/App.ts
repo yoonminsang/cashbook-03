@@ -38,9 +38,9 @@ const checkUserHandler = async () => {
 const setCategoryHandler = async () => {
   try {
     const {
-      data: { category },
+      data: { data },
     } = await getCategory();
-    store.setState(GLOBALSTATE.category, category);
+    store.setState(GLOBALSTATE.categoryList, data);
   } catch (e) {
     const {
       response: {
