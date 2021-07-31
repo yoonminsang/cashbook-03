@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { ErrorStatus } from '../error';
 import PaymentService from '../service/payment';
+import { isLoggedIn } from '../middleware/authMiddleWare';
 
 const paymentService = new PaymentService();
 
@@ -8,14 +9,16 @@ export default class PaymentController {
   configureRoutes() {
     const router = Router();
 
-    router.get('/', this.get);
+    router.get('/', isLoggedIn, this.get);
 
     return router;
   }
 
-  async get(req: Request, res: Response, next: NextFunction) {
+  async get(req: any, res: Response, next: NextFunction) {
     try {
-      const userId = req.body.userId;
+      const {
+        user: { id: userId },
+      } = req;
       const data = await paymentService.getPayments(userId);
 
       res.status(200).json({ data });
