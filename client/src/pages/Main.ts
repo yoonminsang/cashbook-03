@@ -1,3 +1,4 @@
+import MainTab from '../components/MainTab/MainTab';
 import HeaderContainer from '../containers/HeaderContainer';
 
 class Main {
@@ -10,7 +11,9 @@ class Main {
     const $fragment = document.createDocumentFragment();
     const $header = document.createElement('header');
     const headerContainer = new HeaderContainer({ $target: $header });
-    $fragment.append(headerContainer.html);
+    const $mainTab = document.createElement('div');
+    $mainTab.innerHTML = MainTab({});
+    $fragment.append(headerContainer.html, $mainTab.firstElementChild);
     this.$app.innerHTML = '';
     this.$app.appendChild($fragment);
   };
