@@ -17,4 +17,13 @@ export default class PaymentRepository {
       name,
     });
   }
+
+  async deletePayment(userId: string, paymentId: number) {
+    return await Payment.destroy({
+      where: {
+        user_id: userId,
+        id: paymentId,
+      },
+    });
+  }
 }

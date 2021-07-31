@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { ErrorStatus } from '../error';
-import PaymentService from '../service/payment';
+import PaymentService, { MIN_PAYMENT_NUM } from '../service/payment';
 import { isLoggedIn } from '../middleware/authMiddleWare';
 
 const paymentService = new PaymentService();
@@ -11,6 +11,7 @@ export default class PaymentController {
 
     router.get('/', isLoggedIn, this.get);
     router.post('/', isLoggedIn, this.post);
+    router.delete('/', isLoggedIn, this.delete);
 
     return router;
   }
@@ -47,6 +48,37 @@ export default class PaymentController {
 
       if (error.message === 'DUPLICATE')
         return next(new ErrorStatus(409, 'name already exists'));
+
+      next(error);
+    }
+  }
+
+  async delete(req: any, res: Response, next: NextFunction) {
+    try {
+      const {
+        user: { id: userId },
+      } = req;
+      const { id: paymentId } = req.body;
+      const message = await paymentService.deletePayment(
+        userId,
+        parseInt(paymentId),
+      );
+
+      res.status(200).json({ message });
+    } catch (error) {
+      if (error.message === 'NO_DATA')
+        return next(new ErrorStatus(400, 'payment id is required'));
+
+      if (error.message === 'MIN_PAYMENT_NUM')
+        return next(
+          new ErrorStatus(
+            400,
+            `user should have at least ${MIN_PAYMENT_NUM} payment method`,
+          ),
+        );
+
+      if (error.message === 'NOT_FOUND')
+        return next(new ErrorStatus(400, 'payment id not found'));
 
       next(error);
     }

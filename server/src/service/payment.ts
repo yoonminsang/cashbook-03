@@ -1,6 +1,7 @@
 import PaymentRepository from '../repository/payment';
 
 const paymentRepository = new PaymentRepository();
+export const MIN_PAYMENT_NUM = 1;
 
 export default class PaymentService {
   async getPaymentNames(userId: string) {
@@ -22,6 +23,26 @@ export default class PaymentService {
 
     try {
       await paymentRepository.addNewPayment(userId, addName);
+
+      return 'SUCCESS';
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async deletePayment(userId: string, paymentId: number) {
+    if (!paymentId) throw new Error('NO_DATA');
+
+    const payments = (await paymentRepository.getNames(userId)) as any;
+    if (payments.length === MIN_PAYMENT_NUM) throw new Error('MIN_PAYMENT_NUM');
+
+    const idNotFound = !payments
+      .map((data: any) => data.id)
+      .includes(paymentId);
+    if (idNotFound) throw new Error('NOT_FOUND');
+
+    try {
+      await paymentRepository.deletePayment(userId, paymentId);
 
       return 'SUCCESS';
     } catch (e) {
