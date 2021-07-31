@@ -42,4 +42,5 @@ export const GLOBALSTATE = {
   date: 'date',
   user: 'user',
   data: 'data',
+  category: 'category',
 };

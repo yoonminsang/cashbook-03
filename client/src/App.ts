@@ -8,8 +8,17 @@ import Router from './Router';
 import { GLOBALSTATE, store } from './store';
 import './public/styles/index.scss';
 import { check } from './utils/api/auth';
+import { getCategory } from './utils/api/category';
 
-const checkUser = async () => {
+const setDate = () => {
+  const today = new Date();
+  store.setState(GLOBALSTATE.date, {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+  });
+};
+
+const checkUserHandler = async () => {
   try {
     const {
       data: { user },
@@ -26,17 +35,31 @@ const checkUser = async () => {
   }
 };
 
+const setCategoryHandler = async () => {
+  try {
+    const {
+      data: { category },
+    } = await getCategory();
+    store.setState(GLOBALSTATE.category, category);
+  } catch (e) {
+    const {
+      response: {
+        data: { message },
+      },
+    } = e;
+    if (message) throw new Error(message);
+    console.error(e);
+  }
+};
+
 const init = async () => {
-  const today = new Date();
-  store.setState(GLOBALSTATE.date, {
-    year: today.getFullYear(),
-    month: today.getMonth() + 1,
-  });
+  setDate();
   if (localStorage.getItem('user')) {
-    checkUser();
+    checkUserHandler();
   } else {
     store.setState(GLOBALSTATE.user, null);
   }
+  setCategoryHandler();
 };
 init();
 
