@@ -65,6 +65,7 @@ class HeaderContainer extends View {
       } = await logout();
       console.log(message);
 
+      localStorage.removeItem('user');
       location.href = '/';
     } catch (e) {
       const {
