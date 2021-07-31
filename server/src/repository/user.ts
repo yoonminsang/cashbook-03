@@ -1,5 +1,5 @@
 import User from '../model/user';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export default class UserRepository {
   async get(id: string) {

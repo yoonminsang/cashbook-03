@@ -1,6 +1,6 @@
 import passport from 'passport';
 import Strategy from 'passport-local';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import UserRepository from '../repository/user';
 
 const LocalStrategy = Strategy.Strategy;
