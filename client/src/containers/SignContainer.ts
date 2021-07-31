@@ -64,6 +64,7 @@ class SignContainer extends View {
       const target = e.target as HTMLElement;
       if (target.closest('.js-github')) {
         location.href = '/api/auth/github';
+        localStorage.setItem('user', 'true');
       }
     });
   };
