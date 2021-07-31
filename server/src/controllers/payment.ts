@@ -45,6 +45,9 @@ export default class PaymentController {
       if (error.message === 'NO_DATA')
         return next(new ErrorStatus(400, 'name is required'));
 
+      if (error.message === 'DUPLICATE')
+        return next(new ErrorStatus(409, 'name already exists'));
+
       next(error);
     }
   }

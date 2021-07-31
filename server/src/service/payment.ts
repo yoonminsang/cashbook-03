@@ -10,11 +10,18 @@ export default class PaymentService {
     return payments;
   }
 
-  async addPayment(userId: string, name: string) {
-    if (!name) throw new Error('NO_DATA');
+  async addPayment(userId: string, addName: string) {
+    if (!addName) throw new Error('NO_DATA');
+
+    const payments = (await paymentRepository.getNames(userId)) as any;
+
+    const hasDuplicateName = payments
+      .map((data: any) => data.name)
+      .includes(addName);
+    if (hasDuplicateName) throw new Error('DUPLICATE');
 
     try {
-      await paymentRepository.addNewPayment(userId, name);
+      await paymentRepository.addNewPayment(userId, addName);
 
       return 'SUCCESS';
     } catch (e) {
