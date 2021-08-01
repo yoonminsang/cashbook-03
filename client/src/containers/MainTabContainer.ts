@@ -49,7 +49,6 @@ class MainTabContainer extends View {
   }
 
   render = () => {
-    console.log(this.state);
     this.$target.innerHTML = this.MainTab(this.state);
   };
 
