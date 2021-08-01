@@ -32,4 +32,13 @@ export default class AccountRepository {
       payment_id,
     });
   }
+
+  async deleteAccount(userId: string, accountId: string) {
+    return await Account.destroy({
+      where: {
+        user_id: userId,
+        account_id: accountId,
+      },
+    });
+  }
 }

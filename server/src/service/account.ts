@@ -41,6 +41,11 @@ export default class AccountService {
       category_id,
       payment_id,
     );
-    return 'post account success';
+
+  async deleteAccount(userId: string, accountId: string) {
+    if (!accountId) throw new Error('NO_DATA');
+
+    await accountRepository.deleteAccount(userId, accountId);
+    return '내역이 삭제되었습니다';
   }
 }

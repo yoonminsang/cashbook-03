@@ -11,6 +11,7 @@ export default class AccountController {
 
     router.get('/', isLoggedIn, this.get);
     router.post('/', isLoggedIn, this.post);
+    router.delete('/', isLoggedIn, this.delete);
 
     return router;
   }
@@ -55,6 +56,25 @@ export default class AccountController {
       );
       res.status(200).json({ message });
     } catch (error) {
+      next(error);
+    }
+  }
+
+  async delete(req: any, res: Response, next: NextFunction) {
+    try {
+      const {
+        user: { id: user_id },
+      } = req;
+
+      const { account_id } = req.body;
+
+      const message = await accountService.deleteAccount(user_id, account_id);
+
+      res.status(200).json({ message });
+    } catch (error) {
+      if (error.message === 'NO_DATA')
+        return next(new ErrorStatus(400, 'account id is required'));
+
       next(error);
     }
   }
