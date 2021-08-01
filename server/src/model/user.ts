@@ -1,6 +1,14 @@
 import { DataTypes, Sequelize, Model } from 'sequelize';
 
-class User extends Model {}
+export interface UserAttributes {
+  id?: string;
+  email: string;
+  password?: string;
+  provider?: string;
+  nickname: string;
+}
+
+class User extends Model<UserAttributes> {}
 
 export const initUser = async function (sequelize: Sequelize) {
   User.init(
