@@ -21,7 +21,7 @@ const MainTab = ({
   const now = `value='${year}-${month}-${datee}'`;
   const min = date && `min= "${year}-${month}-01"`;
   const max =
-    date && `max="${year}-${month}-${new Date(year, month, -1).getDate()}"`;
+    date && `max="${year}-${month}-${new Date(year, month, 0).getDate()}"`;
 
   const classificationInner = isIncomeToBoolean ? '수입' : '지출';
   const categoryInner = category.name ? category.name : '선택하세요';
