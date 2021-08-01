@@ -1,5 +1,7 @@
 import MainTab from '../components/MainTab/MainTab';
 import { GLOBALSTATE, store } from '../store';
+import { setAccount } from '../utils/api/account';
+import { getPayment, removePayment, setPayment } from '../utils/api/payment';
 import View from '../utils/View';
 
 const IDENTIFIER = 'maintab';
@@ -10,7 +12,7 @@ const STATE = {
   category: 'category',
   content: 'content',
   payment: 'payment',
-  price: 'price',
+  amount: 'amount',
   isActive: 'isActive',
   modal: 'modal',
 };
@@ -36,15 +38,17 @@ class MainTabContainer extends View {
       content: '',
       paymentList: [],
       payment: {},
-      price: '',
+      amount: '',
       modal: false,
+      isActive: false,
     };
     this.render();
     this.componentDidMount();
-    this.addEventHandler();
+    this.onEventHandler();
   }
 
   render = () => {
+    console.log(this.state);
     this.$target.innerHTML = this.MainTab(this.state);
   };
 
@@ -62,14 +66,13 @@ class MainTabContainer extends View {
     this.render();
   };
 
-  addEventHandler = () => {
-    this.$target.addEventListener('click', this.addClickHandler);
-    this.$target.addEventListener('change', this.addChangeHandler);
-    this.$target.addEventListener('input', this.addInputHandler);
-    this.$target.addEventListener('submit', this.addSubmitHandler);
+  onEventHandler = () => {
+    this.$target.addEventListener('click', this.onClickHandler);
+    this.$target.addEventListener('input', this.onInputHandler);
+    this.$target.addEventListener('submit', this.onSubmitHandler);
   };
 
-  addClickHandler = (e) => {
+  onClickHandler = (e) => {
     const target = e.target as HTMLElement;
     if (!this.state.user) {
       alert('로그인 해주세요');
@@ -86,10 +89,11 @@ class MainTabContainer extends View {
         else this.setState(STATE.slide, 2);
       }
     } else if (target.closest('.drop-down')) {
-      if (target.closest('.js-add-payment')) {
+      if (target.closest('.js-modal-payment')) {
         this.setState(STATE.modal, true);
-      }
-      if (target.closest('.drop-down-classification')) {
+      } else if (target.closest('.js-remove-payment')) {
+        this.removePaymentHandler(e);
+      } else if (target.closest('.drop-down-classification')) {
         this.setState(STATE.isIncome, +target.dataset.index);
         this.setState(STATE.category, {});
         this.setState(STATE.slide, null);
@@ -100,69 +104,151 @@ class MainTabContainer extends View {
         this.setState(STATE.payment, target.dataset);
         this.setState(STATE.slide, null);
       }
-    } else if (target.closest('.js-add-payment')) {
-      this.setState(STATE.modal, true);
-    } else if (target.closest('.js-cancel')) {
-      this.setState(STATE.modal, false);
-    } else if (target.closest('.js-add')) {
-      this.addPaymentHandler();
+    } else if (target.closest('.modal')) {
+      if (target.closest('.js-modal-cancel')) {
+        this.setState(STATE.modal, false);
+      } else if (target.closest('.js-add-payment')) {
+        this.addPaymentHandler();
+      }
     }
+    this.onActiveHandler();
   };
 
-  addChangeHandler = (e) => {
+  onInputHandler = (e) => {
     const target = e.target as HTMLInputElement;
     if (target.classList.contains('input-content')) {
       this.setState(STATE.content, target.value);
-    } else if (target.classList.contains('input-price')) {
-      this.setState(STATE.price, target.value);
+    } else if (target.classList.contains('input-amount')) {
+      target.value = this.priceValidation(target.value);
+      this.setState(STATE.amount, target.value);
     }
+    const cls = target.classList[1];
+    const cb = (cls) => {
+      const $input: HTMLInputElement = this.$target.querySelector(`.${cls}`);
+      $input.focus();
+      $input.selectionStart = $input.value.length;
+    };
+    this.onActiveHandler(() => cb(cls));
   };
 
-  addInputHandler = (e) => {
-    const target = e.target as HTMLInputElement;
-    const value = target.value;
-    if (target.classList.contains('input-price')) {
-      if (value)
-        target.value = parseInt(value.replace(/[^0-9]/g, '')).toLocaleString(
-          'ko-KR',
-        );
-    }
+  priceValidation = (value) => {
+    if (typeof value === 'number') value = value + '';
+    value = value.replace(/[^0-9]/g, '');
+    if (value.length > 0) value = parseInt(value).toLocaleString('ko-KR');
+    return value;
   };
 
-  addSubmitHandler = (e) => {
+  onSubmitHandler = async (e) => {
     e.preventDefault();
+    const { value: date } = this.$target.querySelector(
+      'input[type="date"]',
+    ) as HTMLInputElement;
+    if (!this.state.isActive) return;
+    const split = date.split('-').map((v) => +v);
+    const content = this.state.content;
+    const amount = this.state.amount.replace(/[^0-9]/g, '');
+    const timestamp = new Date(split[0], split[1], split[2]);
+    const category_id = this.state.category.id;
+    const payment_id = this.state.payment && this.state.payment.id;
+    try {
+      const {
+        data: { message },
+      } = await setAccount({
+        content,
+        amount,
+        timestamp,
+        category_id,
+        payment_id,
+      });
+      console.log(message);
+    } catch (e) {
+      const {
+        response: {
+          data: { message },
+        },
+      } = e;
+      if (message) throw new Error(message);
+      console.error(e);
+    }
   };
 
-  addPaymentHandler = () => {};
+  addPaymentHandler = async () => {
+    const { value: name }: HTMLInputElement =
+      this.$target.querySelector('.modal-input');
+    if (name) {
+      try {
+        const {
+          data: { message },
+        } = await setPayment({ name });
+        console.log(message);
 
-  //   addActiveHandler = () => {
-  //     const btn = this.$target.querySelector('.save-button-large');
-  //     const { value: content } = this.$target.querySelector(
-  //       '.input-content',
-  //     ) as HTMLInputElement;
-  //     const { value: price } = this.$target.querySelector(
-  //       '.input-price',
-  //     ) as HTMLInputElement;
-  //     if (this.state.isIncome === 0) {
-  //       if (
-  //         this.state.date &&
-  //         Object.keys(this.state.category).length &&
-  //         content &&
-  //         price
-  //       )
-  //         btn.classList.add('active');
-  //       else btn.classList.remove('active');
-  //     } else {
-  //       if (
-  //         this.state.date &&
-  //         Object.keys(this.state.category).length &&
-  //         content &&
-  //         Object.keys(this.state.payment).length &&
-  //         price
-  //       )
-  //         btn.classList.add('active');
-  //       else btn.classList.remove('active');
-  //     }
-  //   };
+        const {
+          data: { data },
+        } = await getPayment();
+        store.setState(GLOBALSTATE.paymentList, data);
+        this.setState(STATE.modal, false);
+      } catch (e) {
+        const {
+          response: {
+            data: { message },
+          },
+        } = e;
+        if (message) throw new Error(message);
+        console.error(e);
+      }
+    }
+  };
+
+  removePaymentHandler = async (e) => {
+    const target = e.target as HTMLElement;
+    const id = target.parentElement.dataset.id;
+    try {
+      const {
+        data: { message },
+      } = await removePayment({ id });
+      console.log(message);
+
+      const {
+        data: { data },
+      } = await getPayment();
+      store.setState(GLOBALSTATE.paymentList, data);
+    } catch (e) {
+      const {
+        response: {
+          data: { message },
+        },
+      } = e;
+      if (message) throw new Error(message);
+      console.error(e);
+    }
+  };
+
+  onActiveHandler = (cb?) => {
+    if (this.state.isIncome === 0) {
+      if (
+        this.state.date &&
+        Object.keys(this.state.category).length &&
+        this.state.content &&
+        this.state.amount
+      ) {
+        if (!this.state.isActive) this.setState(STATE.isActive, true);
+      } else {
+        if (this.state.isActive) this.setState(STATE.isActive, false);
+      }
+    } else {
+      if (
+        this.state.date &&
+        Object.keys(this.state.category).length &&
+        this.state.content &&
+        Object.keys(this.state.payment).length &&
+        this.state.amount
+      ) {
+        if (!this.state.isActive) this.setState(STATE.isActive, true);
+      } else {
+        if (this.state.isActive) this.setState(STATE.isActive, false);
+      }
+    }
+    if (cb) cb();
+  };
 }
 export default MainTabContainer;
