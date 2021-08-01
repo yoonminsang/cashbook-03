@@ -11,6 +11,7 @@ export default class AccountController {
 
     router.get('/', isLoggedIn, this.get);
     router.post('/', isLoggedIn, this.post);
+    router.delete('/', isLoggedIn, this.delete);
 
     return router;
   }
@@ -21,15 +22,18 @@ export default class AccountController {
         user: { id: user_id },
       } = req;
 
-      const { year, month } = req.body;
-      const yearMonth = new Date(year, month - 1);
+      const { year, month, category } = req.query;
 
-      const data = await accountService.getAccountsByMonth(user_id, yearMonth);
+      const data = await accountService.getAccounts(user_id, {
+        year,
+        month,
+        categoryId: category,
+      });
 
       res.status(200).json({ data });
     } catch (error) {
-      if (error.message === 'NO_DATA')
-        return next(new ErrorStatus(500, 'Payment not initialized'));
+      if (error.message === 'NO_YEAR')
+        return next(new ErrorStatus(400, 'year is required'));
 
       next(error);
     }
@@ -42,7 +46,7 @@ export default class AccountController {
       } = req;
 
       const { content, amount, timestamp, category_id, payment_id } = req.body;
-      const data = await accountService.postAccount(
+      const message = await accountService.postAccount(
         user_id,
         content,
         amount,
@@ -50,8 +54,27 @@ export default class AccountController {
         category_id,
         payment_id,
       );
-      res.status(200).json({ data });
+      res.status(200).json({ message });
     } catch (error) {
+      next(error);
+    }
+  }
+
+  async delete(req: any, res: Response, next: NextFunction) {
+    try {
+      const {
+        user: { id: user_id },
+      } = req;
+
+      const { account_id } = req.body;
+
+      const message = await accountService.deleteAccount(user_id, account_id);
+
+      res.status(200).json({ message });
+    } catch (error) {
+      if (error.message === 'NO_DATA')
+        return next(new ErrorStatus(400, 'account id is required'));
+
       next(error);
     }
   }
