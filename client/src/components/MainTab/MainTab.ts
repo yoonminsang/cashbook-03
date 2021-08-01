@@ -8,8 +8,9 @@ const MainTab = ({
   paymentList,
   payment,
   content,
-  price,
+  amount,
   modal,
+  isActive,
 }) => {
   const isIncomeToBoolean = Boolean(isIncome);
 
@@ -52,7 +53,8 @@ const MainTab = ({
   const filterPaymentList = paymentList
     ? paymentList
         .map(
-          ({ id, name }) => `<li data-id=${id} data-name=${name}>${name}</li>`,
+          ({ id, name }) =>
+            `<li data-id=${id} data-name=${name}>${name}<button class="wci wci-close js-remove-payment"></button></li>`,
         )
         .join('')
     : '';
@@ -115,29 +117,33 @@ const MainTab = ({
                     : 'class="drop-down drop-down-payment blind"'
                 } >
                     ${filterPaymentList}
-                    <li class="js-add-payment">추가하기</li>
+                    <li class="js-modal-payment">추가하기</li>
                 </ul>
               </div>`
             : ''
         }
 
-        <div class="price">
+        <div class="amount">
             <div class="sub-head">금액</div>
             <div class="flex">
                 <div class="sub-content operator">${operator}</div>
-                <input type="text" value="${price}" class="sub-content input-price" placeholder="입력하세요" maxLength="15"/>
+                <input type="text" value="${amount}" class="sub-content input-amount" placeholder="입력하세요" maxLength="15"/>
             </div>
         </div>
 
-        <button class="save-button-large" type="submit"><i class="wci wci-check"></i></button>
+        <button ${
+          isActive
+            ? 'class="save-button-large active"'
+            : 'class="save-button-large"'
+        } type="submit"><i class="wci wci-check"></i></button>
     </form>
     <div ${modal ? 'class="modal"' : 'class="modal blind"'} >
         <div class="modal-content">
             <div class="modal-title">추가하실 결제수단을 적어주세요.</div>
             <input type="text" class="modal-input" placeholder="입력하세요"/>
             <div class="modal-flex">
-                <button class="cancel js-cancel">취소</button>
-                <button class="add js-add">등록</button>
+                <button class="cancel js-modal-cancel">취소</button>
+                <button class="add js-add-payment">등록</button>
             </div>
         </div>
     </div>
