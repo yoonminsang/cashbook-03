@@ -38,6 +38,14 @@ export default class UserController {
       if (error.message === 'EMAIL_DUPLICATE')
         return next(new ErrorStatus(409, '존재하는 이메일입니다'));
 
+      if (error.message === 'PAYMENT_INIT_FAIL')
+        return next(
+          new ErrorStatus(
+            500,
+            '문제가 발생하여 결제수단 초기화에 실패했습니다',
+          ),
+        );
+
       next(error);
     }
   }

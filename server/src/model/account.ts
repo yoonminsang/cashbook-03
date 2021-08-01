@@ -1,5 +1,16 @@
 import { DataTypes, Sequelize, Model } from 'sequelize';
-class Account extends Model {}
+
+interface AccountAttributes {
+  id?: string;
+  content: string;
+  amount: string;
+  timestamp: string;
+  user_id?: string;
+  category_id?: string;
+  payment_id?: string;
+}
+
+class Account extends Model<AccountAttributes> {}
 
 export const initAccount = async function (sequelize: Sequelize) {
   Account.init(

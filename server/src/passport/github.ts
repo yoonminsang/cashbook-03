@@ -2,9 +2,11 @@ import config from '../config';
 import passport from 'passport';
 import Strategy from 'passport-github2';
 import UserRepository from '../repository/user';
+import PaymentService from '../service/payment';
 
 const GitHubStrategy = Strategy.Strategy;
 const userRepository = new UserRepository();
+const paymentService = new PaymentService();
 
 const GITHUB = 'github';
 export default () => {
@@ -30,6 +32,8 @@ export default () => {
               nickname,
               GITHUB,
             );
+            await paymentService.addInitialPayments(newUser.id!);
+
             done(null, newUser);
           }
         } catch (e) {

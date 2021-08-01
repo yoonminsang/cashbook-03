@@ -1,6 +1,8 @@
 import UserRepository from '../repository/user';
+import PaymentService from './payment';
 
 const userRepository = new UserRepository();
+const paymentService = new PaymentService();
 
 export default class UserService {
   async getUserById(id: string) {
@@ -13,7 +15,9 @@ export default class UserService {
   async signUp(email: string, password: string, nickname: string) {
     const existEmail = await userRepository.getByEmail(email);
     if (existEmail) throw new Error('EMAIL_DUPLICATE');
-    await userRepository.insertUser(email, password, nickname);
+
+    const user = await userRepository.insertUser(email, password, nickname);
+    await paymentService.addInitialPayments(user.id!);
 
     return 'singup success';
   }

@@ -24,11 +24,13 @@ export default class UserRepository {
 
   async insertUser(email: string, password: string, nickname: string) {
     const hash = await bcrypt.hash(password, 10);
-    return await User.create({
-      email,
-      password: hash,
-      nickname,
-    });
+    return (
+      await User.create({
+        email,
+        password: hash,
+        nickname,
+      })
+    ).get({ plain: true });
   }
 
   async getByOAuthEmail(email: string, provider: string) {
