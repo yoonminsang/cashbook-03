@@ -27,9 +27,9 @@ const SignMain = (isSignup: boolean) => {
   `;
 
   return `
-    <main class="sign">
+    <div class="sign">
       ${content}
-    </main>
+    </div>
   `;
 };
 export default SignMain;

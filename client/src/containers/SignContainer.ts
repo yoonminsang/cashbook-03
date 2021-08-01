@@ -1,4 +1,3 @@
-import SignHeader from '../components/SignHeader/SignHeader';
 import SignMain from '../components/SignMain/SignMain';
 import { GLOBALSTATE, store } from '../store';
 import { login, signup } from '../utils/api/auth';
@@ -7,13 +6,11 @@ import View from '../utils/View';
 const IDENTIFIER = 'login';
 
 class SignContainer extends View {
-  Header: Function;
   Main: Function;
   isSignup: boolean;
   state: any;
   constructor({ $target, isSignup }) {
     super({ $target });
-    this.Header = SignHeader;
     this.Main = SignMain;
     this.isSignup = isSignup;
     this.state = { user: undefined };
@@ -34,7 +31,7 @@ class SignContainer extends View {
       return;
     }
 
-    this.$target.innerHTML = this.Header() + this.Main(this.isSignup);
+    this.$target.innerHTML = this.Main(this.isSignup);
   };
 
   componentDidMount = () => {
