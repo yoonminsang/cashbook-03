@@ -7,7 +7,7 @@ $week-height: 48px;
 }
 
 .calendar {
-  &__week {
+  &__header {
     display: flex;
     align-items: center;
     height: $week-height;
@@ -19,7 +19,7 @@ $week-height: 48px;
     border: 1px solid $line;
     @include elevation-1;
 
-    &__day {
+    & > * {
       flex: 1 0;
       display: flex;
       align-items: center;
