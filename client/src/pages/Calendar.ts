@@ -1,4 +1,5 @@
 import HeaderContainer from '../containers/HeaderContainer';
+import CalendarContainer from '../containers/CalendarContainer';
 
 class Calendar {
   $app: HTMLElement;
@@ -7,12 +8,18 @@ class Calendar {
     this.render();
   }
   render = () => {
-    const $fragment = document.createDocumentFragment();
     const $header = document.createElement('header');
-    const headerContainer = new HeaderContainer({ $target: $header });
-    $fragment.append(headerContainer.html);
+    new HeaderContainer({ $target: $header });
+
+    const $main = document.createElement('main');
+    new CalendarContainer({ $target: $main });
+
+    const fragemnt = document.createDocumentFragment();
+    fragemnt.appendChild($header);
+    fragemnt.appendChild($main);
+
     this.$app.innerHTML = '';
-    this.$app.appendChild($fragment);
+    this.$app.appendChild(fragemnt);
   };
 }
 export default Calendar;

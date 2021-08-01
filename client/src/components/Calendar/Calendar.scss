@@ -1,0 +1,116 @@
+$week-height: 48px;
+
+.calendar-tab {
+  width: 848px;
+  margin: 0 auto;
+  transform: translateY(-$week-height / 2);
+
+  & .calendar {
+    &__header {
+      display: flex;
+      align-items: center;
+      height: $week-height;
+
+      color: $label;
+      background-color: $off-white;
+      font-size: 16px;
+
+      border: 1px solid $line;
+      @include elevation-1;
+
+      & > * {
+        flex: 1 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    &__content {
+      background-color: $off-white;
+      margin-top: 16px;
+      border: 1px solid $line;
+      @include elevation-1;
+
+      & .week {
+        height: 120px;
+        display: flex;
+
+        &:last-child {
+          & > .week__day {
+            border-bottom: none;
+          }
+        }
+
+        &__day {
+          flex: 1 0;
+          display: flex;
+          flex-direction: column;
+          padding: 8px;
+
+          border-right: 1px solid $line;
+          border-bottom: 1px solid $line;
+
+          &:nth-child(7) {
+            border-right: none;
+          }
+
+          &__income,
+          &__expenditure,
+          &__total {
+            font-size: 14px;
+            line-height: 22px;
+          }
+
+          &__income {
+            color: $primary-3;
+          }
+          &__expenditure {
+            color: $error;
+          }
+          &__total {
+            color: $title-active;
+          }
+
+          &__date {
+            margin-top: auto;
+            text-align: right;
+
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 22px;
+
+            color: $label;
+          }
+
+          &.today {
+            background-color: $background;
+
+            & .week__day__date {
+              color: $title-active;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & .data {
+    margin-top: 24px;
+    height: 24px;
+    padding: 2px 8px;
+    display: flex;
+    align-items: center;
+
+    color: $label;
+
+    &__income {
+      margin-right: 8px;
+    }
+
+    &__total {
+      margin-left: auto;
+    }
+  }
+}
