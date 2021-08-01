@@ -3,10 +3,9 @@ $week-height: 48px;
 .calendar-tab {
   width: 848px;
   margin: 0 auto;
+  transform: translateY(-$week-height / 2);
 
   & .calendar {
-    transform: translateY(-$week-height / 2);
-
     &__header {
       display: flex;
       align-items: center;
@@ -94,6 +93,24 @@ $week-height: 48px;
           }
         }
       }
+    }
+  }
+
+  & .data {
+    margin-top: 24px;
+    height: 24px;
+    padding: 2px 8px;
+    display: flex;
+    align-items: center;
+
+    color: $label;
+
+    &__income {
+      margin-right: 8px;
+    }
+
+    &__total {
+      margin-left: auto;
     }
   }
 }
