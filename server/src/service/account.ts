@@ -41,6 +41,8 @@ export default class AccountService {
       category_id,
       payment_id,
     );
+    return '내역이 추가되었습니다';
+  }
 
   async deleteAccount(userId: string, accountId: string) {
     if (!accountId) throw new Error('NO_DATA');
