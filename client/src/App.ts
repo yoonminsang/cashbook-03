@@ -58,7 +58,7 @@ const paymentList = async () => {
     const {
       data: { data },
     } = await getPayment();
-    store.setState(GLOBALSTATE.payment, data);
+    store.setState(GLOBALSTATE.paymentList, data);
   } catch (e) {
     const {
       response: {
