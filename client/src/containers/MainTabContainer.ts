@@ -17,13 +17,14 @@ const STATE = {
 };
 
 class MainTabContainer extends View {
+  initialState: any;
   state: any;
   MainTab: Function;
   constructor({ $target }) {
     super({ $target });
     this.MainTab = MainTab;
     this.$target = $target;
-    this.state = {
+    this.initialState = {
       date: undefined,
       user: undefined,
       slide: undefined,
@@ -41,6 +42,7 @@ class MainTabContainer extends View {
       modal: false,
       isActive: false,
     };
+    this.state = this.initialState;
     this.render();
     this.componentDidMount();
     this.onEventHandler();
@@ -160,6 +162,9 @@ class MainTabContainer extends View {
         payment_id,
       });
       console.log(message);
+
+      this.state = { ...this.initialState, date: this.state.date };
+      this.render();
     } catch (e) {
       const {
         response: {
