@@ -49,7 +49,7 @@
             color: $label;
           }
         }
-        &.input-price {
+        &.input-amount {
           width: 96px;
           direction: rtl;
           padding: 3px;
@@ -76,7 +76,7 @@
       margin-left: auto;
     }
 
-    .price {
+    .amount {
       border: 0;
     }
 
@@ -102,6 +102,13 @@
       left: 0px;
       > li {
         padding: 16px 24px;
+        display: flex;
+        > .wci-close {
+          margin-left: auto;
+          font-size: 8px;
+          color: $body;
+          cursor: pointer;
+        }
       }
       > li:not(:last-child) {
         border-bottom: 1px solid $line;
