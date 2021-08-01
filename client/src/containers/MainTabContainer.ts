@@ -13,7 +13,6 @@ const STATE = {
   content: 'content',
   payment: 'payment',
   amount: 'amount',
-  isActive: 'isActive',
   modal: 'modal',
 };
 
@@ -117,10 +116,10 @@ class MainTabContainer extends View {
   onInputHandler = (e) => {
     const target = e.target as HTMLInputElement;
     if (target.classList.contains('input-content')) {
-      this.setState(STATE.content, target.value);
+      this.state = { ...this.state, content: target.value };
     } else if (target.classList.contains('input-amount')) {
       target.value = this.priceValidation(target.value);
-      this.setState(STATE.amount, target.value);
+      this.state = { ...this.state, amount: target.value };
     }
     const cls = target.classList[1];
     const cb = (cls) => {
@@ -224,6 +223,7 @@ class MainTabContainer extends View {
   };
 
   onActiveHandler = (cb?) => {
+    const $btn = this.$target.querySelector('.save-button-large');
     if (this.state.isIncome === 0) {
       if (
         this.state.date &&
@@ -231,9 +231,15 @@ class MainTabContainer extends View {
         this.state.content &&
         this.state.amount
       ) {
-        if (!this.state.isActive) this.setState(STATE.isActive, true);
+        if (!this.state.isActive) {
+          this.state = { ...this.state, isActive: true };
+          $btn.classList.add('active');
+        }
       } else {
-        if (this.state.isActive) this.setState(STATE.isActive, false);
+        if (this.state.isActive) {
+          this.state = { ...this.state, isActive: false };
+          $btn.classList.remove('active');
+        }
       }
     } else {
       if (
@@ -243,9 +249,15 @@ class MainTabContainer extends View {
         Object.keys(this.state.payment).length &&
         this.state.amount
       ) {
-        if (!this.state.isActive) this.setState(STATE.isActive, true);
+        if (!this.state.isActive) {
+          this.state = { ...this.state, isActive: true };
+          $btn.classList.add('active');
+        }
       } else {
-        if (this.state.isActive) this.setState(STATE.isActive, false);
+        if (this.state.isActive) {
+          this.state = { ...this.state, isActive: false };
+          $btn.classList.remove('active');
+        }
       }
     }
     if (cb) cb();
