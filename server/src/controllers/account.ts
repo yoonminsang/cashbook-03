@@ -42,7 +42,7 @@ export default class AccountController {
       } = req;
 
       const { content, amount, timestamp, category_id, payment_id } = req.body;
-      const data = await accountService.postAccount(
+      const message = await accountService.postAccount(
         user_id,
         content,
         amount,
@@ -50,7 +50,7 @@ export default class AccountController {
         category_id,
         payment_id,
       );
-      res.status(200).json({ data });
+      res.status(200).json({ message });
     } catch (error) {
       next(error);
     }
