@@ -17,7 +17,7 @@ export default class UserService {
     if (existEmail) throw new Error('EMAIL_DUPLICATE');
 
     const user = await userRepository.insertUser(email, password, nickname);
-    await paymentService.addInitialPayments(user.id);
+    await paymentService.addInitialPayments(user.id!);
 
     return 'singup success';
   }

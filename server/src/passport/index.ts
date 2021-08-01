@@ -4,7 +4,7 @@ import github from './github';
 import local from './local';
 
 const passportConfig = () => {
-  passport.serializeUser((user: any, done) => {
+  passport.serializeUser((user, done) => {
     console.log('serialize', user.id);
     done(null, user.id);
   });
@@ -13,7 +13,7 @@ const passportConfig = () => {
     const userRepository = new UserRepository();
     const user = await userRepository.getUserForDeserialize(id);
     console.log('deserialize', user);
-    done(null, user);
+    done(null, user as any);
   });
 
   local();

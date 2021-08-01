@@ -16,7 +16,8 @@ export default class PaymentController {
     return router;
   }
 
-  async get(req: any, res: Response, next: NextFunction) {
+  async get(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
     try {
       const {
         user: { id: userId },
@@ -32,7 +33,8 @@ export default class PaymentController {
     }
   }
 
-  async post(req: any, res: Response, next: NextFunction) {
+  async post(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
     try {
       const {
         user: { id: userId },
@@ -53,7 +55,8 @@ export default class PaymentController {
     }
   }
 
-  async delete(req: any, res: Response, next: NextFunction) {
+  async delete(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
     try {
       const {
         user: { id: userId },
