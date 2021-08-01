@@ -2,13 +2,14 @@ import Payment from '../model/payment';
 
 export default class PaymentRepository {
   async getNames(userId: string) {
-    return await Payment.findAll({
-      where: {
-        user_id: userId,
-      },
-      attributes: ['id', 'name'],
-      raw: true,
-    });
+    return (
+      await Payment.findAll({
+        where: {
+          user_id: userId,
+        },
+        attributes: ['id', 'name'],
+      })
+    ).map((result) => result.get({ plain: true }));
   }
 
   async addNewPayment(userId: string, name: string) {

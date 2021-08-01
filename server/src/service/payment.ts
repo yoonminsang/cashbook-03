@@ -15,11 +15,9 @@ export default class PaymentService {
   async addPayment(userId: string, addName: string) {
     if (!addName) throw new Error('NO_DATA');
 
-    const payments = (await paymentRepository.getNames(userId)) as any;
+    const payments = await paymentRepository.getNames(userId);
 
-    const hasDuplicateName = payments
-      .map((data: any) => data.name)
-      .includes(addName);
+    const hasDuplicateName = payments.map(({ name }) => name).includes(addName);
     if (hasDuplicateName) throw new Error('DUPLICATE');
 
     try {
@@ -34,7 +32,7 @@ export default class PaymentService {
   async deletePayment(userId: string, paymentId: number) {
     if (!paymentId) throw new Error('NO_DATA');
 
-    const payments = (await paymentRepository.getNames(userId)) as any;
+    const payments = await paymentRepository.getNames(userId);
     if (payments.length === MIN_PAYMENT_NUM) throw new Error('MIN_PAYMENT_NUM');
 
     const idNotFound = !payments
