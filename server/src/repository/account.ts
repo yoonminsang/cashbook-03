@@ -37,7 +37,7 @@ export default class AccountRepository {
     return await Account.destroy({
       where: {
         user_id: userId,
-        account_id: accountId,
+        id: accountId,
       },
     });
   }
