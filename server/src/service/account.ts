@@ -3,19 +3,26 @@ import AccountRepository from '../repository/account';
 const accountRepository = new AccountRepository();
 
 export default class AccountService {
-  async getAccountsByMonth(userId: string, thisMonth: Date) {
-    const nextMonth = new Date(
-      thisMonth.getFullYear(),
-      thisMonth.getMonth() + 1,
-      1,
-    );
-    const accounts = await accountRepository.getByMonth(
+  async getAccounts(userId: string, filters: any) {
+    if (!filters.year) throw new Error('NO_YEAR');
+
+    const { year, month, categoryId } = filters;
+    const startDate = new Date(parseInt(year), month ? parseInt(month) - 1 : 0);
+    const endDate = month
+      ? new Date(startDate.getFullYear(), startDate.getMonth() + 1)
+      : new Date(startDate.getFullYear() + 1, 0);
+
+    const accounts = await accountRepository.getAccounts(
       userId,
-      thisMonth,
-      nextMonth,
+      startDate,
+      endDate,
     );
-    if (!accounts.length) throw new Error('NO_DATA');
-    return accounts;
+
+    if (categoryId)
+      return accounts.filter(
+        (data: any) => data.category_id === parseInt(categoryId),
+      );
+    else return accounts;
   }
 
   async postAccount(

@@ -21,15 +21,18 @@ export default class AccountController {
         user: { id: user_id },
       } = req;
 
-      const { year, month } = req.body;
-      const yearMonth = new Date(year, month - 1);
+      const { year, month, category } = req.query;
 
-      const data = await accountService.getAccountsByMonth(user_id, yearMonth);
+      const data = await accountService.getAccounts(user_id, {
+        year,
+        month,
+        categoryId: category,
+      });
 
       res.status(200).json({ data });
     } catch (error) {
-      if (error.message === 'NO_DATA')
-        return next(new ErrorStatus(500, 'Payment not initialized'));
+      if (error.message === 'NO_YEAR')
+        return next(new ErrorStatus(400, 'year is required'));
 
       next(error);
     }

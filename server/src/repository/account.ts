@@ -2,15 +2,16 @@ import { Op } from 'sequelize';
 import Account from '../model/account';
 
 export default class AccountRepository {
-  async getByMonth(userId: string, thisMonth: Date, nextMonth: Date) {
+  async getAccounts(userId: string, startDate: Date, endDate: Date) {
     return await Account.findAll({
       where: {
         user_id: userId,
         timestamp: {
-          [Op.gte]: thisMonth,
-          [Op.lt]: nextMonth,
+          [Op.gte]: startDate,
+          [Op.lt]: endDate,
         },
       },
+      raw: true,
     });
   }
 
