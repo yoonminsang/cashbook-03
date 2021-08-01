@@ -13,7 +13,13 @@ const INITIAL_DATA = [
   { name: '기타', is_income: true },
 ];
 
-class Category extends Model {}
+interface CategoryAttributes {
+  id?: string;
+  name: string;
+  is_income: boolean;
+}
+
+class Category extends Model<CategoryAttributes> {}
 
 export const initCategory = async function (sequelize: Sequelize) {
   Category.init(

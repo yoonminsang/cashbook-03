@@ -16,12 +16,13 @@ export default class AccountController {
     return router;
   }
 
-  async get(req: any, res: Response, next: NextFunction) {
+  async get(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
+
     try {
       const {
         user: { id: user_id },
       } = req;
-
       const { year, month, category } = req.query;
 
       const data = await accountService.getAccounts(user_id, {
@@ -39,7 +40,9 @@ export default class AccountController {
     }
   }
 
-  async post(req: any, res: Response, next: NextFunction) {
+  async post(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
+
     try {
       const {
         user: { id: user_id },
@@ -47,7 +50,7 @@ export default class AccountController {
 
       const { content, amount, timestamp, category_id, payment_id } = req.body;
       const message = await accountService.postAccount(
-        user_id,
+        user_id!,
         content,
         amount,
         timestamp,
@@ -60,7 +63,8 @@ export default class AccountController {
     }
   }
 
-  async delete(req: any, res: Response, next: NextFunction) {
+  async delete(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
     try {
       const {
         user: { id: user_id },
@@ -68,7 +72,7 @@ export default class AccountController {
 
       const { account_id } = req.body;
 
-      const message = await accountService.deleteAccount(user_id, account_id);
+      const message = await accountService.deleteAccount(user_id!, account_id);
 
       res.status(200).json({ message });
     } catch (error) {

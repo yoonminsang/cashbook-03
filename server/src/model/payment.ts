@@ -1,6 +1,12 @@
 import { DataTypes, Sequelize, Model } from 'sequelize';
 
-class Payment extends Model {}
+export interface PaymentAttributes {
+  user_id?: string;
+  id?: string;
+  name: string;
+}
+
+class Payment extends Model<PaymentAttributes> {}
 
 export const initPayment = async function (sequelize: Sequelize) {
   Payment.init(

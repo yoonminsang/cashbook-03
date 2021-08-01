@@ -32,7 +32,7 @@ export default () => {
               nickname,
               GITHUB,
             );
-            await paymentService.addInitialPayments(newUser.user_id);
+            await paymentService.addInitialPayments(newUser.id!);
 
             done(null, newUser);
           }
