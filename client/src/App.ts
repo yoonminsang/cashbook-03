@@ -9,6 +9,7 @@ import { GLOBALSTATE, store } from './store';
 import './public/styles/index.scss';
 import { check } from './utils/api/auth';
 import { getCategory } from './utils/api/category';
+import { getPayment } from './utils/api/payment';
 
 const setDate = () => {
   const today = new Date();
@@ -52,10 +53,28 @@ const setCategoryHandler = async () => {
   }
 };
 
+const paymentList = async () => {
+  try {
+    const {
+      data: { data },
+    } = await getPayment();
+    store.setState(GLOBALSTATE.payment, data);
+  } catch (e) {
+    const {
+      response: {
+        data: { message },
+      },
+    } = e;
+    if (message) throw new Error(message);
+    console.error(e);
+  }
+};
+
 const init = async () => {
   setDate();
   if (localStorage.getItem('user')) {
     checkUserHandler();
+    paymentList();
   } else {
     store.setState(GLOBALSTATE.user, null);
   }

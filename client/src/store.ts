@@ -43,4 +43,5 @@ export const GLOBALSTATE = {
   user: 'user',
   data: 'data',
   categoryList: 'categoryList',
+  paymentList: 'paymentList',
 };
