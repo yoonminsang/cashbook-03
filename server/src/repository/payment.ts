@@ -26,4 +26,12 @@ export default class PaymentRepository {
       },
     });
   }
+
+  async addInitialPayments(userId: string, initialPayments: string[]) {
+    return await Promise.all(
+      initialPayments
+        .map((name) => Payment.build({ user_id: userId, name }))
+        .map((payment) => payment.save()),
+    );
+  }
 }

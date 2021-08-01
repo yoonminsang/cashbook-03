@@ -1,7 +1,8 @@
 import PaymentRepository from '../repository/payment';
-
 const paymentRepository = new PaymentRepository();
+
 export const MIN_PAYMENT_NUM = 1;
+const INITIAL_PAYMENTS = ['현금', '카드', '이체'];
 
 export default class PaymentService {
   async getPaymentNames(userId: string) {
@@ -48,5 +49,16 @@ export default class PaymentService {
     } catch (e) {
       throw e;
     }
+  }
+
+  async addInitialPayments(userId: string) {
+    const result = await paymentRepository.addInitialPayments(
+      userId,
+      INITIAL_PAYMENTS,
+    );
+    if (result.length !== INITIAL_PAYMENTS.length)
+      throw new Error('PAYMENT_INIT_FAIL');
+
+    return 'SUCCESS';
   }
 }
