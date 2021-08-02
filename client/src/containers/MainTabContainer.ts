@@ -6,6 +6,7 @@ import dateStore from '../store/date';
 import paymentStore from '../store/payment';
 import categoryStore from '../store/category';
 import View from '../utils/View';
+import account from '../store/account';
 
 class MainTabContainer extends View {
   initialState: any;
@@ -135,31 +136,12 @@ class MainTabContainer extends View {
     const split = date.split('-').map((v) => +v);
     const content = this.state.content;
     const amount = this.state.amount.replace(/[^0-9]/g, '');
-    const timestamp = new Date(split[0], split[1] - 1, split[2]);
+    const timestamp = new Date(split[0], split[1] - 1, split[2]).toISOString();
     const category_id = this.state.category.id;
     const payment_id = this.state.payment && this.state.payment.id;
-    try {
-      const {
-        data: { message },
-      } = await setAccount({
-        content,
-        amount,
-        timestamp,
-        category_id,
-        payment_id,
-      });
-      console.log(message);
 
-      this.setState({ ...this.initialState, date: this.state.date });
-    } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
-      if (message) throw new Error(message);
-      console.error(e);
-    }
+    await account.add({ content, amount, timestamp, category_id, payment_id });
+    this.setState({ ...this.initialState, date: this.state.date });
   };
 
   addPaymentHandler = async () => {
