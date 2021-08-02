@@ -30,20 +30,20 @@ class View {
       if (!newEl.isEqualNode(curEl)) {
         if (newEl.tagName !== curEl.tagName) {
           curEl.replaceWith(newEl);
+        } else {
+          if (
+            curEl.firstChild?.nodeName === '#text' &&
+            curEl.firstChild.nodeValue !== newEl.firstChild.nodeValue
+          ) {
+            curEl.firstChild.nodeValue = newEl.firstChild.nodeValue;
+          }
+          Array.from(curEl.attributes).forEach((attr) => {
+            curEl.removeAttribute(attr.name);
+          });
+          Array.from(newEl.attributes).forEach((attr) => {
+            curEl.setAttribute(attr.name, attr.value);
+          });
         }
-      }
-
-      if (
-        !newEl.isEqualNode(curEl) &&
-        newEl.firstChild?.nodeValue?.trim() !== ''
-      ) {
-        curEl.textContent = newEl.textContent;
-      }
-
-      if (!newEl.isEqualNode(curEl)) {
-        Array.from(newEl.attributes).forEach((attr) => {
-          curEl.setAttribute(attr.name, attr.value);
-        });
       }
     });
   }
