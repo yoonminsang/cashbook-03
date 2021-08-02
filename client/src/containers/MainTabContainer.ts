@@ -1,20 +1,11 @@
 import MainTab from '../components/MainTab/MainTab';
-import { GLOBALSTATE, store } from '../store';
 import { setAccount } from '../utils/api/account';
-import { getPayment, removePayment, setPayment } from '../utils/api/payment';
+
+import userStore from '../store/user';
+import dateStore from '../store/date';
+import paymentStore from '../store/payment';
+import categoryStore from '../store/category';
 import View from '../utils/View';
-
-const IDENTIFIER = 'maintab';
-
-const STATE = {
-  slide: 'slide',
-  isIncome: 'isIncome',
-  category: 'category',
-  content: 'content',
-  payment: 'payment',
-  amount: 'amount',
-  modal: 'modal',
-};
 
 class MainTabContainer extends View {
   initialState: any;
@@ -25,18 +16,18 @@ class MainTabContainer extends View {
     this.MainTab = MainTab;
     this.$target = $target;
     this.initialState = {
-      date: undefined,
-      user: undefined,
+      date: dateStore.state,
+      user: userStore.state,
+      paymentList: paymentStore.state,
+      categoryList: categoryStore.state,
       slide: undefined,
       classificationList: [
         { name: '지출', is_income: 0 },
         { name: '수입', is_income: 1 },
       ],
       isIncome: 0,
-      categoryList: [],
       category: {},
       content: '',
-      paymentList: [],
       payment: {},
       amount: '',
       modal: false,
@@ -48,22 +39,22 @@ class MainTabContainer extends View {
     this.onEventHandler();
   }
 
-  render = () => {
-    this.$target.innerHTML = this.MainTab(this.state);
+  markup = () => this.MainTab(this.state);
+
+  getGlobalState = () => {
+    const nextState = { ...this.state };
+    nextState.date = dateStore.state;
+    nextState.user = userStore.state;
+    nextState.paymentList = paymentStore.state;
+    nextState.categoryList = categoryStore.state;
+
+    this.setState(nextState);
   };
 
   componentDidMount = () => {
-    store.subscribe(GLOBALSTATE.date, IDENTIFIER, this.setState);
-    store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.setState);
-    store.subscribe(GLOBALSTATE.categoryList, IDENTIFIER, this.setState);
-    store.subscribe(GLOBALSTATE.paymentList, IDENTIFIER, this.setState);
-  };
-
-  setState = (type: string, changeState: any) => {
-    const nextState = { ...this.state };
-    nextState[type] = changeState;
-    this.state = nextState;
-    this.render();
+    [dateStore, userStore, paymentStore, categoryStore].forEach((store) =>
+      store.subscribe(this.getGlobalState),
+    );
   };
 
   onEventHandler = () => {
