@@ -1,20 +1,11 @@
 import MainTab from '../components/MainTab/MainTab';
-import { GLOBALSTATE, store } from '../store';
 import { setAccount } from '../utils/api/account';
-import { getPayment, removePayment, setPayment } from '../utils/api/payment';
+
+import userStore from '../store/user';
+import dateStore from '../store/date';
+import paymentStore from '../store/payment';
+import categoryStore from '../store/category';
 import View from '../utils/View';
-
-const IDENTIFIER = 'maintab';
-
-const STATE = {
-  slide: 'slide',
-  isIncome: 'isIncome',
-  category: 'category',
-  content: 'content',
-  payment: 'payment',
-  amount: 'amount',
-  modal: 'modal',
-};
 
 class MainTabContainer extends View {
   initialState: any;
@@ -25,18 +16,18 @@ class MainTabContainer extends View {
     this.MainTab = MainTab;
     this.$target = $target;
     this.initialState = {
-      date: undefined,
-      user: undefined,
+      date: dateStore.state,
+      user: userStore.state,
+      paymentList: paymentStore.state,
+      categoryList: categoryStore.state,
       slide: undefined,
       classificationList: [
         { name: '지출', is_income: 0 },
         { name: '수입', is_income: 1 },
       ],
       isIncome: 0,
-      categoryList: [],
       category: {},
       content: '',
-      paymentList: [],
       payment: {},
       amount: '',
       modal: false,
@@ -48,22 +39,22 @@ class MainTabContainer extends View {
     this.onEventHandler();
   }
 
-  render = () => {
-    this.$target.innerHTML = this.MainTab(this.state);
+  markup = () => this.MainTab(this.state);
+
+  getGlobalState = () => {
+    const nextState = { ...this.state };
+    nextState.date = dateStore.state;
+    nextState.user = userStore.state;
+    nextState.paymentList = paymentStore.state;
+    nextState.categoryList = categoryStore.state;
+
+    this.setState(nextState);
   };
 
   componentDidMount = () => {
-    store.subscribe(GLOBALSTATE.date, IDENTIFIER, this.setState);
-    store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.setState);
-    store.subscribe(GLOBALSTATE.categoryList, IDENTIFIER, this.setState);
-    store.subscribe(GLOBALSTATE.paymentList, IDENTIFIER, this.setState);
-  };
-
-  setState = (type: string, changeState: any) => {
-    const nextState = { ...this.state };
-    nextState[type] = changeState;
-    this.state = nextState;
-    this.render();
+    [dateStore, userStore, paymentStore, categoryStore].forEach((store) =>
+      store.subscribe(this.getGlobalState),
+    );
   };
 
   onEventHandler = () => {
@@ -79,34 +70,37 @@ class MainTabContainer extends View {
       location.href = '/login';
     } else if (target.closest('.js-btn-slide')) {
       if (target.closest('.js-btn-classification')) {
-        if (this.state.slide === 0) this.setState(STATE.slide, null);
-        else this.setState(STATE.slide, 0);
+        if (this.state.slide === 0)
+          this.setState({ ...this.state, slide: null });
+        else this.setState({ ...this.state, slide: 0 });
       } else if (target.closest('.js-btn-category')) {
-        if (this.state.slide === 1) this.setState(STATE.slide, null);
-        else this.setState(STATE.slide, 1);
+        if (this.state.slide === 1)
+          this.setState({ ...this.state, slide: null });
+        else this.setState({ ...this.state, slide: 1 });
       } else if (target.closest('.js-btn-payment')) {
-        if (this.state.slide === 2) this.setState(STATE.slide, null);
-        else this.setState(STATE.slide, 2);
+        if (this.state.slide === 2)
+          this.setState({ ...this.state, slide: null });
+        else this.setState({ ...this.state, slide: 2 });
       }
     } else if (target.closest('.drop-down')) {
       if (target.closest('.js-modal-payment')) {
-        this.setState(STATE.modal, true);
+        this.setState({ ...this.state, modal: true });
       } else if (target.closest('.js-remove-payment')) {
         this.removePaymentHandler(e);
       } else if (target.closest('.drop-down-classification')) {
-        this.setState(STATE.isIncome, +target.dataset.index);
-        this.setState(STATE.category, {});
-        this.setState(STATE.slide, null);
+        this.setState({ ...this.state, isIncome: +target.dataset.index });
+        this.setState({ ...this.state, category: {} });
+        this.setState({ ...this.state, slide: null });
       } else if (target.closest('.drop-down-category')) {
-        this.setState(STATE.category, target.dataset);
-        this.setState(STATE.slide, null);
+        this.setState({ ...this.state, category: target.dataset });
+        this.setState({ ...this.state, slide: null });
       } else if (target.closest('.drop-down-payment')) {
-        this.setState(STATE.payment, target.dataset);
-        this.setState(STATE.slide, null);
+        this.setState({ ...this.state, payment: target.dataset });
+        this.setState({ ...this.state, slide: null });
       }
     } else if (target.closest('.modal')) {
       if (target.closest('.js-modal-cancel')) {
-        this.setState(STATE.modal, false);
+        this.setState({ ...this.state, modal: false });
       } else if (target.closest('.js-add-payment')) {
         this.addPaymentHandler();
       }
@@ -117,10 +111,10 @@ class MainTabContainer extends View {
   onInputHandler = (e) => {
     const target = e.target as HTMLInputElement;
     if (target.classList.contains('input-content')) {
-      this.state = { ...this.state, content: target.value };
+      this.setState({ ...this.state, content: target.value });
     } else if (target.classList.contains('input-amount')) {
       target.value = this.priceValidation(target.value);
-      this.state = { ...this.state, amount: target.value };
+      this.setState({ ...this.state, amount: target.value });
     }
     this.onActiveHandler();
   };
@@ -141,7 +135,7 @@ class MainTabContainer extends View {
     const split = date.split('-').map((v) => +v);
     const content = this.state.content;
     const amount = this.state.amount.replace(/[^0-9]/g, '');
-    const timestamp = new Date(split[0], split[1], split[2]);
+    const timestamp = new Date(split[0], split[1] - 1, split[2]);
     const category_id = this.state.category.id;
     const payment_id = this.state.payment && this.state.payment.id;
     try {
@@ -156,8 +150,7 @@ class MainTabContainer extends View {
       });
       console.log(message);
 
-      this.state = { ...this.initialState, date: this.state.date };
-      this.render();
+      this.setState({ ...this.initialState, date: this.state.date });
     } catch (e) {
       const {
         response: {
@@ -173,55 +166,20 @@ class MainTabContainer extends View {
     const { value: name }: HTMLInputElement =
       this.$target.querySelector('.modal-input');
     if (name) {
-      try {
-        const {
-          data: { message },
-        } = await setPayment({ name });
-        console.log(message);
-
-        const {
-          data: { data },
-        } = await getPayment();
-        store.setState(GLOBALSTATE.paymentList, data);
-        this.setState(STATE.modal, false);
-      } catch (e) {
-        const {
-          response: {
-            data: { message },
-          },
-        } = e;
-        if (message) throw new Error(message);
-        console.error(e);
-      }
+      await paymentStore.add({ name });
+      this.setState({ ...this.state, modal: false });
     }
   };
 
   removePaymentHandler = async (e) => {
     const target = e.target as HTMLElement;
     const id = target.parentElement.dataset.id;
-    try {
-      const {
-        data: { message },
-      } = await removePayment({ id });
-      console.log(message);
 
-      const {
-        data: { data },
-      } = await getPayment();
-      store.setState(GLOBALSTATE.paymentList, data);
-    } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
-      if (message) throw new Error(message);
-      console.error(e);
-    }
+    paymentStore.remove({ id });
   };
 
   onActiveHandler = () => {
-    const $btn = this.$target.querySelector('.save-button-large');
+    // const $btn = this.$target.querySelector('.save-button-large');
     if (this.state.isIncome === 0) {
       if (
         this.state.date &&
@@ -229,11 +187,11 @@ class MainTabContainer extends View {
         this.state.content &&
         this.state.amount
       ) {
-        this.state = { ...this.state, isActive: true };
-        $btn.classList.add('active');
+        this.setState({ ...this.state, isActive: true });
+        // $btn.classList.add('active');
       } else {
-        this.state = { ...this.state, isActive: false };
-        $btn.classList.remove('active');
+        this.setState({ ...this.state, isActive: false });
+        // $btn.classList.remove('active');
       }
     } else {
       if (
@@ -243,11 +201,11 @@ class MainTabContainer extends View {
         Object.keys(this.state.payment).length &&
         this.state.amount
       ) {
-        this.state = { ...this.state, isActive: true };
-        $btn.classList.add('active');
+        this.setState({ ...this.state, isActive: true });
+        // $btn.classList.add('active');
       } else {
-        this.state = { ...this.state, isActive: false };
-        $btn.classList.remove('active');
+        this.setState({ ...this.state, isActive: false });
+        // $btn.classList.remove('active');
       }
     }
   };
