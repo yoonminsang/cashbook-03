@@ -12,6 +12,7 @@ export const sequelizeLoader = async function () {
     {
       host: dbOptions.host,
       dialect: 'mysql',
+      timezone: '+09:00',
     },
   );
 

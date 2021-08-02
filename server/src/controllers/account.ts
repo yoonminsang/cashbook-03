@@ -23,12 +23,12 @@ export default class AccountController {
       const {
         user: { id: user_id },
       } = req;
-      const { year, month, category } = req.query;
+      const { year, month, categoryId } = req.query;
 
       const data = await accountService.getAccounts(user_id, {
         year,
         month,
-        categoryId: category,
+        categoryId,
       });
 
       res.status(200).json({ data });

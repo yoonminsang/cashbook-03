@@ -3,6 +3,10 @@
   display: flex;
   justify-content: center;
 
+  input {
+    background: transparent;
+  }
+
   .main-tab-inner {
     display: flex;
     align-items: center;
@@ -51,7 +55,7 @@
         }
         &.input-amount {
           width: 96px;
-          direction: rtl;
+          text-align: right;
           padding: 3px;
           &::placeholder {
             color: $label;

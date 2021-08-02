@@ -1,22 +1,23 @@
 import { DataTypes, Sequelize, Model } from 'sequelize';
 
 const INITIAL_DATA = [
-  { name: '생활', is_income: false },
-  { name: '식비', is_income: false },
-  { name: '교통', is_income: false },
-  { name: '쇼핑/뷰티', is_income: false },
-  { name: '의료/건강', is_income: false },
-  { name: '문화/여가', is_income: false },
-  { name: '기타', is_income: false },
-  { name: '월급', is_income: true },
-  { name: '용돈', is_income: true },
-  { name: '기타', is_income: true },
+  { name: '생활', is_income: false, color: '#4A6CC3' },
+  { name: '식비', is_income: false, color: '#4CA1DE' },
+  { name: '교통', is_income: false, color: '#94D3CC' },
+  { name: '쇼핑/뷰티', is_income: false, color: '#4CB8B8' },
+  { name: '의료/건강', is_income: false, color: '#6ED5EB' },
+  { name: '문화/여가', is_income: false, color: '#D092E2' },
+  { name: '기타', is_income: false, color: '#817DCE' },
+  { name: '월급', is_income: true, color: '#B9D58C' },
+  { name: '용돈', is_income: true, color: '#E6D267' },
+  { name: '기타', is_income: true, color: '#E2B765' },
 ];
 
 interface CategoryAttributes {
   id?: string;
   name: string;
   is_income: boolean;
+  color: string;
 }
 
 class Category extends Model<CategoryAttributes> {}
@@ -36,6 +37,9 @@ export const initCategory = async function (sequelize: Sequelize) {
       is_income: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      color: {
+        type: DataTypes.CHAR(7),
       },
     },
     {

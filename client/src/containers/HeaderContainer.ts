@@ -28,13 +28,12 @@ class HeaderContainer extends View {
     const nextState = { ...this.state };
     nextState.date = dateStore.state;
     nextState.user = userStore.state;
-
     this.setState(nextState);
   };
 
   componentDidMount = () => {
     dateStore.subscribe(this.getGlobalState);
-    // store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.getGlobalState);
+    userStore.subscribe(this.getGlobalState);
   };
 
   addEventHandler = () => {

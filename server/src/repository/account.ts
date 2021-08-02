@@ -1,5 +1,7 @@
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import Account from '../model/account';
+import Category from '../model/category';
+import Payment from '../model/payment';
 
 export default class AccountRepository {
   async getAccounts(userId: string, startDate: Date, endDate: Date) {
@@ -12,6 +14,29 @@ export default class AccountRepository {
         },
       },
       raw: true,
+      attributes: [
+        'id',
+        'content',
+        'amount',
+        'timestamp',
+        [Sequelize.col('category.name'), 'category_name'],
+        [Sequelize.col('category.is_income'), 'is_income'],
+        [Sequelize.col('payment.name'), 'payment_name'],
+      ],
+      order: [
+        ['id', 'DESC'],
+        ['timestamp', 'DESC'],
+      ],
+      include: [
+        {
+          model: Category,
+          attributes: [],
+        },
+        {
+          model: Payment,
+          attributes: [],
+        },
+      ],
     });
   }
 

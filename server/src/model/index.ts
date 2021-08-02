@@ -11,9 +11,13 @@ export const modelInitFunctions: Function[] = [
 ];
 
 export const setRelations = () => {
-  Category.hasMany(Account, { foreignKey: 'category_id' });
-  User.hasMany(Account, { foreignKey: 'user_id', onDelete: 'cascade' });
-  Payment.hasMany(Account, { foreignKey: 'payment_id', onDelete: 'cascade' });
+  // Category.hasMany(Account, { foreignKey: 'category_id' });
+  // User.hasMany(Account, { foreignKey: 'user_id', onDelete: 'cascade' });
+  // Payment.hasMany(Account, { foreignKey: 'payment_id', onDelete: 'cascade' });
+
+  Account.belongsTo(Category, { foreignKey: 'category_id' });
+  Account.belongsTo(User, { foreignKey: 'user_id', onDelete: 'cascade' });
+  Account.belongsTo(Payment, { foreignKey: 'payment_id', onDelete: 'cascade' });
 
   Payment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'cascade' });
 };
