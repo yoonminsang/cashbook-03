@@ -27,6 +27,12 @@ class View {
     newElements.forEach((newEl, i) => {
       const curEl = currentElements[i];
 
+      if (!newEl.isEqualNode(curEl)) {
+        if (newEl.tagName !== curEl.tagName) {
+          curEl.replaceWith(newEl);
+        }
+      }
+
       if (
         !newEl.isEqualNode(curEl) &&
         newEl.firstChild?.nodeValue?.trim() !== ''
