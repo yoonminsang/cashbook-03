@@ -1,8 +1,26 @@
-import { setAccount } from '../utils/api/account';
+import { getAccount, setAccount } from '../utils/api/account';
 import Observable from '../utils/Observable';
 
 class Account extends Observable {
-  async get() {}
+  async get({ year, month }) {
+    try {
+      const {
+        data: { data },
+      } = await getAccount({
+        year,
+        month,
+      });
+      this.setState(data);
+    } catch (e) {
+      const {
+        response: {
+          data: { message },
+        },
+      } = e;
+      if (message) throw new Error(message);
+      console.error(e);
+    }
+  }
 
   async getByCategory() {}
 
