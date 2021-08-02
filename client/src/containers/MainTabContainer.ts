@@ -166,51 +166,16 @@ class MainTabContainer extends View {
     const { value: name }: HTMLInputElement =
       this.$target.querySelector('.modal-input');
     if (name) {
-      try {
-        const {
-          data: { message },
-        } = await setPayment({ name });
-        console.log(message);
-
-        const {
-          data: { data },
-        } = await getPayment();
-        store.setState(GLOBALSTATE.paymentList, data);
-        this.setState(STATE.modal, false);
-      } catch (e) {
-        const {
-          response: {
-            data: { message },
-          },
-        } = e;
-        if (message) throw new Error(message);
-        console.error(e);
-      }
+      await paymentStore.add({ name });
+      this.setState({ ...this.state, modal: false });
     }
   };
 
   removePaymentHandler = async (e) => {
     const target = e.target as HTMLElement;
     const id = target.parentElement.dataset.id;
-    try {
-      const {
-        data: { message },
-      } = await removePayment({ id });
-      console.log(message);
 
-      const {
-        data: { data },
-      } = await getPayment();
-      store.setState(GLOBALSTATE.paymentList, data);
-    } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
-      if (message) throw new Error(message);
-      console.error(e);
-    }
+    paymentStore.remove({ id });
   };
 
   onActiveHandler = () => {
