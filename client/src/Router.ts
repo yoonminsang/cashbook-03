@@ -1,4 +1,4 @@
-import { store } from './store';
+import store from './store';
 
 class Router {
   $app: HTMLElement;
@@ -17,7 +17,7 @@ class Router {
   }
 
   route = () => {
-    store.unsubscribeAll();
+    store.forEach((observable) => observable.unsubscribeAll());
     const url = window.location.pathname;
     const Page = this.routes[url];
     if (Page) {

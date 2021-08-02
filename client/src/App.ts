@@ -5,26 +5,17 @@ import Statistics from './pages/Statistics';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Router from './Router';
-import { GLOBALSTATE, store } from './store';
 import './public/styles/index.scss';
 import { check } from './utils/api/auth';
-import { getCategory } from './utils/api/category';
-import { getPayment } from './utils/api/payment';
+import User from './store/user';
+import CurrentDate from './store/date';
 
-const setDate = () => {
-  const today = new Date();
-  store.setState(GLOBALSTATE.date, {
-    year: today.getFullYear(),
-    month: today.getMonth() + 1,
-  });
-};
-
-const checkUserHandler = async () => {
+const initUser = async () => {
   try {
     const {
       data: { user },
     } = await check();
-    store.setState(GLOBALSTATE.user, user);
+    User.setState(user);
   } catch (e) {
     const {
       response: {
@@ -36,50 +27,22 @@ const checkUserHandler = async () => {
   }
 };
 
-const setCategoryHandler = async () => {
-  try {
-    const {
-      data: { data },
-    } = await getCategory();
-    store.setState(GLOBALSTATE.categoryList, data);
-  } catch (e) {
-    const {
-      response: {
-        data: { message },
-      },
-    } = e;
-    if (message) throw new Error(message);
-    console.error(e);
-  }
-};
+const initDate = async () => {
+  const today = new Date();
 
-const paymentList = async () => {
-  try {
-    const {
-      data: { data },
-    } = await getPayment();
-    store.setState(GLOBALSTATE.paymentList, data);
-  } catch (e) {
-    const {
-      response: {
-        data: { message },
-      },
-    } = e;
-    if (message) throw new Error(message);
-    console.error(e);
-  }
+  // test용 setTimeout
+  setTimeout(() => {
+    CurrentDate.setState({
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+    });
+  }, 1000);
 };
 
 const init = async () => {
-  setDate();
-  if (localStorage.getItem('user')) {
-    checkUserHandler();
-    paymentList();
-  } else {
-    store.setState(GLOBALSTATE.user, null);
-  }
-  setCategoryHandler();
+  await Promise.all([initDate(), initUser()]);
 };
+
 init();
 
 const $app = document.querySelector('#app');

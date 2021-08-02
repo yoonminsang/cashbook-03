@@ -1,39 +1,47 @@
 import Calendar from '../components/Calendar/Calendar';
-import { GLOBALSTATE, store } from '../store';
+import CurrentDate from '../store/date';
 import View from '../utils/View';
-
-const IDENTIFIER = 'calendar';
 
 class CalendarContainer extends View {
   state: any;
   Calendar: Function;
   constructor({ $target }) {
     super({ $target });
-    this.$target = $target;
-    this.state = { date: undefined };
+    this.state = { date: CurrentDate.state, day: new Date().getDate() };
 
     this.Calendar = Calendar;
     this.render();
 
-    // this.componentDidMount();
-    // this.addEventHandler();
+    this.componentDidMount();
+    this.addEventHandler();
   }
 
-  render = () => {
-    this.$target.innerHTML = this.Calendar(this.state);
+  markup = () => {
+    return this.Calendar(this.state);
+  };
+
+  getGlobalState = () => {
+    const nextState = { ...this.state };
+    nextState.date = CurrentDate.state;
+
+    this.setState(nextState);
   };
 
   componentDidMount = () => {
-    store.subscribe(GLOBALSTATE.date, IDENTIFIER, this.setState);
+    CurrentDate.subscribe(this.getGlobalState);
   };
 
-  setState = (type: string, changeState: any) => {
-    const nextState = { ...this.state };
-    nextState[type] = changeState;
-    this.state = nextState;
-    this.render();
+  addEventHandler = () => {
+    this.$target.addEventListener('click', this.onDateClick);
   };
 
-  addEventHandler = () => {};
+  onDateClick = (e) => {
+    const target = e.target;
+    if (!target.closest('.week__day')) return;
+
+    const clickedDate = target.closest('.week__day').dataset.date;
+
+    this.setState({ ...this.state, day: clickedDate });
+  };
 }
 export default CalendarContainer;
