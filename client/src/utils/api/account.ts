@@ -1,8 +1,12 @@
 import client from './client';
 
-// account 불러오기
-export const getAccount = ({ year, month, category }) =>
-  client.get(`/api/account?year=${year}&month=${month}&category=${category}`);
+// 모든 account 불러오기
+export const getAccount = ({ year, month }) =>
+  client.get(`/api/account?year=${year}&month=${month}`);
+
+// 카테고리별 account 불러오기
+export const getAccountByCategory = ({ year, categoryId }) =>
+  client.get(`/api/account?year=${year}&categoryId=${categoryId}`);
 
 // account 저장
 export const setAccount = ({

@@ -17,7 +17,8 @@ const init = async () => {
 
   if (localStorage.getItem('user')) {
     await userStore.init();
-    await Promise.all([paymentStore.init(), categoryStore.init()]);
+    if (userStore.state)
+      await Promise.all([paymentStore.init(), categoryStore.init()]);
   } else {
     userStore.setState(null);
   }
