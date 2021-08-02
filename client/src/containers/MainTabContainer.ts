@@ -135,7 +135,7 @@ class MainTabContainer extends View {
     const split = date.split('-').map((v) => +v);
     const content = this.state.content;
     const amount = this.state.amount.replace(/[^0-9]/g, '');
-    const timestamp = new Date(split[0], split[1], split[2]);
+    const timestamp = new Date(split[0], split[1] - 1, split[2]);
     const category_id = this.state.category.id;
     const payment_id = this.state.payment && this.state.payment.id;
     try {
