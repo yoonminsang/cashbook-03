@@ -8,8 +8,18 @@ import Router from './Router';
 import { GLOBALSTATE, store } from './store';
 import './public/styles/index.scss';
 import { check } from './utils/api/auth';
+import { getCategory } from './utils/api/category';
+import { getPayment } from './utils/api/payment';
 
-const checkUser = async () => {
+const setDate = () => {
+  const today = new Date();
+  store.setState(GLOBALSTATE.date, {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+  });
+};
+
+const checkUserHandler = async () => {
   try {
     const {
       data: { user },
@@ -26,17 +36,49 @@ const checkUser = async () => {
   }
 };
 
+const setCategoryHandler = async () => {
+  try {
+    const {
+      data: { data },
+    } = await getCategory();
+    store.setState(GLOBALSTATE.categoryList, data);
+  } catch (e) {
+    const {
+      response: {
+        data: { message },
+      },
+    } = e;
+    if (message) throw new Error(message);
+    console.error(e);
+  }
+};
+
+const paymentList = async () => {
+  try {
+    const {
+      data: { data },
+    } = await getPayment();
+    store.setState(GLOBALSTATE.paymentList, data);
+  } catch (e) {
+    const {
+      response: {
+        data: { message },
+      },
+    } = e;
+    if (message) throw new Error(message);
+    console.error(e);
+  }
+};
+
 const init = async () => {
-  const today = new Date();
-  store.setState(GLOBALSTATE.date, {
-    year: today.getFullYear(),
-    month: today.getMonth() + 1,
-  });
+  setDate();
   if (localStorage.getItem('user')) {
-    checkUser();
+    checkUserHandler();
+    paymentList();
   } else {
     store.setState(GLOBALSTATE.user, null);
   }
+  setCategoryHandler();
 };
 init();
 
