@@ -9,7 +9,7 @@ export default class AuthController {
     const router = Router();
 
     router.get('/check', this.getUser);
-    router.post('/login', this.localLogin);
+    router.post('/login', isNotLoggedIn, this.localLogin);
     router.post('/logout', isLoggedIn, this.logout);
     router.get('/github', isNotLoggedIn, passport.authenticate('github'));
     router.get(
