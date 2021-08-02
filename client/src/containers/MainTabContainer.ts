@@ -122,13 +122,7 @@ class MainTabContainer extends View {
       target.value = this.priceValidation(target.value);
       this.state = { ...this.state, amount: target.value };
     }
-    const cls = target.classList[1];
-    const cb = (cls) => {
-      const $input: HTMLInputElement = this.$target.querySelector(`.${cls}`);
-      $input.focus();
-      $input.selectionStart = $input.value.length;
-    };
-    this.onActiveHandler(() => cb(cls));
+    this.onActiveHandler();
   };
 
   priceValidation = (value) => {
@@ -226,7 +220,7 @@ class MainTabContainer extends View {
     }
   };
 
-  onActiveHandler = (cb?) => {
+  onActiveHandler = () => {
     const $btn = this.$target.querySelector('.save-button-large');
     if (this.state.isIncome === 0) {
       if (
@@ -235,15 +229,11 @@ class MainTabContainer extends View {
         this.state.content &&
         this.state.amount
       ) {
-        if (!this.state.isActive) {
-          this.state = { ...this.state, isActive: true };
-          $btn.classList.add('active');
-        }
+        this.state = { ...this.state, isActive: true };
+        $btn.classList.add('active');
       } else {
-        if (this.state.isActive) {
-          this.state = { ...this.state, isActive: false };
-          $btn.classList.remove('active');
-        }
+        this.state = { ...this.state, isActive: false };
+        $btn.classList.remove('active');
       }
     } else {
       if (
@@ -253,18 +243,13 @@ class MainTabContainer extends View {
         Object.keys(this.state.payment).length &&
         this.state.amount
       ) {
-        if (!this.state.isActive) {
-          this.state = { ...this.state, isActive: true };
-          $btn.classList.add('active');
-        }
+        this.state = { ...this.state, isActive: true };
+        $btn.classList.add('active');
       } else {
-        if (this.state.isActive) {
-          this.state = { ...this.state, isActive: false };
-          $btn.classList.remove('active');
-        }
+        this.state = { ...this.state, isActive: false };
+        $btn.classList.remove('active');
       }
     }
-    if (cb) cb();
   };
 }
 export default MainTabContainer;
