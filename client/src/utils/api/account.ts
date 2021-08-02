@@ -26,6 +26,9 @@ export const setAccount = ({
 
 // account 삭제
 export const removeAccount = ({ account_id }) =>
-  client.post('/api/account', {
-    account_id,
+  client.delete('/api/account', {
+    data: {
+      account_id,
+    },
+    withCredentials: true,
   });
