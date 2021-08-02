@@ -14,10 +14,12 @@ import categoryStore from './store/category';
 
 const init = async () => {
   dateStore.init();
-  await userStore.init();
 
   if (localStorage.getItem('user')) {
+    await userStore.init();
     await Promise.all([paymentStore.init(), categoryStore.init()]);
+  } else {
+    userStore.setState(null);
   }
 };
 
