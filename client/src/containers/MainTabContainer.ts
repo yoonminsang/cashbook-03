@@ -179,7 +179,7 @@ class MainTabContainer extends View {
   };
 
   onActiveHandler = () => {
-    const $btn = this.$target.querySelector('.save-button-large');
+    // const $btn = this.$target.querySelector('.save-button-large');
     if (this.state.isIncome === 0) {
       if (
         this.state.date &&
@@ -187,11 +187,11 @@ class MainTabContainer extends View {
         this.state.content &&
         this.state.amount
       ) {
-        this.state = { ...this.state, isActive: true };
-        $btn.classList.add('active');
+        this.setState({ ...this.state, isActive: true });
+        // $btn.classList.add('active');
       } else {
-        this.state = { ...this.state, isActive: false };
-        $btn.classList.remove('active');
+        this.setState({ ...this.state, isActive: false });
+        // $btn.classList.remove('active');
       }
     } else {
       if (
@@ -201,11 +201,11 @@ class MainTabContainer extends View {
         Object.keys(this.state.payment).length &&
         this.state.amount
       ) {
-        this.state = { ...this.state, isActive: true };
-        $btn.classList.add('active');
+        this.setState({ ...this.state, isActive: true });
+        // $btn.classList.add('active');
       } else {
-        this.state = { ...this.state, isActive: false };
-        $btn.classList.remove('active');
+        this.setState({ ...this.state, isActive: false });
+        // $btn.classList.remove('active');
       }
     }
   };
