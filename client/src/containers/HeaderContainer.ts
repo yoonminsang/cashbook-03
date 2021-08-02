@@ -1,6 +1,6 @@
 import Header from '../components/Header/Header';
-import CurrentDate from '../store/date';
-import User from '../store/user';
+import dateStore from '../store/date';
+import userStore from '../store/user';
 import { logout } from '../utils/api/auth';
 import View from '../utils/View';
 
@@ -11,8 +11,8 @@ class HeaderContainer extends View {
     super({ $target });
     this.Header = Header;
     this.state = {
-      date: CurrentDate.state,
-      user: User.state,
+      date: dateStore.state,
+      user: userStore.state,
       tab: location.pathname,
     };
     this.render();
@@ -26,14 +26,14 @@ class HeaderContainer extends View {
 
   getGlobalState = () => {
     const nextState = { ...this.state };
-    nextState.date = CurrentDate.state;
-    nextState.user = User.state;
+    nextState.date = dateStore.state;
+    nextState.user = userStore.state;
 
     this.setState(nextState);
   };
 
   componentDidMount = () => {
-    CurrentDate.subscribe(this.getGlobalState);
+    dateStore.subscribe(this.getGlobalState);
     // store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.getGlobalState);
   };
 
@@ -51,7 +51,7 @@ class HeaderContainer extends View {
   onMonthChangeClick = async (target) => {
     const isPrev = target.closest('.main-header__time__left') ? true : false;
 
-    CurrentDate.setState(
+    dateStore.setState(
       this.getYearMonth(
         parseInt(this.state.date.year),
         parseInt(this.state.date.month),

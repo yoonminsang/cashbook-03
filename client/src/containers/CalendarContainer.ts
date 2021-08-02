@@ -1,5 +1,5 @@
 import Calendar from '../components/Calendar/Calendar';
-import CurrentDate from '../store/date';
+import dateStore from '../store/date';
 import View from '../utils/View';
 
 class CalendarContainer extends View {
@@ -7,7 +7,7 @@ class CalendarContainer extends View {
   Calendar: Function;
   constructor({ $target }) {
     super({ $target });
-    this.state = { date: CurrentDate.state, day: new Date().getDate() };
+    this.state = { date: dateStore.state, day: new Date().getDate() };
 
     this.Calendar = Calendar;
     this.render();
@@ -22,13 +22,13 @@ class CalendarContainer extends View {
 
   getGlobalState = () => {
     const nextState = { ...this.state };
-    nextState.date = CurrentDate.state;
+    nextState.date = dateStore.state;
 
     this.setState(nextState);
   };
 
   componentDidMount = () => {
-    CurrentDate.subscribe(this.getGlobalState);
+    dateStore.subscribe(this.getGlobalState);
   };
 
   addEventHandler = () => {

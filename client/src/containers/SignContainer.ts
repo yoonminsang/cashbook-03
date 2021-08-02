@@ -1,5 +1,5 @@
 import SignMain from '../components/SignMain/SignMain';
-import User from '../store/user';
+import userStore from '../store/user';
 import { login, signup } from '../utils/api/auth';
 import View from '../utils/View';
 
@@ -11,7 +11,7 @@ class SignContainer extends View {
     super({ $target });
     this.Main = SignMain;
     this.isSignup = isSignup;
-    this.state = { user: User.state };
+    this.state = { user: userStore.state };
     this.$target = $target;
     this.render();
     this.componentDidMount();
@@ -23,7 +23,7 @@ class SignContainer extends View {
   };
 
   componentDidMount = () => {
-    User.subscribe(this.getGlobalState);
+    userStore.subscribe(this.getGlobalState);
   };
 
   addEventHandler = () => {
