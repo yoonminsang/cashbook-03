@@ -10,6 +10,7 @@ const MainTab = ({
   content,
   amount,
   modal,
+  isActive,
 }) => {
   const isIncomeToBoolean = Boolean(isIncome);
 
@@ -130,7 +131,9 @@ const MainTab = ({
             </div>
         </div>
 
-        <button class="save-button-large" type="submit"><i class="wci wci-check"></i></button>
+        <button class="save-button-large ${
+          isActive ? 'active' : ''
+        }" type="submit"><i class="wci wci-check"></i></button>
     </form>
     <div ${modal ? 'class="modal"' : 'class="modal blind"'} >
         <div class="modal-content">

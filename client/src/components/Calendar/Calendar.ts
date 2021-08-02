@@ -1,7 +1,9 @@
-const Calendar = ({}) => {
+const Calendar = ({ date, day }) => {
+  // day는 테스트용
   return /*html*/ `
     <div class="calendar-tab">
       <div class="calendar">
+        <div>${day}</div>
         <div class="calendar__header">
           <div>일</div>
           <div>월</div>
@@ -13,28 +15,28 @@ const Calendar = ({}) => {
         </div>
         <div class="calendar__content">
           <div class="week">
-            <div class="week__day">
+            <div class="week__day" data-date="1">
               <div class="week__day__income">1,822,480</div>
               <div class="week__day__expenditure">-9,500</div>
               <div class="week__day__total">1,812,980</div>
               <div class="week__day__date">1</div>
             </div>
-            <div class="week__day today">
+            <div class="week__day today" data-date="2">
               <div class="week__day__date">2</div>
             </div>
-            <div class="week__day">
+            <div class="week__day" data-date="3">
               <div class="week__day__date">3</div>
             </div>
-            <div class="week__day">
+            <div class="week__day" data-date="4">
               <div class="week__day__date">4</div>
             </div>
-            <div class="week__day">
+            <div class="week__day" data-date="5">
               <div class="week__day__date">5</div>
             </div>
-            <div class="week__day">
+            <div class="week__day" data-date="6">
               <div class="week__day__date">6</div>
             </div>
-            <div class="week__day">
+            <div class="week__day" data-date="7">
               <div class="week__day__date">7</div>
             </div>
           </div>

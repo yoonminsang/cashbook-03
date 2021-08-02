@@ -5,81 +5,24 @@ import Statistics from './pages/Statistics';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Router from './Router';
-import { GLOBALSTATE, store } from './store';
 import './public/styles/index.scss';
-import { check } from './utils/api/auth';
-import { getCategory } from './utils/api/category';
-import { getPayment } from './utils/api/payment';
 
-const setDate = () => {
-  const today = new Date();
-  store.setState(GLOBALSTATE.date, {
-    year: today.getFullYear(),
-    month: today.getMonth() + 1,
-  });
-};
-
-const checkUserHandler = async () => {
-  try {
-    const {
-      data: { user },
-    } = await check();
-    store.setState(GLOBALSTATE.user, user);
-  } catch (e) {
-    const {
-      response: {
-        data: { message },
-      },
-    } = e;
-    if (message) throw new Error(message);
-    console.error(e);
-  }
-};
-
-const setCategoryHandler = async () => {
-  try {
-    const {
-      data: { data },
-    } = await getCategory();
-    store.setState(GLOBALSTATE.categoryList, data);
-  } catch (e) {
-    const {
-      response: {
-        data: { message },
-      },
-    } = e;
-    if (message) throw new Error(message);
-    console.error(e);
-  }
-};
-
-const paymentList = async () => {
-  try {
-    const {
-      data: { data },
-    } = await getPayment();
-    store.setState(GLOBALSTATE.paymentList, data);
-  } catch (e) {
-    const {
-      response: {
-        data: { message },
-      },
-    } = e;
-    if (message) throw new Error(message);
-    console.error(e);
-  }
-};
+import userStore from './store/user';
+import dateStore from './store/date';
+import paymentStore from './store/payment';
+import categoryStore from './store/category';
 
 const init = async () => {
-  setDate();
+  dateStore.init();
+
   if (localStorage.getItem('user')) {
-    checkUserHandler();
-    paymentList();
+    await userStore.init();
+    await Promise.all([paymentStore.init(), categoryStore.init()]);
   } else {
-    store.setState(GLOBALSTATE.user, null);
+    userStore.setState(null);
   }
-  setCategoryHandler();
 };
+
 init();
 
 const $app = document.querySelector('#app');
