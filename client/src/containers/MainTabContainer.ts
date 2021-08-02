@@ -70,34 +70,37 @@ class MainTabContainer extends View {
       location.href = '/login';
     } else if (target.closest('.js-btn-slide')) {
       if (target.closest('.js-btn-classification')) {
-        if (this.state.slide === 0) this.setState(STATE.slide, null);
-        else this.setState(STATE.slide, 0);
+        if (this.state.slide === 0)
+          this.setState({ ...this.state, slide: null });
+        else this.setState({ ...this.state, slide: 0 });
       } else if (target.closest('.js-btn-category')) {
-        if (this.state.slide === 1) this.setState(STATE.slide, null);
-        else this.setState(STATE.slide, 1);
+        if (this.state.slide === 1)
+          this.setState({ ...this.state, slide: null });
+        else this.setState({ ...this.state, slide: 1 });
       } else if (target.closest('.js-btn-payment')) {
-        if (this.state.slide === 2) this.setState(STATE.slide, null);
-        else this.setState(STATE.slide, 2);
+        if (this.state.slide === 2)
+          this.setState({ ...this.state, slide: null });
+        else this.setState({ ...this.state, slide: 2 });
       }
     } else if (target.closest('.drop-down')) {
       if (target.closest('.js-modal-payment')) {
-        this.setState(STATE.modal, true);
+        this.setState({ ...this.state, modal: true });
       } else if (target.closest('.js-remove-payment')) {
         this.removePaymentHandler(e);
       } else if (target.closest('.drop-down-classification')) {
-        this.setState(STATE.isIncome, +target.dataset.index);
-        this.setState(STATE.category, {});
-        this.setState(STATE.slide, null);
+        this.setState({ ...this.state, isIncome: +target.dataset.index });
+        this.setState({ ...this.state, category: {} });
+        this.setState({ ...this.state, slide: null });
       } else if (target.closest('.drop-down-category')) {
-        this.setState(STATE.category, target.dataset);
-        this.setState(STATE.slide, null);
+        this.setState({ ...this.state, category: target.dataset });
+        this.setState({ ...this.state, slide: null });
       } else if (target.closest('.drop-down-payment')) {
-        this.setState(STATE.payment, target.dataset);
-        this.setState(STATE.slide, null);
+        this.setState({ ...this.state, payment: target.dataset });
+        this.setState({ ...this.state, slide: null });
       }
     } else if (target.closest('.modal')) {
       if (target.closest('.js-modal-cancel')) {
-        this.setState(STATE.modal, false);
+        this.setState({ ...this.state, modal: false });
       } else if (target.closest('.js-add-payment')) {
         this.addPaymentHandler();
       }
@@ -108,10 +111,10 @@ class MainTabContainer extends View {
   onInputHandler = (e) => {
     const target = e.target as HTMLInputElement;
     if (target.classList.contains('input-content')) {
-      this.state = { ...this.state, content: target.value };
+      this.setState({ ...this.state, content: target.value });
     } else if (target.classList.contains('input-amount')) {
       target.value = this.priceValidation(target.value);
-      this.state = { ...this.state, amount: target.value };
+      this.setState({ ...this.state, amount: target.value });
     }
     this.onActiveHandler();
   };
@@ -147,8 +150,7 @@ class MainTabContainer extends View {
       });
       console.log(message);
 
-      this.state = { ...this.initialState, date: this.state.date };
-      this.render();
+      this.setState({ ...this.initialState, date: this.state.date });
     } catch (e) {
       const {
         response: {
