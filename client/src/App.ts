@@ -6,41 +6,19 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Router from './Router';
 import './public/styles/index.scss';
-import { check } from './utils/api/auth';
-import User from './store/user';
-import CurrentDate from './store/date';
 
-const initUser = async () => {
-  try {
-    const {
-      data: { user },
-    } = await check();
-    User.setState(user);
-  } catch (e) {
-    const {
-      response: {
-        data: { message },
-      },
-    } = e;
-    if (message) throw new Error(message);
-    console.error(e);
-  }
-};
-
-const initDate = async () => {
-  const today = new Date();
-
-  // test용 setTimeout
-  setTimeout(() => {
-    CurrentDate.setState({
-      year: today.getFullYear(),
-      month: today.getMonth() + 1,
-    });
-  }, 1000);
-};
+import userStore from './store/user';
+import dateStore from './store/date';
+import paymentStore from './store/payment';
+import categoryStore from './store/category';
 
 const init = async () => {
-  await Promise.all([initDate(), initUser()]);
+  dateStore.init();
+  await userStore.init();
+
+  if (localStorage.getItem('user')) {
+    await Promise.all([paymentStore.init(), categoryStore.init()]);
+  }
 };
 
 init();
