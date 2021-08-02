@@ -11,14 +11,24 @@ import userStore from './store/user';
 import dateStore from './store/date';
 import paymentStore from './store/payment';
 import categoryStore from './store/category';
+import accountStore from './store/account';
 
 const init = async () => {
   dateStore.init();
 
   if (localStorage.getItem('user')) {
     await userStore.init();
-    if (userStore.state)
+    if (userStore.state) {
+      const { year, month } = dateStore.state;
+      dateStore.subscribe(() =>
+        accountStore.get({
+          year,
+          month,
+        }),
+      );
       await Promise.all([paymentStore.init(), categoryStore.init()]);
+      console.log(accountStore.state, paymentStore.state, categoryStore.state);
+    }
   } else {
     userStore.setState(null);
   }

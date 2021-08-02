@@ -17,6 +17,7 @@ export default class Observable {
   }
 
   subscribe(observer: Function) {
+    observer();
     const index = this.observers.push(observer) - 1;
     return index;
   }
