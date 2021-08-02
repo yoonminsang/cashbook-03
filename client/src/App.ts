@@ -5,16 +5,17 @@ import Statistics from './pages/Statistics';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Router from './Router';
-import { GLOBALSTATE, store } from './store';
 import './public/styles/index.scss';
 import { check } from './utils/api/auth';
+import User from './store/user';
+import CurrentDate from './store/date';
 
-const checkUser = async () => {
+const initUser = async () => {
   try {
     const {
       data: { user },
     } = await check();
-    store.setState(GLOBALSTATE.user, user);
+    User.setState(user);
   } catch (e) {
     const {
       response: {
@@ -26,18 +27,22 @@ const checkUser = async () => {
   }
 };
 
-const init = async () => {
+const initDate = async () => {
   const today = new Date();
-  store.setState(GLOBALSTATE.date, {
-    year: today.getFullYear(),
-    month: today.getMonth() + 1,
-  });
-  if (localStorage.getItem('user')) {
-    checkUser();
-  } else {
-    store.setState(GLOBALSTATE.user, null);
-  }
+
+  // test용 setTimeout
+  setTimeout(() => {
+    CurrentDate.setState({
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+    });
+  }, 1000);
 };
+
+const init = async () => {
+  await Promise.all([initDate(), initUser()]);
+};
+
 init();
 
 const $app = document.querySelector('#app');
