@@ -1,9 +1,8 @@
 import Header from '../components/Header/Header';
-import { GLOBALSTATE, store } from '../store';
+import CurrentDate from '../store/date';
+import User from '../store/user';
 import { logout } from '../utils/api/auth';
 import View from '../utils/View';
-
-const IDENTIFIER = 'header';
 
 class HeaderContainer extends View {
   state: any;
@@ -11,27 +10,31 @@ class HeaderContainer extends View {
   constructor({ $target }) {
     super({ $target });
     this.Header = Header;
-    this.$target = $target;
-    this.state = { date: undefined, user: undefined, tab: location.pathname };
+    this.state = {
+      date: CurrentDate.state,
+      user: User.state,
+      tab: location.pathname,
+    };
     this.render();
     this.componentDidMount();
     this.addEventHandler();
   }
 
-  render = () => {
-    this.$target.innerHTML = this.Header(this.state);
+  markup = () => {
+    return this.Header(this.state);
+  };
+
+  getGlobalState = () => {
+    const nextState = { ...this.state };
+    nextState.date = CurrentDate.state;
+    nextState.user = User.state;
+
+    this.setState(nextState);
   };
 
   componentDidMount = () => {
-    store.subscribe(GLOBALSTATE.date, IDENTIFIER, this.setState);
-    store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.setState);
-  };
-
-  setState = (type: string, changeState: any) => {
-    const nextState = { ...this.state };
-    nextState[type] = changeState;
-    this.state = nextState;
-    this.render();
+    CurrentDate.subscribe(this.getGlobalState);
+    // store.subscribe(GLOBALSTATE.user, IDENTIFIER, this.getGlobalState);
   };
 
   addEventHandler = () => {
@@ -48,8 +51,7 @@ class HeaderContainer extends View {
   onMonthChangeClick = async (target) => {
     const isPrev = target.closest('.main-header__time__left') ? true : false;
 
-    store.setState(
-      GLOBALSTATE.date,
+    CurrentDate.setState(
       this.getYearMonth(
         parseInt(this.state.date.year),
         parseInt(this.state.date.month),
