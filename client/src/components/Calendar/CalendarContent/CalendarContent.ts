@@ -12,6 +12,8 @@ export const CalendarContent = ({
 
   fillDates($target, date);
 
+  const dateAccounts = parseAccount(account);
+
   return $target.innerHTML;
 };
 
@@ -70,4 +72,19 @@ const fillDates = ($target: HTMLElement, { year, month }: YearMonth) => {
       break;
     }
   }
+};
+
+const parseAccount = (account: Account[]) => {
+  const dataByDate = {};
+  if (!Array.isArray(account)) return dataByDate;
+
+  account.forEach(({ timestamp, amount, is_income }) => {
+    const isIncome = Boolean(is_income);
+    const amountNum = isIncome ? parseInt(amount) : -parseInt(amount);
+    const date = parseInt(timestamp.split('-')[2]);
+
+    dataByDate[date] = dataByDate[date]?.concat(amountNum) || [amountNum];
+  });
+
+  return dataByDate;
 };
