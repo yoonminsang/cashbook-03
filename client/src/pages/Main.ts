@@ -1,4 +1,4 @@
-import MainTab from '../components/MainTab/MainTab';
+import Account from '../components/Account/Account';
 import HeaderContainer from '../containers/HeaderContainer';
 import MainTabContainer from '../containers/MainTabContainer';
 
@@ -15,7 +15,10 @@ class Main {
     const $mainTab = document.createElement('div');
     $mainTab.className = 'main-tab';
     const mainTabContainer = new MainTabContainer({ $target: $mainTab });
-    $fragment.append(headerContainer.html, mainTabContainer.html);
+    const $account = document.createElement('main');
+    $account.className = 'account';
+    $account.innerHTML = Account({});
+    $fragment.append(headerContainer.html, mainTabContainer.html, $account);
     this.$app.innerHTML = '';
     this.$app.appendChild($fragment);
   };
