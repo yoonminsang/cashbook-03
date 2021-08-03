@@ -15,6 +15,25 @@ export const parseAccount = (account: Account[]) => {
   return dataByDate;
 };
 
+export const getTotals = (account: Account[]) => {
+  if (!Array.isArray(account))
+    return { totalIncome: '0', totalExpenditure: '0', total: '0' };
+
+  const amounts = account.map(({ amount, is_income }) =>
+    is_income ? parseInt(amount) : -parseInt(amount),
+  );
+
+  const totalIncome = getArraySum(amounts.filter((amount) => amount > 0));
+  const totalExpenditure = -getArraySum(amounts.filter((amount) => amount < 0));
+  const total = totalIncome - totalExpenditure;
+
+  return {
+    totalIncome: totalIncome.toLocaleString('ko-KR'),
+    totalExpenditure: totalExpenditure.toLocaleString('ko-KR'),
+    total: total.toLocaleString('ko-KR'),
+  };
+};
+
 export const getArraySum = (numbers: number[]) => {
   return numbers.reduce((acc, val) => acc + val, 0);
 };

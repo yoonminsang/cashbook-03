@@ -1,4 +1,5 @@
 import { CalendarContent } from './CalendarContent/CalendarContent';
+import { getTotals } from './helpers';
 
 export interface YearMonth {
   year: number;
@@ -24,6 +25,8 @@ const Calendar = ({
 }) => {
   const calendarContent = CalendarContent({ date, account });
 
+  const { totalIncome, totalExpenditure, total } = getTotals(account);
+
   return /*html*/ `
     <div class="calendar-tab">
       <div class="calendar">
@@ -39,9 +42,9 @@ const Calendar = ({
         ${calendarContent}
       </div>
       <div class="data">
-        <div class="data__income">총 수입: 1,822,000</div>
-        <div>총 지출: 812,000</div>
-        <div class="data__total">총 수입: 1,010,000</div>
+        <div class="data__income">총 수입: ${totalIncome}</div>
+        <div>총 지출: ${totalExpenditure}</div>
+        <div class="data__total">총계: ${total}</div>
       </div>
     </div>
   `;
