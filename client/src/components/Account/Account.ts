@@ -3,26 +3,27 @@ import AccountHeader from './AccountHeader';
 import AccountItem from './AccountItem';
 
 const Account = ({ accountList, income, expenditure }) => {
-  const incomePrice =
-    accountList &&
-    accountList
-      .filter(({ is_income }) => is_income === 0)
-      .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
-      .toLocaleString('ko-KR');
+  const allCount = accountList ? `${accountList.length} 건` : '';
+  const incomePrice = accountList
+    ? accountList
+        .filter(({ is_income }) => is_income === 1)
+        .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
+        .toLocaleString('ko-KR') + '원'
+    : '';
 
-  const expenditurePrice =
-    accountList &&
-    accountList
-      .filter(({ is_income }) => is_income == 1)
-      .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
-      .toLocaleString('ko-KR');
+  const expenditurePrice = accountList
+    ? accountList
+        .filter(({ is_income }) => is_income == 0)
+        .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
+        .toLocaleString('ko-KR') + '원'
+    : '';
 
   if (income && expenditure) {
     accountList = accountList;
   } else if (income) {
-    accountList = accountList.filter(({ is_inocme }) => is_inocme === 1);
+    accountList = accountList.filter(({ is_income }) => is_income === 1);
   } else if (expenditure) {
-    accountList = accountList.filter(({ is_inocme }) => is_inocme === 0);
+    accountList = accountList.filter(({ is_income }) => is_income === 0);
   }
 
   const accountListByDate = {};
@@ -113,16 +114,16 @@ const Account = ({ accountList, income, expenditure }) => {
   return /*html*/ `
     <div class="account-header">
       <div class="left">
-        <div>전체 내역</div><div class="total-count">14건</div>
+        <div>전체 내역</div><div class="total-count">${allCount}</div>
       </div>
       <div class="right">
-        <button class="btn-income ${
+        <button class="btn-active btn-income ${
           income ? 'active' : ''
         }"><i class="wci wci-check"></i></button>
         <div class="total-income  ${
           income ? 'active' : ''
         }">수입 ${incomePrice}</div>
-        <button class="btn-income ${
+        <button class="btn-active btn-expenditure ${
           expenditure ? 'active' : ''
         }"><i class="wci wci-check"></i></button>
         <div class="total-expenditure ${
