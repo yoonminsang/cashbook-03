@@ -20,13 +20,13 @@ const init = async () => {
     await userStore.init();
     if (userStore.state) {
       accountStore.get({ ...dateStore.state });
-      dateStore.subscribe(() =>
-        accountStore.get({
-          ...dateStore.state,
-        }),
-      );
+      // dateStore.subscribe(() =>
+      //   accountStore.get({
+      //     ...dateStore.state,
+      //   }),
+      // );
       await Promise.all([paymentStore.init(), categoryStore.init()]);
-      // console.log(accountStore.state, paymentStore.state, categoryStore.state);
+      console.log(accountStore.state, paymentStore.state, categoryStore.state);
     }
   } else {
     userStore.setState(null);
