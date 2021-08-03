@@ -11,8 +11,8 @@ export default {
   cors: corsOptions,
   db: dbOptions,
   secret: process.env.COOKIE_SECRET,
-  clientID: process.env.ClientId,
-  clientSecret: process.env.ClientSecret,
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
   frontUrl: process.env.FRONT_URL,
   redis: redisOptions,
 };
