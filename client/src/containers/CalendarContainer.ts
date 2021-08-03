@@ -7,7 +7,7 @@ class CalendarContainer extends View {
   Calendar: Function;
   constructor({ $target }) {
     super({ $target });
-    this.state = { date: dateStore.state, day: new Date().getDate() };
+    this.state = { date: dateStore.state };
 
     this.Calendar = Calendar;
     this.render();
@@ -31,17 +31,6 @@ class CalendarContainer extends View {
     dateStore.subscribe(this.getGlobalState);
   };
 
-  addEventHandler = () => {
-    this.$target.addEventListener('click', this.onDateClick);
-  };
-
-  onDateClick = (e) => {
-    const target = e.target;
-    if (!target.closest('.week__day')) return;
-
-    const clickedDate = target.closest('.week__day').dataset.date;
-
-    this.setState({ ...this.state, day: clickedDate });
-  };
+  addEventHandler = () => {};
 }
 export default CalendarContainer;

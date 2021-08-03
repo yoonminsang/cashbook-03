@@ -1,9 +1,7 @@
-const Calendar = ({ date, day }) => {
-  // day는 테스트용
+const Calendar = ({ date }) => {
   return /*html*/ `
     <div class="calendar-tab">
       <div class="calendar">
-        <div>${day}</div>
         <div class="calendar__header">
           <div>일</div>
           <div>월</div>
