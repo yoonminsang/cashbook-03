@@ -1,6 +1,6 @@
 import { YearMonth, Account } from '../Calendar';
 import { week, weekDayDate, weekDayInfo } from './sub-components';
-import { parseAccount, getArraySum } from './helpers';
+import { parseAccount, getArraySum } from '../helpers';
 
 export const CalendarContent = ({
   date,

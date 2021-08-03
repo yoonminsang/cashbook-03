@@ -1,4 +1,4 @@
-import { Account } from '../../Calendar';
+import { Account } from '../Calendar';
 
 export const parseAccount = (account: Account[]) => {
   const dataByDate = {};
