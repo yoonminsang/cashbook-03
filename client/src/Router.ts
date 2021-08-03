@@ -11,7 +11,6 @@ class Router {
   constructor({ $app, routes, error }) {
     this.$app = $app;
     this.routes = routes;
-    this.keys = Object.keys(routes);
     this.error = error;
     this.route();
     this.addLinkChangeHandler();

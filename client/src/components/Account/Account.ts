@@ -6,12 +6,14 @@ const Account = ({ accountList, income, expenditure }) => {
   const allCount = accountList ? `${accountList.length} 건` : '';
   const incomePrice = accountList
     ? accountList
+        .filter(({ is_income }) => is_income === 1)
         .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
         .toLocaleString('ko-KR') + '원'
     : '';
 
   const expenditurePrice = accountList
     ? accountList
+        .filter(({ is_income }) => is_income === 0)
         .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
         .toLocaleString('ko-KR') + '원'
     : '';
@@ -75,8 +77,8 @@ const Account = ({ accountList, income, expenditure }) => {
     );
   });
 
-  console.log('accountListByDate', accountListByDate);
-  console.log('accountListHeaderByDate', accountListHeaderByDate);
+  // console.log('accountListByDate', accountListByDate);
+  // console.log('accountListHeaderByDate', accountListHeaderByDate);
 
   const inner = accountListHeaderByDate
     .map(([fullDate, date, day, income, expenditure]) => {
