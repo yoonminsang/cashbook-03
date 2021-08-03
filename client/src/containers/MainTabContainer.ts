@@ -1,6 +1,4 @@
 import MainTab from '../components/MainTab/MainTab';
-import { setAccount } from '../utils/api/account';
-
 import userStore from '../store/user';
 import dateStore from '../store/date';
 import paymentStore from '../store/payment';
@@ -161,7 +159,6 @@ class MainTabContainer extends View {
   };
 
   onActiveHandler = () => {
-    // const $btn = this.$target.querySelector('.save-button-large');
     if (this.state.isIncome === 0) {
       if (
         this.state.date &&
@@ -170,10 +167,8 @@ class MainTabContainer extends View {
         this.state.amount
       ) {
         this.setState({ ...this.state, isActive: true });
-        // $btn.classList.add('active');
       } else {
         this.setState({ ...this.state, isActive: false });
-        // $btn.classList.remove('active');
       }
     } else {
       if (
@@ -184,10 +179,8 @@ class MainTabContainer extends View {
         this.state.amount
       ) {
         this.setState({ ...this.state, isActive: true });
-        // $btn.classList.add('active');
       } else {
         this.setState({ ...this.state, isActive: false });
-        // $btn.classList.remove('active');
       }
     }
   };

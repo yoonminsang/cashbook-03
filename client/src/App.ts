@@ -19,11 +19,10 @@ const init = async () => {
   if (localStorage.getItem('user')) {
     await userStore.init();
     if (userStore.state) {
-      const { year, month } = dateStore.state;
+      accountStore.get({ ...dateStore.state });
       dateStore.subscribe(() =>
         accountStore.get({
-          year,
-          month,
+          ...dateStore.state,
         }),
       );
       await Promise.all([paymentStore.init(), categoryStore.init()]);
