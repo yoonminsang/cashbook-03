@@ -24,7 +24,8 @@ export const getTotals = (account: Account[]) => {
   );
 
   const totalIncome = getArraySum(amounts.filter((amount) => amount > 0));
-  const totalExpenditure = -getArraySum(amounts.filter((amount) => amount < 0));
+  const totalExpenditure =
+    -getArraySum(amounts.filter((amount) => amount < 0)) + 0;
   const total = totalIncome - totalExpenditure;
 
   return {
