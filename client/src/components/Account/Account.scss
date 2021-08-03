@@ -20,8 +20,17 @@ main.account {
     .right {
       font-size: 18px;
       line-height: 22px;
-      div.active {
-        color: $primary-3;
+      > div {
+        display: flex;
+        &.active {
+          > div {
+            color: $primary-3;
+          }
+          > button {
+            background: $primary;
+            border: 2px solid $primary;
+          }
+        }
       }
       .btn-active {
         width: 20px;
@@ -33,10 +42,6 @@ main.account {
         display: flex;
         align-items: center;
         justify-content: center;
-        &.active {
-          background: $primary;
-          border: 2px solid $primary;
-        }
         + div {
           margin-left: 12px;
         }

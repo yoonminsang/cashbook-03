@@ -1,7 +1,6 @@
 import Account from '../components/Account/Account';
 import View from '../utils/View';
 import accountStore from '../store/account';
-import { removeAccount } from '../utils/api/account';
 
 class AccountContainer extends View {
   initialState: any;

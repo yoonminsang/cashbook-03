@@ -6,14 +6,12 @@ const Account = ({ accountList, income, expenditure }) => {
   const allCount = accountList ? `${accountList.length} 건` : '';
   const incomePrice = accountList
     ? accountList
-        .filter(({ is_income }) => is_income === 1)
         .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
         .toLocaleString('ko-KR') + '원'
     : '';
 
   const expenditurePrice = accountList
     ? accountList
-        .filter(({ is_income }) => is_income == 0)
         .reduce((acc, { amount }) => acc + parseInt(amount, 10), 0)
         .toLocaleString('ko-KR') + '원'
     : '';
@@ -117,18 +115,14 @@ const Account = ({ accountList, income, expenditure }) => {
         <div>전체 내역</div><div class="total-count">${allCount}</div>
       </div>
       <div class="right">
-        <button class="btn-active btn-income ${
-          income ? 'active' : ''
-        }"><i class="wci wci-check"></i></button>
-        <div class="total-income  ${
-          income ? 'active' : ''
-        }">수입 ${incomePrice}</div>
-        <button class="btn-active btn-expenditure ${
-          expenditure ? 'active' : ''
-        }"><i class="wci wci-check"></i></button>
-        <div class="total-expenditure ${
-          expenditure ? 'active' : ''
-        }">지출 ${expenditurePrice}</div>
+        <div class="account-header-income ${income ? 'active' : ''}">
+          <button class="btn-active btn-income"><i class="wci wci-check"></i></button>
+          <div class="total-income">수입 ${incomePrice}</div>
+        </div>
+        <div class="account-header-expenditure ${expenditure ? 'active' : ''}">
+        <button class="btn-active btn-expenditure"><i class="wci wci-check"></i></button>
+        <div class="total-expenditure">지출 ${expenditurePrice}</div>
+        </div>
       </div>
     </div>
     <article>
