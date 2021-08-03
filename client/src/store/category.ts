@@ -10,11 +10,12 @@ class Payment extends Observable {
 
       this.setState(data);
     } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
+      // const {
+      //   response: {
+      //     data: { message },
+      //   },
+      // } = e;
+      const message = e.response && e.response.data && e.response.data.message;
       if (message) console.error(message);
       console.error(e);
     }
