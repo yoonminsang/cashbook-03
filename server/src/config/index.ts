@@ -3,6 +3,7 @@ dotenv.config();
 
 import { corsOptions } from './cors-config';
 import { dbOptions } from './db-config';
+import { redisOptions } from './redis-config';
 
 export default {
   mode: process.env.NODE_ENV || 'development',
@@ -13,4 +14,5 @@ export default {
   clientID: process.env.ClientId,
   clientSecret: process.env.ClientSecret,
   frontUrl: process.env.FRONT_URL,
+  redis: redisOptions,
 };
