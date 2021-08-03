@@ -1,5 +1,6 @@
 import Calendar from '../components/Calendar/Calendar';
 import dateStore from '../store/date';
+import accountStore from '../store/account';
 import View from '../utils/View';
 
 class CalendarContainer extends View {
@@ -7,7 +8,7 @@ class CalendarContainer extends View {
   Calendar: Function;
   constructor({ $target }) {
     super({ $target });
-    this.state = { date: dateStore.state, day: new Date().getDate() };
+    this.state = { date: dateStore.state, account: accountStore.state };
 
     this.Calendar = Calendar;
     this.render();
@@ -23,25 +24,15 @@ class CalendarContainer extends View {
   getGlobalState = () => {
     const nextState = { ...this.state };
     nextState.date = dateStore.state;
+    nextState.account = accountStore.state;
 
     this.setState(nextState);
   };
 
   componentDidMount = () => {
-    dateStore.subscribe(this.getGlobalState);
+    accountStore.subscribe(this.getGlobalState);
   };
 
-  addEventHandler = () => {
-    this.$target.addEventListener('click', this.onDateClick);
-  };
-
-  onDateClick = (e) => {
-    const target = e.target;
-    if (!target.closest('.week__day')) return;
-
-    const clickedDate = target.closest('.week__day').dataset.date;
-
-    this.setState({ ...this.state, day: clickedDate });
-  };
+  addEventHandler = () => {};
 }
 export default CalendarContainer;
