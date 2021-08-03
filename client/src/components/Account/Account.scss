@@ -1,5 +1,5 @@
 main.account {
-  width: 1300px;
+  width: 1200px;
   margin: 0 auto;
   margin-top: 48px;
   .account-header {
@@ -20,7 +20,19 @@ main.account {
     .right {
       font-size: 18px;
       line-height: 22px;
-      .btn-income {
+      > div {
+        display: flex;
+        &.active {
+          > div {
+            color: $primary-3;
+          }
+          > button {
+            background: $primary;
+            border: 2px solid $primary;
+          }
+        }
+      }
+      .btn-active {
         width: 20px;
         height: 20px;
         border-radius: 5px;
@@ -30,10 +42,6 @@ main.account {
         display: flex;
         align-items: center;
         justify-content: center;
-        &.active {
-          background: $primary;
-          border: 2px solid $primary;
-        }
         + div {
           margin-left: 12px;
         }
@@ -126,7 +134,7 @@ main.account {
           line-height: 22px;
           color: $body;
         }
-        .price {
+        .amount {
           margin-left: auto;
           font-weight: 500;
           font-size: 18px;

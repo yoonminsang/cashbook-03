@@ -104,7 +104,7 @@ const MainTab = ({
         </div>
 
         ${
-          isIncomeToBoolean
+          !isIncomeToBoolean
             ? `<div class="payment">
                 <div class="sub-head">결제수단</div>
                 <div class="flex js-btn-slide js-btn-payment">

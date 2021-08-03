@@ -159,7 +159,7 @@ class MainTabContainer extends View {
   };
 
   onActiveHandler = () => {
-    if (this.state.isIncome === 0) {
+    if (this.state.isIncome !== 0) {
       if (
         this.state.date &&
         Object.keys(this.state.category).length &&
