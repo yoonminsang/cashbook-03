@@ -8,7 +8,7 @@ class CalendarContainer extends View {
   Calendar: Function;
   constructor({ $target }) {
     super({ $target });
-    this.state = { date: dateStore.state };
+    this.state = { date: dateStore.state, account: accountStore.state };
 
     this.Calendar = Calendar;
     this.render();
@@ -30,7 +30,6 @@ class CalendarContainer extends View {
   };
 
   componentDidMount = () => {
-    dateStore.subscribe(this.getGlobalState);
     accountStore.subscribe(this.getGlobalState);
   };
 

@@ -1,4 +1,6 @@
 import store from './store';
+import accountStore from './store/account';
+import dateStore from './store/date';
 
 class Router {
   $app: HTMLElement;
@@ -18,6 +20,11 @@ class Router {
 
   route = () => {
     store.forEach((observable) => observable.unsubscribeAll());
+    dateStore.subscribe(() =>
+      accountStore.get({
+        ...dateStore.state,
+      }),
+    );
     const url = window.location.pathname;
     const Page = this.routes[url];
     if (Page) {
