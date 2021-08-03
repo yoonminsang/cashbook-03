@@ -24,8 +24,14 @@ class View {
       return;
     }
 
-    newElements.forEach((newEl, i) => {
+    for (let i = 0; i < newElements.length; i++) {
+      const newEl = newElements[i];
       const curEl = currentElements[i];
+
+      if (newEl.childElementCount !== curEl.childElementCount) {
+        this.$target.innerHTML = newMarkup;
+        return;
+      }
 
       if (!newEl.isEqualNode(curEl)) {
         if (newEl.tagName !== curEl.tagName) {
@@ -37,15 +43,25 @@ class View {
           ) {
             curEl.firstChild.nodeValue = newEl.firstChild.nodeValue;
           }
-          Array.from(curEl.attributes).forEach((attr) => {
-            curEl.removeAttribute(attr.name);
+
+          const curAttributes = curEl.attributes;
+          const newAttributes = newEl.attributes;
+
+          Array.from(curAttributes).forEach((attr) => {
+            if (!newAttributes.getNamedItem(attr.name))
+              curEl.removeAttribute(attr.name);
           });
-          Array.from(newEl.attributes).forEach((attr) => {
-            curEl.setAttribute(attr.name, attr.value);
+
+          Array.from(newAttributes).forEach((attr) => {
+            const currentAttribute = curAttributes.getNamedItem(attr.name);
+            if (!currentAttribute || currentAttribute.value !== attr.value)
+              curEl.setAttribute(attr.name, attr.value);
           });
         }
       }
-    });
+    }
+
+    newElements.forEach((newEl, i) => {});
   }
 
   markup() {
