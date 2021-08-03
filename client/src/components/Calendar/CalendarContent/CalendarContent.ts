@@ -1,4 +1,5 @@
 import { YearMonth, Account } from '../Calendar';
+import { week, weekDayDate, weekDayInfo } from './sub-components';
 
 export const CalendarContent = ({
   date,
@@ -25,26 +26,6 @@ const initialMarkup = () => /*html*/ `
     ${week()}
     ${week()}
   </div>
-`;
-
-const week = () => /*html*/ `
-  <div class="week">
-    <div class="week__day"></div>
-    <div class="week__day"></div>
-    <div class="week__day"></div>
-    <div class="week__day"></div>
-    <div class="week__day"></div>
-    <div class="week__day"></div>
-    <div class="week__day"></div>
-  </div>
-`;
-
-const weekDayDate = (date: number) => /*html*/ `
-  <div class="week__day__date" data-date=${date}>${date}</div>
-`;
-
-const weekDayInfo = (type: string, amount: number) => /*html*/ `
-  <div class="week__day__${type}">${amount.toLocaleString('ko-KR')}</div>
 `;
 
 const fillDates = ($target: HTMLElement, { year, month }: YearMonth) => {
