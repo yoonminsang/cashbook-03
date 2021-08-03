@@ -40,6 +40,13 @@ class AccountContainer extends View {
   onClickHandler = async (e) => {
     const target = e.target as HTMLElement;
     const removeClosest: HTMLElement = target.closest('.js-remove-account');
+    if (target.closest('.btn-income')) {
+      if (!this.state.expenditure) return;
+      this.setState({ ...this.state, income: !this.state.income });
+    } else if (target.closest('.btn-expenditure')) {
+      if (!this.state.income) return;
+      this.setState({ ...this.state, expenditure: !this.state.expenditure });
+    }
     if (removeClosest) {
       const {
         dataset: { accountId: account_id },
