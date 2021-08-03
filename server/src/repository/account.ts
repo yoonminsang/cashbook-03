@@ -20,12 +20,13 @@ export default class AccountRepository {
         'amount',
         'timestamp',
         [Sequelize.col('category.name'), 'category_name'],
+        [Sequelize.col('category.color'), 'category_color'],
         [Sequelize.col('category.is_income'), 'is_income'],
         [Sequelize.col('payment.name'), 'payment_name'],
       ],
       order: [
-        ['id', 'DESC'],
         ['timestamp', 'DESC'],
+        ['id', 'DESC'],
       ],
       include: [
         {
