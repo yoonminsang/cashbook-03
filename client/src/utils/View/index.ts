@@ -24,8 +24,14 @@ class View {
       return;
     }
 
-    newElements.forEach((newEl, i) => {
+    for (let i = 0; i < newElements.length; i++) {
+      const newEl = newElements[i];
       const curEl = currentElements[i];
+
+      if (newEl.childElementCount !== curEl.childElementCount) {
+        this.$target.innerHTML = newMarkup;
+        return;
+      }
 
       if (!newEl.isEqualNode(curEl)) {
         if (newEl.tagName !== curEl.tagName) {
@@ -53,7 +59,9 @@ class View {
           });
         }
       }
-    });
+    }
+
+    newElements.forEach((newEl, i) => {});
   }
 
   markup() {
