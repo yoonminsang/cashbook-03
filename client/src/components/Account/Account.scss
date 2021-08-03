@@ -1,0 +1,147 @@
+main.account {
+  width: 1300px;
+  margin: 0 auto;
+  margin-top: 48px;
+  .account-header {
+    display: flex;
+    justify-content: space-between;
+    > div {
+      display: flex;
+      align-items: center;
+    }
+    .left {
+      font-size: 22px;
+      line-height: 22px;
+      color: $primary-3;
+      .total-count {
+        margin-left: 8px;
+      }
+    }
+    .right {
+      font-size: 18px;
+      line-height: 22px;
+      .btn-income {
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        border: 2px solid $label;
+        background: $off-white;
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &.active {
+          background: $primary;
+          border: 2px solid $primary;
+        }
+        + div {
+          margin-left: 12px;
+        }
+        .wci-check {
+          color: $off-white;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  .acount-content {
+    margin-top: 32px;
+    .account-item-header {
+      display: flex;
+      justify-content: space-between;
+      .left {
+        display: flex;
+        > div {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 22px;
+        }
+        .date {
+          color: $title-active;
+        }
+        .day {
+          margin-left: 8px;
+          color: $body;
+        }
+      }
+      .right {
+        display: flex;
+        > div {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 22px;
+          color: $body;
+          margin-left: 8px;
+        }
+      }
+    }
+    .account-item-content {
+      margin-top: 20px;
+      &:last-child {
+        border-bottom: 1px solid $line;
+      }
+      .account-item-inner {
+        display: flex;
+        align-items: center;
+        padding: 20px 10px;
+        border-top: 1px solid $line;
+        &:hover {
+          .wci-close {
+            opacity: 1;
+            pointer-events: all;
+            user-select: all;
+          }
+        }
+        > div {
+          margin-left: 10px;
+        }
+        .category {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          padding: 4px 8px;
+          width: 92px;
+          height: 30px;
+          border-radius: 999px;
+          color: #fff;
+        }
+        .content {
+          margin-left: 10px;
+          font-size: 18px;
+          line-height: 22px;
+          color: $title-active;
+          width: 600px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .payment {
+          width: 198px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 18px;
+          line-height: 22px;
+          color: $body;
+        }
+        .price {
+          margin-left: auto;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 22px;
+          color: $title-active;
+        }
+        .wci-close {
+          color: $label;
+          font-size: 16px;
+          margin-left: 15px;
+          opacity: 0;
+          pointer-events: none;
+          user-select: none;
+        }
+      }
+    }
+  }
+}
