@@ -12,7 +12,7 @@ export const CalendarContent = ({
 
   fillDates($target, date);
 
-  const dateAccounts = parseAccount(account);
+  fillAccounts($target, parseAccount(account));
 
   return $target.innerHTML;
 };
@@ -41,6 +41,10 @@ const week = () => /*html*/ `
 
 const weekDayDate = (date: number) => /*html*/ `
   <div class="week__day__date" data-date=${date}>${date}</div>
+`;
+
+const weekDayInfo = (type: string, amount: number) => /*html*/ `
+  <div class="week__day__${type}">${amount.toLocaleString('ko-KR')}</div>
 `;
 
 const fillDates = ($target: HTMLElement, { year, month }: YearMonth) => {
@@ -74,6 +78,40 @@ const fillDates = ($target: HTMLElement, { year, month }: YearMonth) => {
   }
 };
 
+const fillAccounts = (
+  $target: HTMLElement,
+  accountsByDate: { [key: string]: number[] },
+) => {
+  for (const [date, history] of Object.entries(accountsByDate)) {
+    const incomes = history.filter((amount) => amount > 0);
+    const expenditures = history.filter((amount) => amount < 0);
+
+    const $dateTarget = $target
+      .querySelector(`.week__day__date[data-date="${date}"]`)
+      .closest('.week__day');
+    if (!$dateTarget) continue;
+
+    const total = getArraySum(history);
+    $dateTarget.insertAdjacentHTML('afterbegin', weekDayInfo('total', total));
+
+    if (expenditures.length) {
+      const totalExpenditure = getArraySum(expenditures);
+      $dateTarget.insertAdjacentHTML(
+        'afterbegin',
+        weekDayInfo('expenditure', totalExpenditure),
+      );
+    }
+
+    if (incomes.length) {
+      const totalIncome = getArraySum(incomes);
+      $dateTarget.insertAdjacentHTML(
+        'afterbegin',
+        weekDayInfo('income', totalIncome),
+      );
+    }
+  }
+};
+
 const parseAccount = (account: Account[]) => {
   const dataByDate = {};
   if (!Array.isArray(account)) return dataByDate;
@@ -87,4 +125,8 @@ const parseAccount = (account: Account[]) => {
   });
 
   return dataByDate;
+};
+
+const getArraySum = (numbers: number[]) => {
+  return numbers.reduce((acc, val) => acc + val, 0);
 };
