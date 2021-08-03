@@ -15,10 +15,6 @@ class MainTabContainer extends View {
     this.MainTab = MainTab;
     this.$target = $target;
     this.initialState = {
-      date: dateStore.state,
-      user: userStore.state,
-      paymentList: paymentStore.state,
-      categoryList: categoryStore.state,
       slide: undefined,
       classificationList: [
         { name: '지출', is_income: 0 },
@@ -32,7 +28,13 @@ class MainTabContainer extends View {
       modal: false,
       isActive: false,
     };
-    this.state = this.initialState;
+    this.state = {
+      ...this.initialState,
+      date: dateStore.state,
+      user: userStore.state,
+      paymentList: paymentStore.state,
+      categoryList: categoryStore.state,
+    };
     this.render();
     this.componentDidMount();
     this.onEventHandler();
@@ -139,7 +141,10 @@ class MainTabContainer extends View {
     const payment_id = this.state.payment && this.state.payment.id;
 
     await account.add({ content, amount, timestamp, category_id, payment_id });
-    this.setState({ ...this.initialState, date: this.state.date });
+    this.setState({
+      ...this.state,
+      ...this.initialState,
+    });
   };
 
   addPaymentHandler = async () => {

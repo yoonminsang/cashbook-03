@@ -6,12 +6,9 @@ import passportConfig from '../passport/index';
 import redis from 'redis';
 import connectRedis from 'connect-redis';
 const RedisStore = connectRedis(session);
-const redisOption = config.redis;
+const redisOptions = config.redis;
 
-const redisClient = redis.createClient({
-  url: `redis://${redisOption.host}:${redisOption.port}`,
-  password: redisOption.password,
-});
+const redisClient = redis.createClient(+redisOptions.port, redisOptions.host);
 export default (app: Express) => {
   passportConfig();
 
@@ -26,7 +23,7 @@ export default (app: Express) => {
         maxAge: 1000 * 60 * 60 * 24, // 1일
       },
       name: 'baemin-cookie',
-      store: new RedisStore({ client: redisClient }),
+      store: new RedisStore({ client: redisClient, ttl: 1000 * 60 * 60 * 24 }),
     }),
   );
 
