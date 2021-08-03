@@ -1,7 +1,28 @@
 import { CalendarContent } from './CalendarContent/CalendarContent';
 
-const Calendar = ({ date }) => {
-  const calendarContent = CalendarContent({ date });
+export interface YearMonth {
+  year: number;
+  month: number;
+}
+
+export interface Account {
+  id: number;
+  content: string;
+  amount: string;
+  timestamp: string;
+  category_name: string;
+  payment_name: string;
+  is_income: number;
+}
+
+const Calendar = ({
+  date,
+  account,
+}: {
+  date: YearMonth;
+  account: Account[];
+}) => {
+  const calendarContent = CalendarContent({ date, account });
 
   return /*html*/ `
     <div class="calendar-tab">

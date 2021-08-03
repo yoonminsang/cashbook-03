@@ -1,4 +1,12 @@
-export const CalendarContent = ({ date }) => {
+import { YearMonth, Account } from '../Calendar';
+
+export const CalendarContent = ({
+  date,
+  account,
+}: {
+  date: YearMonth;
+  account: Account[];
+}) => {
   const $target = document.createElement('div');
   $target.innerHTML = initialMarkup();
 
@@ -33,10 +41,7 @@ const weekDayDate = (date: number) => /*html*/ `
   <div class="week__day__date" data-date=${date}>${date}</div>
 `;
 
-const fillDates = (
-  $target: HTMLElement,
-  { year, month }: { year: number; month: number },
-) => {
+const fillDates = ($target: HTMLElement, { year, month }: YearMonth) => {
   const firstDayIndex = new Date(year, month - 1).getDay();
   const lastDate = new Date(year, month, 0).getDate();
 
