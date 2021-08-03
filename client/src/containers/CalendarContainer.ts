@@ -1,5 +1,6 @@
 import Calendar from '../components/Calendar/Calendar';
 import dateStore from '../store/date';
+import accountStore from '../store/account';
 import View from '../utils/View';
 
 class CalendarContainer extends View {
@@ -23,12 +24,14 @@ class CalendarContainer extends View {
   getGlobalState = () => {
     const nextState = { ...this.state };
     nextState.date = dateStore.state;
+    nextState.account = accountStore.state;
 
     this.setState(nextState);
   };
 
   componentDidMount = () => {
     dateStore.subscribe(this.getGlobalState);
+    accountStore.subscribe(this.getGlobalState);
   };
 
   addEventHandler = () => {};
