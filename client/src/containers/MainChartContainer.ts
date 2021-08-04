@@ -1,15 +1,15 @@
-import Donut from '../components/Donut/Donut';
+import MainChart from '../components/MainChart/MainChart';
 import accountStore from '../store/account';
 import View from '../utils/View';
 
-class DonutContainer extends View {
+class MainChartContainer extends View {
   state: any;
-  Donut: Function;
+  MainChart: Function;
   constructor({ $target }) {
     super({ $target });
     this.state = { account: accountStore.state };
 
-    this.Donut = Donut;
+    this.MainChart = MainChart;
     this.render();
 
     this.componentDidMount();
@@ -17,7 +17,7 @@ class DonutContainer extends View {
   }
 
   markup = () => {
-    return this.Donut(this.state);
+    return this.MainChart(this.state);
   };
 
   getGlobalState = () => {
@@ -33,4 +33,4 @@ class DonutContainer extends View {
 
   addEventHandler = () => {};
 }
-export default DonutContainer;
+export default MainChartContainer;

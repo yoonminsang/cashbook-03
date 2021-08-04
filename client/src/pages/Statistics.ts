@@ -1,4 +1,4 @@
-import DonutContainer from '../containers/DonutContainer';
+import MainChartContainer from '../containers/MainChartContainer';
 import HeaderContainer from '../containers/HeaderContainer';
 
 class Statistics {
@@ -13,8 +13,8 @@ class Statistics {
     const headerContainer = new HeaderContainer({ $target: $header });
     const $donut = document.createElement('article');
     $donut.className = 'donut';
-    const donutContainer = new DonutContainer({ $target: $donut });
-    $fragment.append(headerContainer.html, donutContainer.html);
+    const mainChartContainer = new MainChartContainer({ $target: $donut });
+    $fragment.append(headerContainer.html, mainChartContainer.html);
     this.$app.innerHTML = '';
     this.$app.appendChild($fragment);
   };
