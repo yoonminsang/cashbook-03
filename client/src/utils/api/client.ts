@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const client = axios.create();
 
-client.defaults.baseURL = `${location.host}:3000`;
+client.defaults.baseURL = `http://${location.hostname}:3000`;
 client.defaults.withCredentials = true;
 /*
   글로벌 설정 예시:
