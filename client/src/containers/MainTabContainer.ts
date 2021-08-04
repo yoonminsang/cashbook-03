@@ -105,6 +105,8 @@ class MainTabContainer extends View {
       } else if (target.closest('.js-add-payment')) {
         this.addPaymentHandler();
       }
+    } else {
+      this.setState({ ...this.state, slide: null });
     }
     this.onActiveHandler();
   };
