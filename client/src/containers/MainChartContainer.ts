@@ -1,5 +1,6 @@
-import MainChart from '../components/MainChart/MainChart';
+import { MainChart, showDonut } from '../components/MainChart/MainChart';
 import accountStore from '../store/account';
+import dateStore from '../store/date';
 import View from '../utils/View';
 
 class MainChartContainer extends View {
@@ -7,6 +8,7 @@ class MainChartContainer extends View {
   MainChart: Function;
   constructor({ $target }) {
     super({ $target });
+    this.$target = $target;
     this.state = { account: accountStore.state };
 
     this.MainChart = MainChart;
@@ -20,6 +22,10 @@ class MainChartContainer extends View {
     return this.MainChart(this.state);
   };
 
+  showAnimation = () => {
+    showDonut();
+  };
+
   getGlobalState = () => {
     const nextState = { ...this.state };
     nextState.account = accountStore.state;
@@ -28,7 +34,13 @@ class MainChartContainer extends View {
   };
 
   componentDidMount = () => {
+    // setTimeout(() => this.showAnimation(), 500);
     accountStore.subscribe(this.getGlobalState);
+    accountStore.subscribe(this.showAnimation);
+    accountStore.get({
+      ...dateStore.state,
+    });
+    accountStore.state = { data: accountStore.state };
   };
 
   addEventHandler = () => {};
