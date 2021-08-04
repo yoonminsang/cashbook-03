@@ -71,7 +71,7 @@ const MainTab = ({
         <div class="classification">
             <div class="sub-head">분류</div>
             <div class="flex js-btn-slide js-btn-classification">
-                <div class="sub-content label">${classificationInner}</div>
+                <div class="sub-content">${classificationInner}</div>
                 <i class="wci wci-chevron-down label"></i>
             </div>
             <ul ${
@@ -86,7 +86,9 @@ const MainTab = ({
         <div class="category">
             <div class="sub-head">카테고리</div>
             <div class="flex js-btn-slide js-btn-category">
-                <div class="sub-content label">${categoryInner}</div>
+                <div class="sub-content ${
+                  category.name ? '' : 'label'
+                }">${categoryInner}</div>
                 <i class="wci wci-chevron-down label"></i>
             </div>
             <ul ${
@@ -108,7 +110,9 @@ const MainTab = ({
             ? `<div class="payment">
                 <div class="sub-head">결제수단</div>
                 <div class="flex js-btn-slide js-btn-payment">
-                    <div class="sub-content label">${paymentInner}</div>
+                    <div class="sub-content ${
+                      payment.name ? '' : 'label'
+                    }">${paymentInner}</div>
                     <i class="wci wci-chevron-down label"></i>
                 </div>
                 <ul ${
