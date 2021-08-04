@@ -34,5 +34,3 @@ export const request = async (method: string, url: string, body?: object) => {
     }
   }
 };
-
-export default client;
