@@ -9,11 +9,12 @@ class User extends Observable {
       } = await check();
       this.setState(user);
     } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
+      // const {
+      //   response: {
+      //     data: { message },
+      //   },
+      // } = e;
+      const message = e.response && e.response.data && e.response.data.message;
       if (message) throw new Error(message);
       console.error(e);
     }

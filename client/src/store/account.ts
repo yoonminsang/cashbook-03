@@ -14,11 +14,12 @@ class Account extends Observable {
 
       this.setState(data);
     } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
+      // const {
+      //   response: {
+      //     data: { message },
+      //   },
+      // } = e;
+      const message = e.response && e.response.data && e.response.data.message;
       if (message) throw new Error(message);
       console.error(e);
     }
@@ -44,11 +45,12 @@ class Account extends Observable {
 
       this.update();
     } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
+      // const {
+      //   response: {
+      //     data: { message },
+      //   },
+      // } = e;
+      const message = e.response && e.response.data && e.response.data.message;
       if (message) throw new Error(message);
       console.error(e);
     }
@@ -65,11 +67,12 @@ class Account extends Observable {
 
       this.update();
     } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
+      // const {
+      //   response: {
+      //     data: { message },
+      //   },
+      // } = e;
+      const message = e.response && e.response.data && e.response.data.message;
       if (message) throw new Error(message);
       console.error(e);
     }
