@@ -27,7 +27,6 @@ class MainChartContainer extends View {
   };
 
   getGlobalState = () => {
-    console.log('mainchar container getglobal');
     const nextState = { ...this.state };
     nextState.account = accountStore.state;
 
@@ -41,6 +40,7 @@ class MainChartContainer extends View {
     accountStore.get({
       ...dateStore.state,
     });
+    accountStore.state = { data: accountStore.state };
   };
 
   addEventHandler = () => {};
