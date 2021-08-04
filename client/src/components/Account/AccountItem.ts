@@ -16,7 +16,7 @@ const AccountItem = ({
         <div class="content">${content}</div>
         <div class="payment">${payment_name}</div>
         <div class="amount">${operator}${amount}</div>
-        <button class="wci wci-close js-remove-account" data-account-id="${id}"></button>
+        <button class="wci wci-close js-remove-modal" data-id="${id}" data-content='${content}'></button>
     </li>`;
 };
 
