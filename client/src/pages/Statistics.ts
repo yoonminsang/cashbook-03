@@ -1,3 +1,4 @@
+import MainChartContainer from '../containers/MainChartContainer';
 import HeaderContainer from '../containers/HeaderContainer';
 
 class Statistics {
@@ -10,7 +11,10 @@ class Statistics {
     const $fragment = document.createDocumentFragment();
     const $header = document.createElement('header');
     const headerContainer = new HeaderContainer({ $target: $header });
-    $fragment.append(headerContainer.html);
+    const $donut = document.createElement('article');
+    $donut.className = 'donut';
+    const mainChartContainer = new MainChartContainer({ $target: $donut });
+    $fragment.append(headerContainer.html, mainChartContainer.html);
     this.$app.innerHTML = '';
     this.$app.appendChild($fragment);
   };
