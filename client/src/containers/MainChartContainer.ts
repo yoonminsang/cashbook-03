@@ -1,5 +1,6 @@
 import { MainChart, showDonut } from '../components/MainChart/MainChart';
 import accountStore from '../store/account';
+import dateStore from '../store/date';
 import View from '../utils/View';
 
 class MainChartContainer extends View {
@@ -26,6 +27,7 @@ class MainChartContainer extends View {
   };
 
   getGlobalState = () => {
+    console.log('mainchar container getglobal');
     const nextState = { ...this.state };
     nextState.account = accountStore.state;
 
@@ -33,8 +35,13 @@ class MainChartContainer extends View {
   };
 
   componentDidMount = () => {
+    console.log('didmount', accountStore.state);
+    // setTimeout(() => this.showAnimation(), 500);
     accountStore.subscribe(this.getGlobalState);
     accountStore.subscribe(this.showAnimation);
+    accountStore.get({
+      ...dateStore.state,
+    });
   };
 
   addEventHandler = () => {};

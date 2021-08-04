@@ -24,7 +24,6 @@ export const MainChart = ({ account }) => {
   for (let key in categoryAmount) {
     categoryAmount[key].push((categoryAmount[key][0] / totalAcmount) * 100);
   }
-  console.log(categoryAmount);
 
   const categoryInner = Object.entries(categoryAmount)
     .sort((a, b) => b[1][0] - a[1][0])
@@ -74,7 +73,6 @@ export const showDonut = () => {
   const doughnut = $target.querySelector('#donut'),
     svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   let filled = 0;
-  console.log('main char', doughnut);
   svg.setAttribute('width', '100%');
   svg.setAttribute('height', '100%');
   svg.setAttribute('viewBox', '0 0 100 100');
@@ -112,5 +110,4 @@ export const showDonut = () => {
     }, 100);
   });
   doughnut.appendChild(svg);
-  console.log('append', doughnut);
 };
