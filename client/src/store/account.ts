@@ -4,25 +4,12 @@ import dateStore from './date';
 
 class Account extends Observable {
   async get({ year, month }) {
-    try {
-      const {
-        data: { data },
-      } = await getAccount({
-        year,
-        month,
-      });
+    const data = await getAccount({
+      year,
+      month,
+    });
 
-      this.setState(data);
-    } catch (e) {
-      // const {
-      //   response: {
-      //     data: { message },
-      //   },
-      // } = e;
-      const message = e.response && e.response.data && e.response.data.message;
-      if (message) throw new Error(message);
-      console.error(e);
-    }
+    this.setState(data);
   }
 
   async update() {
@@ -31,51 +18,21 @@ class Account extends Observable {
   }
 
   async add({ content, amount, timestamp, category_id, payment_id }) {
-    try {
-      const {
-        data: { message },
-      } = await setAccount({
-        content,
-        amount,
-        timestamp,
-        category_id,
-        payment_id,
-      });
-      console.log(message);
+    const setAccountSuccess = await setAccount({
+      content,
+      amount,
+      timestamp,
+      category_id,
+      payment_id,
+    });
 
-      this.update();
-    } catch (e) {
-      // const {
-      //   response: {
-      //     data: { message },
-      //   },
-      // } = e;
-      const message = e.response && e.response.data && e.response.data.message;
-      if (message) throw new Error(message);
-      console.error(e);
-    }
+    if (setAccountSuccess) this.update();
   }
 
   async remove({ account_id }) {
-    try {
-      const {
-        data: { message },
-      } = await removeAccount({
-        account_id,
-      });
-      console.log(message);
+    const removeAccountSuccess = await removeAccount({ account_id });
 
-      this.update();
-    } catch (e) {
-      // const {
-      //   response: {
-      //     data: { message },
-      //   },
-      // } = e;
-      const message = e.response && e.response.data && e.response.data.message;
-      if (message) throw new Error(message);
-      console.error(e);
-    }
+    if (removeAccountSuccess) this.update();
   }
 }
 
