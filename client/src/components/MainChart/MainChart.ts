@@ -103,12 +103,8 @@ export const showDonut = () => {
     circle.setAttribute('stroke-width', strokeWidth + '');
     circle.setAttribute('stroke-dasharray', dashArray + '');
     circle.setAttribute('stroke-dashoffset', dashArray + '');
-    circle.style.transition =
-      'stroke-dashoffset ' + currentDuration + 'ms linear ' + delay + 'ms';
-    circle.setAttribute(
-      'transform',
-      'rotate(' + angle + ' ' + cx + ' ' + cy + ')',
-    );
+    circle.style.transition = `stroke-dashoffset ${currentDuration}ms linear ${delay}ms`;
+    circle.setAttribute('transform', `rotate(${angle} ${cx} ${cy})`);
     svg.appendChild(circle);
     filled += data.percentage;
     setTimeout(function () {
