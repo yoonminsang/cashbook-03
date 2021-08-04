@@ -35,7 +35,6 @@ class MainChartContainer extends View {
   };
 
   componentDidMount = () => {
-    console.log('didmount', accountStore.state);
     // setTimeout(() => this.showAnimation(), 500);
     accountStore.subscribe(this.getGlobalState);
     accountStore.subscribe(this.showAnimation);
