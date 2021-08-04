@@ -13,7 +13,7 @@ export const CalendarContent = ({
   $target.innerHTML = initialMarkup();
 
   fillDates($target, date);
-
+  markToday($target, date);
   fillAccounts($target, parseAccount(account));
 
   return $target.innerHTML;
@@ -60,6 +60,16 @@ const fillDates = ($target: HTMLElement, { year, month }: YearMonth) => {
   }
 };
 
+const markToday = ($target: HTMLElement, { year, month }: YearMonth) => {
+  const today = new Date();
+  if (today.getFullYear() !== year || today.getMonth() + 1 !== month) return;
+
+  const $dateTarget = getDateTargetOnCalendar($target, today.getDate());
+  if (!$dateTarget) return;
+
+  $dateTarget.classList.add('today');
+};
+
 const fillAccounts = (
   $target: HTMLElement,
   accountsByDate: { [key: string]: number[] },
@@ -68,9 +78,7 @@ const fillAccounts = (
     const incomes = history.filter((amount) => amount > 0);
     const expenditures = history.filter((amount) => amount < 0);
 
-    const $dateTarget = $target
-      .querySelector(`.week__day__date[data-date="${date}"]`)
-      .closest('.week__day');
+    const $dateTarget = getDateTargetOnCalendar($target, parseInt(date));
     if (!$dateTarget) continue;
 
     const total = getArraySum(history);
@@ -92,4 +100,10 @@ const fillAccounts = (
       );
     }
   }
+};
+
+const getDateTargetOnCalendar = ($target: HTMLElement, date: number) => {
+  return $target
+    .querySelector(`.week__day__date[data-date="${date}"`)
+    ?.closest('.week__day');
 };
