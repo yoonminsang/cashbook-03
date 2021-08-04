@@ -1,6 +1,8 @@
 import CategoryList from './CategoryList';
+import Donut from './Donut';
 
 const MainChart = ({ account }) => {
+  console.log('maincahr change', account);
   const filterAccout =
     account && account.filter(({ is_income }) => is_income === 0);
 
@@ -20,10 +22,9 @@ const MainChart = ({ account }) => {
     });
 
   for (let key in categoryAmount) {
-    categoryAmount[key].push(
-      ((categoryAmount[key][0] / totalAcmount) * 100).toFixed(2) + '%',
-    );
+    categoryAmount[key].push((categoryAmount[key][0] / totalAcmount) * 100);
   }
+  console.log(categoryAmount);
 
   const categoryInner = Object.entries(categoryAmount)
     .sort((a, b) => b[1][0] - a[1][0])
@@ -31,7 +32,7 @@ const MainChart = ({ account }) => {
       // const [amount,color,percentage]=arr;
       const amount = arr[0].toLocaleString('ko-KR'),
         category_color = arr[1],
-        percentage = arr[2];
+        percentage = arr[2].toFixed(2) + '%';
       return CategoryList({
         category_color,
         category_name,
@@ -41,9 +42,23 @@ const MainChart = ({ account }) => {
     })
     .join('');
 
+  const forDonut = Object.entries(categoryAmount)
+    .sort((a, b) => b[1][0] - a[1][0])
+    .map(([_, arr]) => {
+      // const [amount,color,percentage]=arr;
+      const category_color = arr[1],
+        percentage = arr[2];
+      return {
+        category_color,
+        percentage,
+      };
+    });
+
   return /*html*/ `
     <div class="left">
-      도우넛
+      <svg width="100%" height="100%" viewBox="0 0 100 100">${Donut(
+        forDonut,
+      )}</svg>
     </div>
     <div class="right">
       <div class="donut-header">

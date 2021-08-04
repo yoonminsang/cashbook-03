@@ -12,7 +12,7 @@ class Statistics {
     const $header = document.createElement('header');
     const headerContainer = new HeaderContainer({ $target: $header });
     const $donut = document.createElement('article');
-    $donut.className = 'donut';
+    $donut.className = 'main-chart';
     const mainChartContainer = new MainChartContainer({ $target: $donut });
     $fragment.append(headerContainer.html, mainChartContainer.html);
     this.$app.innerHTML = '';
