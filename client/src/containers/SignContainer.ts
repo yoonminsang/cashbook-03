@@ -59,21 +59,12 @@ class SignContainer extends View {
 
   loginSubmitHandler = async ({ email, password, $error }) => {
     try {
-      const {
-        data: { message },
-      } = await login({ email, password });
-      console.log(message);
+      await login({ email, password });
 
       localStorage.setItem('user', 'true');
       location.href = '/';
-    } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
-      if (message) $error.textContent = message;
-      else console.error(e);
+    } catch (message) {
+      $error.textContent = message;
     }
   };
 
@@ -99,20 +90,10 @@ class SignContainer extends View {
 
   signupSubmitHandler = async ({ email, password, nickname, $error }) => {
     try {
-      const {
-        data: { message },
-      } = await signup({ email, password, nickname });
-      console.log(message);
-
+      await signup({ email, password, nickname });
       location.href = '/';
-    } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
-      if (message) $error.textContent = message;
-      else console.error(e);
+    } catch (message) {
+      $error.textContent = message;
     }
   };
 }

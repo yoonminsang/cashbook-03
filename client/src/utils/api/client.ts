@@ -25,4 +25,12 @@ client.defaults.withCredentials = true;
   )
 */
 
-export default client;
+export const request = async (method: string, url: string, body?: object) => {
+  try {
+    return await client[method](url, body);
+  } catch (e) {
+    if (e.response) {
+      throw e.response.status;
+    }
+  }
+};

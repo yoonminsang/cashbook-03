@@ -60,22 +60,11 @@ class HeaderContainer extends View {
   };
 
   logoutHandler = async () => {
-    try {
-      const {
-        data: { message },
-      } = await logout();
-      console.log(message);
+    const logoutSuccess = await logout();
 
+    if (logoutSuccess) {
       localStorage.removeItem('user');
       location.href = '/';
-    } catch (e) {
-      const {
-        response: {
-          data: { message },
-        },
-      } = e;
-      if (message) throw new Error(message);
-      console.error(e);
     }
   };
 

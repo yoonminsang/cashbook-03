@@ -34,7 +34,7 @@ export default class AuthController {
       if (authError) return next(authError);
 
       if (!user)
-        return next(new ErrorStatus(409, '아이디 또는 비밀번호가 틀립니다'));
+        return next(new ErrorStatus(401, '아이디 또는 비밀번호가 틀립니다'));
 
       req.logIn(user, (loginError) => {
         if (loginError) return next(loginError);
