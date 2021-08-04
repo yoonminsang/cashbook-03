@@ -75,13 +75,13 @@ export default class PaymentController {
       if (error.message === 'MIN_PAYMENT_NUM')
         return next(
           new ErrorStatus(
-            400,
+            401,
             `user should have at least ${MIN_PAYMENT_NUM} payment method`,
           ),
         );
 
       if (error.message === 'NOT_FOUND')
-        return next(new ErrorStatus(400, 'payment id not found'));
+        return next(new ErrorStatus(404, 'payment id not found'));
 
       next(error);
     }
