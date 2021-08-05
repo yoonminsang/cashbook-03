@@ -3,6 +3,11 @@ import AccountHeader from './AccountHeader';
 import AccountItem from './AccountItem';
 
 const Account = ({ accountList, income, expenditure, modal, data }) => {
+  console.log(accountList);
+  if (!accountList) return '';
+  if (accountList.length === 0) {
+    return `<div class="empty">텅~<div>데이터가 없습니다</div></div>`;
+  }
   const allCount = accountList ? `${accountList.length} 건` : '';
   const incomePrice = accountList
     ? accountList
