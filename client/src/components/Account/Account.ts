@@ -3,9 +3,10 @@ import AccountHeader from './AccountHeader';
 import AccountItem from './AccountItem';
 
 const Account = ({ accountList, income, expenditure, modal, data }) => {
+  const emptyText = '텅~';
   if (!accountList) return '<div class="empty">텅~</div>';
   if (accountList.length === 0) {
-    return `<div class="empty">텅~</div>`;
+    return `<div class="empty">${emptyText}~</div>`;
   }
   const allCount = accountList ? `${accountList.length} 건` : '';
   const incomePrice = accountList

@@ -3,6 +3,8 @@ import CategoryList from './CategoryList';
 let forDonut;
 
 const MainChart = ({ account }) => {
+  const emptyText = '지출내역이 없습니다';
+
   const filterAccout =
     account && account.filter(({ is_income }) => is_income === 0);
 
@@ -10,7 +12,7 @@ const MainChart = ({ account }) => {
     filterAccout &&
     filterAccout.reduce((acc, { amount }) => acc + parseInt(amount), 0);
 
-  const error = !totalAcmount && `<div class="empty">지출내역이 없습니다</div>`;
+  const error = !totalAcmount && `<div class="empty">${emptyText}</div>`;
 
   const totalAmountToKr = filterAccout && totalAcmount.toLocaleString('ko-KR');
 
