@@ -3,6 +3,12 @@ import AccountRepository from '../repository/account';
 const accountRepository = new AccountRepository();
 
 export default class AccountService {
+  async getAccountById(userId: string, id: any) {
+    console.log(userId, id);
+    const account = await accountRepository.getAccountById(userId, id);
+    return account;
+  }
+
   async getAccounts(userId: string, filters: any) {
     if (!filters.year) throw new Error('NO_YEAR');
 
@@ -35,6 +41,25 @@ export default class AccountService {
   ) {
     await accountRepository.postAccount(
       user_id,
+      content,
+      amount,
+      timestamp,
+      category_id,
+      payment_id,
+    );
+    return '내역이 추가되었습니다';
+  }
+
+  async updateAccount(
+    id: string,
+    content: string,
+    amount: string,
+    timestamp: string,
+    category_id: string,
+    payment_id: string,
+  ) {
+    await accountRepository.updateAccount(
+      id,
       content,
       amount,
       timestamp,
