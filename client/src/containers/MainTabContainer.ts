@@ -155,6 +155,7 @@ class MainTabContainer extends View {
     if (name) {
       await paymentStore.add({ name });
       this.setState({ ...this.state, modal: false });
+      this.setState({ ...this.state, slide: null });
     }
   };
 
