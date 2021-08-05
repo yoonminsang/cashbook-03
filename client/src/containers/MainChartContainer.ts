@@ -29,6 +29,7 @@ class MainChartContainer extends View {
   getGlobalState = () => {
     const nextState = { ...this.state };
     nextState.account = accountStore.state;
+    nextState.user = accountStore.state;
 
     this.setState(nextState);
   };
