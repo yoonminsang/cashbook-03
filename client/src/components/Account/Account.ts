@@ -2,10 +2,11 @@ import { dayToKorean } from '../../utils/chore';
 import AccountHeader from './AccountHeader';
 import AccountItem from './AccountItem';
 
-const Account = ({ accountList, income, expenditure, modal, data }) => {
+const Account = ({ accountList, income, expenditure, modal, data, user }) => {
   const emptyText = '텅~';
-  if (!accountList) return `<div class="empty">${emptyText}</div>`;
-  if (accountList.length === 0) {
+  console.log(accountList);
+  if (user === null) return `<div class="empty">${emptyText}</div>`;
+  if (accountList && accountList.length === 0) {
     return `<div class="empty">${emptyText}~</div>`;
   }
   const allCount = accountList ? `${accountList.length} 건` : '';

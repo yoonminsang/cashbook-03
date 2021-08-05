@@ -3,6 +3,7 @@ import LineChart from '../components/LineChart/LineChart';
 import StatAccountList from '../components/StatAccountList/StatAccountList';
 import accountStore from '../store/account';
 import dateStore from '../store/date';
+import userStore from '../store/user';
 import { getAccountByCategory } from '../utils/api/account';
 import View from '../utils/View';
 
@@ -12,7 +13,7 @@ class MainChartContainer extends View {
   constructor({ $target }) {
     super({ $target });
     this.$target = $target;
-    this.state = { account: accountStore.state };
+    this.state = { account: accountStore.state, user: userStore.state };
 
     this.MainChart = MainChart;
     this.render();
@@ -36,6 +37,7 @@ class MainChartContainer extends View {
     accountStore.subscribe(this.getGlobalState);
     accountStore.subscribe(this.clearLineChart);
     accountStore.subscribe(this.clearCategoryAccount);
+    userStore.subscribe(this.getGlobalState);
   };
 
   addEventHandler = () => {
