@@ -13,12 +13,12 @@ export default class AccountRepository {
         'content',
         'amount',
         'timestamp',
-        [Sequelize.col('category.id'), 'category_id'],
-        [Sequelize.col('category.name'), 'category_name'],
-        [Sequelize.col('category.color'), 'category_color'],
-        [Sequelize.col('category.is_income'), 'is_income'],
-        [Sequelize.col('payment.id'), 'payment_id'],
-        [Sequelize.col('payment.name'), 'payment_name'],
+        [Sequelize.col('Category.id'), 'category_id'],
+        [Sequelize.col('Category.name'), 'category_name'],
+        [Sequelize.col('Category.color'), 'category_color'],
+        [Sequelize.col('Category.is_income'), 'is_income'],
+        [Sequelize.col('Payment.id'), 'payment_id'],
+        [Sequelize.col('Payment.name'), 'payment_name'],
       ],
       include: [
         {
