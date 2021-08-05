@@ -3,16 +3,19 @@ const spinner = `
   <circle class="path" cx="25" cy="25" r="20" fill="none"></circle>
 </svg>`;
 
+let requestCount = 0;
+
 export const addLoader = () => {
   const $loader = document.querySelector('#loader') as HTMLElement;
   $loader.innerHTML = spinner;
 
   window.addEventListener('request', (e: CustomEvent) => {
-    $loader.setAttribute('data-id', e.detail.id);
+    requestCount++;
     $loader.classList.add('show');
   });
 
   window.addEventListener('request-end', (e: CustomEvent) => {
-    if (+$loader.dataset.id === e.detail.id) $loader.classList.remove('show');
+    requestCount--;
+    if (requestCount === 0) $loader.classList.remove('show');
   });
 };

@@ -25,11 +25,8 @@ client.defaults.withCredentials = true;
   )
 */
 
-let fetchId = 0;
-
 export const request = async (method: string, url: string, body?: object) => {
-  const id = fetchId++;
-  window.dispatchEvent(new CustomEvent('request', { detail: { id } }));
+  window.dispatchEvent(new CustomEvent('request'));
   try {
     return await client[method](url, body);
   } catch (e) {
@@ -37,6 +34,6 @@ export const request = async (method: string, url: string, body?: object) => {
       throw e.response.status;
     }
   } finally {
-    window.dispatchEvent(new CustomEvent('request-end', { detail: { id } }));
+    window.dispatchEvent(new CustomEvent('request-end'));
   }
 };

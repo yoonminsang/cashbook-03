@@ -15,6 +15,8 @@ import paymentStore from './store/payment';
 import categoryStore from './store/category';
 import accountStore from './store/account';
 
+addLoader();
+
 const init = async () => {
   dateStore.init();
 
@@ -33,8 +35,6 @@ const init = async () => {
 init();
 
 const $app = document.querySelector('#app');
-
-addLoader();
 
 const routes = {
   '/': Main,
