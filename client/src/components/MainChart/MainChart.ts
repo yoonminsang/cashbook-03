@@ -2,7 +2,7 @@ import CategoryList from './CategoryList';
 
 let forDonut;
 
-const MainChart = ({ account }) => {
+const MainChart = ({ account, user }) => {
   const emptyText = '지출내역이 없습니다';
 
   const filterAccout =
@@ -12,7 +12,10 @@ const MainChart = ({ account }) => {
     filterAccout &&
     filterAccout.reduce((acc, { amount }) => acc + parseInt(amount), 0);
 
-  const error = !totalAcmount && `<div class="empty">${emptyText}</div>`;
+  const error =
+    totalAcmount === 0 || user === null
+      ? `<div class="empty">${emptyText}</div>`
+      : '';
 
   const totalAmountToKr = filterAccout && totalAcmount.toLocaleString('ko-KR');
 
@@ -59,7 +62,7 @@ const MainChart = ({ account }) => {
       };
     });
 
-  if (forDonut) setTimeout(showDonut, 0);
+  if (forDonut) setTimeout(() => showDonut(account, user), 0);
 
   return /*html*/ `
     <div class="left ">
@@ -79,7 +82,8 @@ const MainChart = ({ account }) => {
 
 export default MainChart;
 
-const showDonut = () => {
+const showDonut = (account, user) => {
+  if (user === undefined) return;
   const $target = document.querySelector('#app');
   const doughnut = $target.querySelector('#donut'),
     svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -87,6 +91,7 @@ const showDonut = () => {
   svg.setAttribute('width', '100%');
   svg.setAttribute('height', '100%');
   svg.setAttribute('viewBox', '0 0 100 100');
+  console.log(forDonut);
   if (forDonut.length === 0)
     forDonut = [{ category_color: '#0095aa', percentage: 100 }];
   forDonut.forEach((data) => {
