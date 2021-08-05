@@ -74,7 +74,6 @@ class MainTabContainer extends View {
 
   onClickHandler = (e) => {
     const target = e.target as HTMLElement;
-    console.log(target);
     if (!this.state.user) {
       if (target.closest('.js-login-modal-cancel')) {
         console.log('cancel', this.state.timeId);
@@ -216,7 +215,6 @@ class MainTabContainer extends View {
   removePaymentHandler = async (e) => {
     const target = e.target as HTMLElement;
     const id = target.parentElement.dataset.id;
-
     paymentStore.remove({ id });
   };
 

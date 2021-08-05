@@ -22,7 +22,7 @@ export default class PaymentRepository {
 
   async deletePayment(userId: string, paymentId: number) {
     return await Payment.update(
-      { delete_state: false },
+      { delete_state: true },
       {
         where: {
           user_id: userId,
