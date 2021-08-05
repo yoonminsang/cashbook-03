@@ -1,5 +1,6 @@
 import MainChart from '../components/MainChart/MainChart';
 import LineChart from '../components/LineChart/LineChart';
+import StatAccountList from '../components/StatAccountList/StatAccountList';
 import accountStore from '../store/account';
 import dateStore from '../store/date';
 import { getAccountByCategory } from '../utils/api/account';
@@ -34,6 +35,7 @@ class MainChartContainer extends View {
   componentDidMount = () => {
     accountStore.subscribe(this.getGlobalState);
     accountStore.subscribe(this.clearLineChart);
+    accountStore.subscribe(this.clearCategoryAccount);
   };
 
   addEventHandler = () => {
@@ -52,6 +54,7 @@ class MainChartContainer extends View {
     if (!accounts.length) return;
 
     this.showLineChart({ accounts, month });
+    this.showCategoryAccount({ accounts, year, month });
   };
 
   showLineChart = ({ accounts, month }) => {
@@ -66,11 +69,22 @@ class MainChartContainer extends View {
 
     document
       .querySelector('.line-chart')
-      .scrollIntoView({ behavior: 'smooth' });
+      .scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   clearLineChart = () => {
     document.querySelector('.line-chart')?.remove();
+  };
+
+  showCategoryAccount = ({ accounts, year, month }) => {
+    this.clearCategoryAccount();
+    document
+      .querySelector('.line-chart')
+      .insertAdjacentHTML('afterend', StatAccountList(accounts, year, month));
+  };
+
+  clearCategoryAccount = () => {
+    document.querySelector('.stat-account')?.remove();
   };
 }
 export default MainChartContainer;
