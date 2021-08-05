@@ -3,7 +3,7 @@ const Header = ({ date, user, tab }) => {
   return `
     <div class="main-header">
       <div class="main-header__container">
-        <div class="main-header__logo">우아한 가계부</div>
+        <a href="/" class="main-header__logo">우아한 가계부</a>
         <div class="main-header__time">
           <div class="main-header__time__left change-month">
             <i class="wci wci-chevron-left"></i>
