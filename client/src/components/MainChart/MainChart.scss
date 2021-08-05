@@ -57,4 +57,20 @@ article.main-chart {
       color: $title-active;
     }
   }
+  .empty {
+    font-size: 50px;
+    font-family: Do Hyeon;
+    animation: 1s slide-left ease forwards;
+    transform: translateX(100%);
+    > div {
+      font-family: Noto Sans KR;
+      font-size: 20px;
+      color: $body;
+    }
+  }
+  @keyframes slide-left {
+    to {
+      transform: translateX(0);
+    }
+  }
 }

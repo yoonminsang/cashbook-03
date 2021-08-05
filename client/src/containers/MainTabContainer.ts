@@ -31,6 +31,8 @@ class MainTabContainer extends View {
       modal: false,
       isActive: false,
       accountId: null,
+      goLogin: false,
+      timeId: undefined,
     };
     this.state = {
       ...this.initialState,
@@ -72,9 +74,17 @@ class MainTabContainer extends View {
 
   onClickHandler = (e) => {
     const target = e.target as HTMLElement;
+    console.log(target);
     if (!this.state.user) {
-      alert('로그인 해주세요');
-      location.href = '/login';
+      if (target.closest('.js-login-modal-cancel')) {
+        console.log('cancel', this.state.timeId);
+        this.setState({ ...this.state, goLogin: false });
+        clearInterval(this.state.timeId);
+      } else {
+        this.setState({ ...this.state, goLogin: true });
+        const timeId = setTimeout(() => (location.href = '/login'), 1000);
+        this.setState({ ...this.state, timeId });
+      }
     } else if (target.closest('.js-btn-slide')) {
       if (target.closest('.js-btn-classification')) {
         if (this.state.slide === 0)

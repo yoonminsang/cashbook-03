@@ -12,6 +12,7 @@ const MainTab = ({
   modal,
   isActive,
   timestamp,
+  goLogin,
 }) => {
   const isIncomeToBoolean = Boolean(isIncome);
 
@@ -150,6 +151,13 @@ const MainTab = ({
                 <button class="cancel js-modal-cancel">취소</button>
                 <button class="add js-add-payment">등록</button>
             </div>
+        </div>
+    </div>
+    <div ${goLogin ? 'class="modal login"' : 'class="modal login blind"'}>
+        <div class="modal-content">
+          <div class="modal-login-title">로그인이 필요합니다.</div>
+          <div class="modal-login-text">1초뒤 로그인 페이지로 이동합니다.</div>
+          <button class="cancel js-login-modal-cancel">취소</button>
         </div>
     </div>
   `;
