@@ -1,6 +1,7 @@
 import Account from '../components/Account/Account';
 import View from '../utils/View';
 import accountStore from '../store/account';
+import usertStore from '../store/user';
 import MainTabContainer from './MainTabContainer';
 import { getAccountById } from '../utils/api/account';
 
@@ -14,6 +15,7 @@ class AccountContainer extends View {
     this.$target = $target;
     this.state = {
       accountList: accountStore.state,
+      user: usertStore.state,
       income: true,
       expenditure: true,
       modal: false,
@@ -33,7 +35,9 @@ class AccountContainer extends View {
   };
 
   componentDidMount = () => {
-    [accountStore].forEach((store) => store.subscribe(this.getGlobalState));
+    [accountStore, usertStore].forEach((store) =>
+      store.subscribe(this.getGlobalState),
+    );
   };
 
   onEventHandler = () => {
