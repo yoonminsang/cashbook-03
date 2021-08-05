@@ -96,7 +96,7 @@ const showDonut = () => {
       radius = 30,
       cx = 50,
       cy = 50,
-      animationDuration = 2000,
+      animationDuration = 1000,
       strokeWidth = 15,
       dashArray = 2 * Math.PI * radius,
       dashOffset = dashArray - (dashArray * data.percentage) / 100,
