@@ -130,7 +130,7 @@
     :last-child:hover {
       border-radius: 0px 0px 10px 10px;
     }
-    &.blind {
+    &.blind-opacity {
       opacity: 0;
       pointer-events: none;
       user-select: none;

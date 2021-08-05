@@ -80,7 +80,7 @@ const MainTab = ({
             <ul ${
               slide === 0
                 ? 'class="drop-down drop-down-classification"'
-                : 'class="drop-down drop-down-classification blind"'
+                : 'class="drop-down drop-down-classification blind-opacity"'
             } >
                 ${filterClassficationList}
             </ul>
@@ -97,7 +97,7 @@ const MainTab = ({
             <ul ${
               slide === 1
                 ? 'class="drop-down drop-down-category"'
-                : 'class="drop-down drop-down-category blind"'
+                : 'class="drop-down drop-down-category blind-opacity"'
             } >
                 ${filterCategoryList}
             </ul>
@@ -121,7 +121,7 @@ const MainTab = ({
                 <ul ${
                   slide === 2
                     ? 'class="drop-down drop-down-payment"'
-                    : 'class="drop-down drop-down-payment blind"'
+                    : 'class="drop-down drop-down-payment blind-opacity"'
                 } >
                     ${filterPaymentList}
                     <li class="js-modal-payment">추가하기</li>
