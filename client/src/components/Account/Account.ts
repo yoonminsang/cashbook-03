@@ -3,10 +3,9 @@ import AccountHeader from './AccountHeader';
 import AccountItem from './AccountItem';
 
 const Account = ({ accountList, income, expenditure, modal, data }) => {
-  console.log(accountList);
-  if (!accountList) return '';
+  if (!accountList) return '<div class="empty">텅~</div>';
   if (accountList.length === 0) {
-    return `<div class="empty">텅~<div>데이터가 없습니다</div></div>`;
+    return `<div class="empty">텅~</div>`;
   }
   const allCount = accountList ? `${accountList.length} 건` : '';
   const incomePrice = accountList
@@ -81,9 +80,6 @@ const Account = ({ accountList, income, expenditure, modal, data }) => {
       ),
     );
   });
-
-  // console.log('accountListByDate', accountListByDate);
-  // console.log('accountListHeaderByDate', accountListHeaderByDate);
 
   const inner = accountListHeaderByDate
     .map(([fullDate, date, day, income, expenditure]) => {

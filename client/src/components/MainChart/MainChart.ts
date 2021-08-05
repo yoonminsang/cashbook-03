@@ -10,7 +10,7 @@ const MainChart = ({ account }) => {
     filterAccout &&
     filterAccout.reduce((acc, { amount }) => acc + parseInt(amount), 0);
 
-  const error = totalAcmount === 0 && `<div class="empty">텅~</div>`;
+  const error = !totalAcmount && `<div class="empty">지출내역이 없습니다</div>`;
 
   const totalAmountToKr = filterAccout && totalAcmount.toLocaleString('ko-KR');
 
@@ -66,7 +66,7 @@ const MainChart = ({ account }) => {
     <div class="right">
       <div class="donut-header">
         <div>이번 달 지출 금액</div>
-        <div>${totalAmountToKr}</div>
+        <div>${totalAmountToKr || 0}</div>
       </div>
       <ul class="category-list">
         ${categoryInner || error}
