@@ -1,6 +1,7 @@
 import { MainChart, showDonut } from '../components/MainChart/MainChart';
 import accountStore from '../store/account';
 import dateStore from '../store/date';
+import { getAccountByCategory } from '../utils/api/account';
 import View from '../utils/View';
 
 class MainChartContainer extends View {
@@ -43,6 +44,23 @@ class MainChartContainer extends View {
     accountStore.state = { data: accountStore.state };
   };
 
-  addEventHandler = () => {};
+  addEventHandler = () => {
+    this.$target.addEventListener('click', this.getCategoryAccount);
+  };
+
+  getCategoryAccount = async (e: Event) => {
+    const $target = e.target as HTMLElement;
+    if (!$target.closest('.js-category')) return;
+
+    const { year, month } = dateStore.state;
+    const categoryId = $target.dataset.id.toString();
+
+    const accounts = await getAccountByCategory({ year, month, categoryId });
+    if (!accounts.length) return;
+
+    this.showLineChart();
+  };
+
+  showLineChart = () => {};
 }
 export default MainChartContainer;
