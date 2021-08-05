@@ -2,6 +2,15 @@ main.account {
   width: 1200px;
   margin: 0 auto;
   margin-top: 48px;
+  .js-modify {
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    margin-left: 15px;
+    width: 16px;
+    height: 16px;
+    background: center / contain no-repeat url('../../public/images/modify.png');
+  }
   .account-header {
     display: flex;
     justify-content: space-between;
@@ -100,11 +109,17 @@ main.account {
             pointer-events: all;
             user-select: all;
           }
+          .js-modify {
+            opacity: 1;
+            pointer-events: all;
+            user-select: all;
+          }
         }
         > div {
           margin-left: 10px;
         }
         .category {
+          cursor: auto;
           display: flex;
           flex-direction: row;
           justify-content: center;
@@ -149,6 +164,67 @@ main.account {
           pointer-events: none;
           user-select: none;
         }
+      }
+    }
+  }
+  .modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .blind {
+    display: none;
+  }
+  .modal-content {
+    width: 400px;
+    height: 230px;
+    background: $off-white;
+    border-radius: 10px;
+    padding: 40px;
+    .modal-title {
+      font-size: 18px;
+      line-height: 22px;
+      color: $title-active;
+    }
+    .modal-input {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 10px;
+      width: 320px;
+      height: 42px;
+      background: $background;
+      border: 1px solid $line;
+      box-sizing: border-box;
+      border-radius: 10px;
+      margin-top: 24px;
+      color: $title-active;
+      ::placeholder {
+        color: #c1c5c5;
+      }
+    }
+    .modal-flex {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      > div {
+        font-size: 18px;
+        line-height: 22px;
+      }
+      .cancel {
+        color: $label;
+      }
+      .add {
+        color: $primary-3;
+      }
+      .delete {
+        color: #f45452;
       }
     }
   }

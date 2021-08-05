@@ -1,0 +1,19 @@
+.error {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Do Hyeon;
+  h1 {
+    font-size: 50px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    color: $error;
+  }
+  div {
+    font-size: 30px;
+    margin: 10px;
+  }
+}

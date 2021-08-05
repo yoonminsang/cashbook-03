@@ -11,6 +11,7 @@ const MainTab = ({
   amount,
   modal,
   isActive,
+  timestamp,
 }) => {
   const isIncomeToBoolean = Boolean(isIncome);
 
@@ -19,7 +20,9 @@ const MainTab = ({
   const tempDatee = new Date().getDate();
   const datee = tempDatee < 10 ? '0' + tempDatee : tempDatee;
 
-  const now = `value='${year}-${month}-${datee}'`;
+  const now = timestamp
+    ? `value='${timestamp}'`
+    : `value='${year}-${month}-${datee}'`;
   const min = date && `min= "${year}-${month}-01"`;
   const max =
     date && `max="${year}-${month}-${new Date(year, month, 0).getDate()}"`;
@@ -71,13 +74,13 @@ const MainTab = ({
         <div class="classification">
             <div class="sub-head">분류</div>
             <div class="flex js-btn-slide js-btn-classification">
-                <div class="sub-content label">${classificationInner}</div>
+                <div class="sub-content">${classificationInner}</div>
                 <i class="wci wci-chevron-down label"></i>
             </div>
             <ul ${
               slide === 0
                 ? 'class="drop-down drop-down-classification"'
-                : 'class="drop-down drop-down-classification blind"'
+                : 'class="drop-down drop-down-classification blind-opacity"'
             } >
                 ${filterClassficationList}
             </ul>
@@ -86,13 +89,15 @@ const MainTab = ({
         <div class="category">
             <div class="sub-head">카테고리</div>
             <div class="flex js-btn-slide js-btn-category">
-                <div class="sub-content label">${categoryInner}</div>
+                <div class="sub-content ${
+                  category.name ? '' : 'label'
+                }">${categoryInner}</div>
                 <i class="wci wci-chevron-down label"></i>
             </div>
             <ul ${
               slide === 1
                 ? 'class="drop-down drop-down-category"'
-                : 'class="drop-down drop-down-category blind"'
+                : 'class="drop-down drop-down-category blind-opacity"'
             } >
                 ${filterCategoryList}
             </ul>
@@ -108,13 +113,15 @@ const MainTab = ({
             ? `<div class="payment">
                 <div class="sub-head">결제수단</div>
                 <div class="flex js-btn-slide js-btn-payment">
-                    <div class="sub-content label">${paymentInner}</div>
+                    <div class="sub-content ${
+                      payment.name ? '' : 'label'
+                    }">${paymentInner}</div>
                     <i class="wci wci-chevron-down label"></i>
                 </div>
                 <ul ${
                   slide === 2
                     ? 'class="drop-down drop-down-payment"'
-                    : 'class="drop-down drop-down-payment blind"'
+                    : 'class="drop-down drop-down-payment blind-opacity"'
                 } >
                     ${filterPaymentList}
                     <li class="js-modal-payment">추가하기</li>

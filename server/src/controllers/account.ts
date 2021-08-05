@@ -12,8 +12,54 @@ export default class AccountController {
     router.get('/', isLoggedIn, this.get);
     router.post('/', isLoggedIn, this.post);
     router.delete('/', isLoggedIn, this.delete);
+    router.get('/:id', isLoggedIn, this.getById);
+    router.put('/', isLoggedIn, this.update);
 
     return router;
+  }
+
+  async getById(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
+
+    try {
+      const {
+        user: { id: user_id },
+      } = req;
+      const { id } = req.params;
+
+      const data = await accountService.getAccountById(user_id, id);
+
+      res.status(200).json({ data });
+    } catch (error) {
+      if (error.message === 'NO_YEAR')
+        return next(new ErrorStatus(400, 'year is required'));
+
+      next(error);
+    }
+  }
+
+  async update(req: Request, res: Response, next: NextFunction) {
+    if (!req.user?.id) return next(new ErrorStatus(403, '로그인이 필요합니다'));
+
+    try {
+      const {
+        user: { id: user_id },
+      } = req;
+
+      const { id, content, amount, timestamp, category_id, payment_id } =
+        req.body;
+      const message = await accountService.updateAccount(
+        id,
+        content,
+        amount,
+        timestamp,
+        category_id,
+        payment_id,
+      );
+      res.status(200).json({ message });
+    } catch (error) {
+      next(error);
+    }
   }
 
   async get(req: Request, res: Response, next: NextFunction) {

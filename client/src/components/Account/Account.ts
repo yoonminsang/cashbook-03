@@ -2,7 +2,7 @@ import { dayToKorean } from '../../utils/chore';
 import AccountHeader from './AccountHeader';
 import AccountItem from './AccountItem';
 
-const Account = ({ accountList, income, expenditure }) => {
+const Account = ({ accountList, income, expenditure, modal, data }) => {
   const allCount = accountList ? `${accountList.length} 건` : '';
   const incomePrice = accountList
     ? accountList
@@ -130,6 +130,20 @@ const Account = ({ accountList, income, expenditure }) => {
     <article>
     ${inner}
     </article>
+    <div ${modal ? 'class="modal"' : 'class="modal blind"'} >
+      <div class="modal-content">
+        <div class="modal-title">해당 결제수단을 삭제하시겠습니까?</div>
+        <input type="text" class="modal-input" value="${
+          data && data.content
+        }" readonly/>
+        <div class="modal-flex">
+          <button class="cancel js-modal-cancel">취소</button>
+          <button class="delete js-remove-account" data-id="${
+            data && data.id
+          }">삭제</button>
+        </div>
+      </div>
+    </div>
     `;
 };
 export default Account;

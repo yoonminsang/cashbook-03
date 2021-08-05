@@ -6,6 +6,46 @@ const ERROR_MESSAGE = {
   500: '서버 에러',
 };
 
+// 특정 account 불러오기
+export const getAccountById = async ({ id }) => {
+  try {
+    const {
+      data: { data },
+    } = await request('get', `/api/account/${id}`);
+
+    return data;
+  } catch (statusCode) {
+    console.error(statusCode, ERROR_MESSAGE[statusCode]);
+    return [];
+  }
+};
+
+// account 수정하기
+export const modifyAccount = async ({
+  id,
+  content,
+  amount,
+  timestamp,
+  category_id,
+  payment_id,
+}) => {
+  try {
+    await request('put', '/api/account', {
+      id,
+      content,
+      amount,
+      timestamp,
+      category_id,
+      payment_id,
+    });
+
+    return true;
+  } catch (statusCode) {
+    console.error(statusCode, ERROR_MESSAGE[statusCode]);
+    return false;
+  }
+};
+
 // 모든 account 불러오기
 export const getAccount = async ({ year, month }) => {
   try {

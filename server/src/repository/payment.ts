@@ -6,6 +6,7 @@ export default class PaymentRepository {
       await Payment.findAll({
         where: {
           user_id: userId,
+          delete_state: false,
         },
         attributes: ['id', 'name'],
       })
@@ -20,12 +21,15 @@ export default class PaymentRepository {
   }
 
   async deletePayment(userId: string, paymentId: number) {
-    return await Payment.destroy({
-      where: {
-        user_id: userId,
-        id: paymentId,
+    return await Payment.update(
+      { delete_state: false },
+      {
+        where: {
+          user_id: userId,
+          id: paymentId,
+        },
       },
-    });
+    );
   }
 
   async addInitialPayments(userId: string, initialPayments: string[]) {

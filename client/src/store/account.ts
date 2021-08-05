@@ -1,4 +1,9 @@
-import { getAccount, removeAccount, setAccount } from '../utils/api/account';
+import {
+  getAccount,
+  modifyAccount,
+  removeAccount,
+  setAccount,
+} from '../utils/api/account';
 import Observable from '../utils/Observable';
 import dateStore from './date';
 
@@ -19,6 +24,19 @@ class Account extends Observable {
 
   async add({ content, amount, timestamp, category_id, payment_id }) {
     const setAccountSuccess = await setAccount({
+      content,
+      amount,
+      timestamp,
+      category_id,
+      payment_id,
+    });
+
+    if (setAccountSuccess) this.update();
+  }
+
+  async modify({ id, content, amount, timestamp, category_id, payment_id }) {
+    const setAccountSuccess = await modifyAccount({
+      id,
       content,
       amount,
       timestamp,

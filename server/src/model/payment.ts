@@ -4,6 +4,7 @@ export interface PaymentAttributes {
   user_id?: string;
   id?: string;
   name: string;
+  delete_state?: boolean;
 }
 
 class Payment extends Model<PaymentAttributes> {}
@@ -18,6 +19,11 @@ export const initPayment = async function (sequelize: Sequelize) {
       },
       name: {
         type: DataTypes.STRING(20),
+        allowNull: false,
+      },
+      delete_state: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false,
       },
     },
