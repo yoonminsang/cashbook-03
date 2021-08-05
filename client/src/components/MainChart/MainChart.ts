@@ -10,6 +10,8 @@ const MainChart = ({ account }) => {
     filterAccout &&
     filterAccout.reduce((acc, { amount }) => acc + parseInt(amount), 0);
 
+  const error = totalAcmount === 0 && `<div class="empty">텅~</div>`;
+
   const totalAmountToKr = filterAccout && totalAcmount.toLocaleString('ko-KR');
 
   const categoryAmount = {};
@@ -55,7 +57,7 @@ const MainChart = ({ account }) => {
       };
     });
 
-  if (forDonut.length) setTimeout(showDonut, 0);
+  if (forDonut) setTimeout(showDonut, 0);
 
   return /*html*/ `
     <div class="left ">
@@ -67,7 +69,7 @@ const MainChart = ({ account }) => {
         <div>${totalAmountToKr}</div>
       </div>
       <ul class="category-list">
-        ${categoryInner}
+        ${categoryInner || error}
       </ul>
     </div>
     `;
@@ -83,7 +85,8 @@ const showDonut = () => {
   svg.setAttribute('width', '100%');
   svg.setAttribute('height', '100%');
   svg.setAttribute('viewBox', '0 0 100 100');
-
+  if (forDonut.length === 0)
+    forDonut = [{ category_color: '#0095aa', percentage: 100 }];
   forDonut.forEach((data) => {
     const circle = document.createElementNS(
         'http://www.w3.org/2000/svg',

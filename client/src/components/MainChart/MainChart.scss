@@ -57,4 +57,15 @@ article.main-chart {
       color: $title-active;
     }
   }
+  .empty {
+    margin-top: 80px;
+    font-size: 150px;
+    text-align: center;
+    font-family: Do Hyeon;
+    > div {
+      font-family: Noto Sans KR;
+      font-size: 20px;
+      color: $body;
+    }
+  }
 }
