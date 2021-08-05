@@ -1,4 +1,4 @@
-import { MainChart, showDonut } from '../components/MainChart/MainChart';
+import LineChart from '../components/LineChart/LineChart';
 import accountStore from '../store/account';
 import dateStore from '../store/date';
 import { getAccountByCategory } from '../utils/api/account';
@@ -37,11 +37,7 @@ class MainChartContainer extends View {
   componentDidMount = () => {
     // setTimeout(() => this.showAnimation(), 500);
     accountStore.subscribe(this.getGlobalState);
-    accountStore.subscribe(this.showAnimation);
-    accountStore.get({
-      ...dateStore.state,
-    });
-    accountStore.state = { data: accountStore.state };
+    accountStore.subscribe(this.clearLineChart);
   };
 
   addEventHandler = () => {
@@ -51,16 +47,34 @@ class MainChartContainer extends View {
   getCategoryAccount = async (e: Event) => {
     const $target = e.target as HTMLElement;
     if (!$target.closest('.js-category')) return;
+    const $category = $target.closest('.js-category') as HTMLElement;
 
     const { year, month } = dateStore.state;
-    const categoryId = $target.dataset.id.toString();
+    const categoryId = $category.dataset.id;
 
     const accounts = await getAccountByCategory({ year, month, categoryId });
     if (!accounts.length) return;
 
-    this.showLineChart();
+    this.showLineChart({ accounts, month });
   };
 
-  showLineChart = () => {};
+  showLineChart = ({ accounts, month }) => {
+    this.clearLineChart();
+    this.$target.insertAdjacentHTML(
+      'afterend',
+      LineChart({
+        accountByCategory: accounts,
+        currentMonth: month,
+      }),
+    );
+
+    document
+      .querySelector('.line-chart')
+      .scrollIntoView({ behavior: 'smooth' });
+  };
+
+  clearLineChart = () => {
+    document.querySelector('.line-chart')?.remove();
+  };
 }
 export default MainChartContainer;

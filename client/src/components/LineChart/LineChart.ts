@@ -9,30 +9,9 @@ interface coordinate {
   Y: number;
 }
 
-const dummyData = [
-  { amount: '10000', timestamp: '2021-08-04' },
-  { amount: '10000', timestamp: '2021-08-04' },
-  { amount: '10000', timestamp: '2021-08-04' },
-  { amount: '10000', timestamp: '2021-08-04' },
-  { amount: '12000', timestamp: '2021-07-31' },
-  { amount: '12000', timestamp: '2021-07-20' },
-  { amount: '12000', timestamp: '2021-07-15' },
-  { amount: '12000', timestamp: '2021-07-12' },
-  { amount: '9000', timestamp: '2021-06-04' },
-  { amount: '7000', timestamp: '2021-05-18' },
-  { amount: '7000', timestamp: '2021-05-13' },
-  { amount: '7000', timestamp: '2021-05-02' },
-  { amount: '20000', timestamp: '2021-03-04' },
-  { amount: '10000', timestamp: '2021-02-04' },
-  { amount: '10000', timestamp: '2021-02-04' },
-  { amount: '10000', timestamp: '2021-02-04' },
-];
-
-const dummyDate = { year: 2021, month: 8 };
-
-const LineChart = ({ accountByCategory }) => {
-  const currentMonth = dummyDate.month;
+const LineChart = ({ accountByCategory, currentMonth }) => {
   const totalByMonth = new Map();
+  const categoryName = accountByCategory[0].category_name;
 
   let i = RECENT_MONTHS;
   while (i-- > 0) {
@@ -41,7 +20,7 @@ const LineChart = ({ accountByCategory }) => {
     totalByMonth.set(month, 0);
   }
 
-  dummyData.forEach(({ amount, timestamp }) => {
+  accountByCategory.forEach(({ amount, timestamp }) => {
     const month = parseInt(timestamp.split('-')[1]);
     if (totalByMonth.has(month))
       totalByMonth.set(month, totalByMonth.get(month) + parseInt(amount));
@@ -52,12 +31,12 @@ const LineChart = ({ accountByCategory }) => {
   const coordinates = getAmountCoordinates(amounts);
 
   return /*html*/ `
-    <div class="line-chart-container">
-      <div class="line-chart-container__title">${`생활`} 카테고리 소비 추이</div>
+    <article class="line-chart">
+      <div class="line-chart__title">${categoryName} 카테고리 소비 추이</div>
       <div class="svg-container">
         ${Chart(amounts, months, coordinates)}
       </div>
-    </div>
+    </article>
   `;
 };
 
@@ -69,7 +48,7 @@ const Chart = (
   coordinates: coordinate[],
 ) => {
   return `
-    <svg class="line-chart-container__chart" viewBox="0 -30 700 400">
+    <svg class="line-chart__chart" viewBox="0 -30 700 400">
       ${xLines()}
       ${yLines()}
       ${circles(coordinates)}
