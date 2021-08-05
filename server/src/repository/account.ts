@@ -19,6 +19,7 @@ export default class AccountRepository {
         'content',
         'amount',
         'timestamp',
+        [Sequelize.col('Category.id'), 'category_id'],
         [Sequelize.col('Category.name'), 'category_name'],
         [Sequelize.col('Category.color'), 'category_color'],
         [Sequelize.col('Category.is_income'), 'is_income'],

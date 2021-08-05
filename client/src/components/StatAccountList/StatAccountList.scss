@@ -1,0 +1,66 @@
+.stat-account {
+  width: 868px;
+  margin: 32px auto 0;
+
+  &__header {
+    margin-bottom: 16px;
+
+    span.weekday {
+      margin-left: 5px;
+      color: $body;
+    }
+  }
+
+  &__list {
+    margin-bottom: 32px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
+    border-top: 1px solid $line;
+
+    &:last-child {
+      border-bottom: 1px solid $line;
+    }
+
+    &__category {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 4px 8px;
+      width: 92px;
+      height: 30px;
+      border-radius: 999px;
+      color: #fff;
+    }
+    &__content {
+      width: 30%;
+      margin-left: 10px;
+      font-size: 18px;
+      line-height: 22px;
+      color: $title-active;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &__payment {
+      margin-left: 30px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 18px;
+      line-height: 22px;
+      color: $body;
+    }
+    &__amount {
+      margin-left: auto;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      color: $title-active;
+    }
+  }
+}

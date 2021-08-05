@@ -33,8 +33,8 @@ export default class AccountController {
 
       res.status(200).json({ data });
     } catch (error) {
-      if (error.message === 'NO_YEAR')
-        return next(new ErrorStatus(400, 'year is required'));
+      if (error.message === 'NO_DATA')
+        return next(new ErrorStatus(400, 'year, month is required'));
 
       next(error);
     }

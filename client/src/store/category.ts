@@ -1,7 +1,7 @@
 import Observable from '../utils/Observable';
 import { getCategory } from '../utils/api/category';
 
-class Payment extends Observable {
+class Category extends Observable {
   async init() {
     try {
       const data = await getCategory();
@@ -13,4 +13,4 @@ class Payment extends Observable {
   }
 }
 
-export default new Payment();
+export default new Category();
