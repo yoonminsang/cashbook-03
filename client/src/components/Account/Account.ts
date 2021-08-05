@@ -4,7 +4,7 @@ import AccountItem from './AccountItem';
 
 const Account = ({ accountList, income, expenditure, modal, data }) => {
   const emptyText = '텅~';
-  if (!accountList) return '<div class="empty">텅~</div>';
+  if (!accountList) return `<div class="empty">${emptyText}</div>`;
   if (accountList.length === 0) {
     return `<div class="empty">${emptyText}~</div>`;
   }
@@ -134,7 +134,7 @@ const Account = ({ accountList, income, expenditure, modal, data }) => {
     </article>
     <div ${modal ? 'class="modal"' : 'class="modal blind"'} >
       <div class="modal-content">
-        <div class="modal-title">해당 결제수단을 삭제하시겠습니까?</div>
+        <div class="modal-title">해당 내역을 삭제하시겠습니까?</div>
         <input type="text" class="modal-input" value="${
           data && data.content
         }" readonly/>

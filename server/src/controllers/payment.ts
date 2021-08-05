@@ -62,6 +62,7 @@ export default class PaymentController {
         user: { id: userId },
       } = req;
       const { id: paymentId } = req.body;
+
       const message = await paymentService.deletePayment(
         userId,
         parseInt(paymentId),

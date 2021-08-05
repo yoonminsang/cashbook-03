@@ -23,7 +23,7 @@ export default () => {
     module: {
       rules: [
         {
-          test: /\.(png|jpg|jpeg|gif|svg)$/i,
+          test: /\.(png|jpg|jpeg|gif|svg|ico)$/i,
           use: {
             loader: 'file-loader',
             options: {
@@ -58,6 +58,7 @@ export default () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
+        favicon: './src/public/images/favicon.ico',
       }), // HTML 파일을 후처리하는데 사용, 빌드 타임의 값을 넣거나 코드를 압축
       new CleanWebpackPlugin(), // 빌드 이전 결과물을 제거하는 플러그인
       new MiniCssExtractPlugin({
