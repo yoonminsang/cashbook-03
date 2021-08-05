@@ -1,3 +1,5 @@
+import './public/styles/index.scss';
+
 import Calendar from './pages/Calendar';
 import Error from './pages/Error';
 import Main from './pages/Main';
@@ -5,13 +7,15 @@ import Statistics from './pages/Statistics';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Router from './Router';
-import './public/styles/index.scss';
+import { addLoader } from './utils/loader';
 
 import userStore from './store/user';
 import dateStore from './store/date';
 import paymentStore from './store/payment';
 import categoryStore from './store/category';
 import accountStore from './store/account';
+
+addLoader();
 
 const init = async () => {
   dateStore.init();
@@ -22,11 +26,6 @@ const init = async () => {
       accountStore.get({ ...dateStore.state });
       paymentStore.init();
       categoryStore.init();
-      // dateStore.subscribe(() =>
-      //   accountStore.get({
-      //     ...dateStore.state,
-      //   }),
-      // );
     }
   } else {
     userStore.setState(null);
@@ -36,6 +35,7 @@ const init = async () => {
 init();
 
 const $app = document.querySelector('#app');
+
 const routes = {
   '/': Main,
   '/calendar': Calendar,
@@ -43,7 +43,7 @@ const routes = {
   '/login': Login,
   '/signup': Signup,
 };
-// const $div = document.createElement('div');
+
 const error = new Error({ $target: $app });
 new Router({
   $app,

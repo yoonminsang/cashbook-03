@@ -26,11 +26,14 @@ client.defaults.withCredentials = true;
 */
 
 export const request = async (method: string, url: string, body?: object) => {
+  window.dispatchEvent(new CustomEvent('request'));
   try {
     return await client[method](url, body);
   } catch (e) {
     if (e.response) {
       throw e.response.status;
     }
+  } finally {
+    window.dispatchEvent(new CustomEvent('request-end'));
   }
 };
