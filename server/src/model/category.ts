@@ -55,7 +55,11 @@ export const initCategory = async function (sequelize: Sequelize) {
 
   const rows = await Category.findAll();
   if (!rows.length) {
-    await Promise.all(INITIAL_DATA.map((row) => Category.create(row)));
+    await Promise.all(
+      INITIAL_DATA.map((row) => Category.build(row)).map((category) =>
+        category.save(),
+      ),
+    );
   }
   console.log('Catgory Table Initialized');
 };
