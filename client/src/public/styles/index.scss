@@ -6,6 +6,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: Noto Sans KR;
 }
 
 #app {
@@ -31,3 +32,4 @@ button {
 @import '../../components/Calendar/Calendar.scss';
 @import '../../components/Account/Account.scss';
 @import '../../components/MainChart/MainChart.scss';
+@import './error.scss';

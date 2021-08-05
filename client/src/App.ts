@@ -43,8 +43,8 @@ const routes = {
   '/login': Login,
   '/signup': Signup,
 };
-const $div = document.createElement('div');
-const error = new Error({ $target: $div });
+// const $div = document.createElement('div');
+const error = new Error({ $target: $app });
 new Router({
   $app,
   routes,

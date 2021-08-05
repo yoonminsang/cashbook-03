@@ -31,7 +31,7 @@ class Router {
       return;
     }
     this.$app.innerHTML = '';
-    this.$app.appendChild(this.error.html);
+    this.error.render();
   };
 
   addLinkChangeHandler = () => {
