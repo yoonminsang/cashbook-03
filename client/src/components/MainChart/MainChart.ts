@@ -15,11 +15,13 @@ export const MainChart = ({ account }) => {
   const categoryAmount = {};
 
   filterAccout &&
-    filterAccout.forEach(({ amount, category_name, category_color }) => {
-      if (!categoryAmount[category_name])
-        categoryAmount[category_name] = [0, category_color];
-      categoryAmount[category_name][0] += +amount;
-    });
+    filterAccout.forEach(
+      ({ amount, category_name, category_color, category_id }) => {
+        if (!categoryAmount[category_name])
+          categoryAmount[category_name] = [0, category_color, category_id];
+        categoryAmount[category_name][0] += +amount;
+      },
+    );
 
   for (let key in categoryAmount) {
     categoryAmount[key].push((categoryAmount[key][0] / totalAcmount) * 100);
@@ -30,8 +32,10 @@ export const MainChart = ({ account }) => {
     .map(([category_name, arr]) => {
       const amount = arr[0].toLocaleString('ko-KR'),
         category_color = arr[1],
-        percentage = arr[2].toFixed(2) + '%';
+        category_id = arr[2],
+        percentage = arr[3].toFixed(2) + '%';
       return CategoryList({
+        category_id,
         category_color,
         category_name,
         percentage,
@@ -44,7 +48,7 @@ export const MainChart = ({ account }) => {
     .sort((a, b) => b[1][0] - a[1][0])
     .map(([_, arr]) => {
       const category_color = arr[1],
-        percentage = arr[2];
+        percentage = arr[3];
       return {
         category_color,
         percentage,
