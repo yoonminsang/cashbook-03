@@ -75,6 +75,7 @@ const Chart = (
       ${circles(coordinates)}
       ${path(coordinates)}
       ${amountTexts(coordinates, amounts)}
+      ${xLabels(months)}
     </svg>
   `;
 };
@@ -126,6 +127,20 @@ const amountTexts = (coordinates: coordinate[], amounts: number[]) => {
         <text class="amount-text" x="${X}" y="${
         Y - 12
       }" text-anchor="middle">${amounts[i].toLocaleString('ko-KR')}</text>
+      `,
+    )
+    .join('');
+};
+
+const xLabels = (months: number[]) => {
+  const SPACE = CHART_WIDTH / (RECENT_MONTHS + 1);
+
+  return Array.from(months)
+    .map(
+      (month, i) => `
+        <text class="x-label" x="${(i + 1) * SPACE + 0.5}" y="${
+        CHART_HEIGHT + 35
+      }" text-anchor="middle">${month}</text>
       `,
     )
     .join('');

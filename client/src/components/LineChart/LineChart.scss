@@ -29,7 +29,12 @@
     & > .line {
       fill: #eee;
     }
-  }
+
+    & > .x-label {
+      @include bold(large);
+      fill: $label;
+    }
+
     & > .amount-text {
       @include bold(medium);
       fill: $title-active;
@@ -37,7 +42,7 @@
 
     & > .circle {
       fill: $primary;
-}
+    }
 
     & > .path {
       stroke: $primary;
@@ -53,4 +58,4 @@
   to {
     stroke-dashoffset: 0;
   }
-    }
+}
