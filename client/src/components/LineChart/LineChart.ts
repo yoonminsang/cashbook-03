@@ -2,6 +2,7 @@ const CHART_WIDTH = 700;
 const CHART_HEIGHT = 300;
 const RECENT_MONTHS = 6;
 const Y_LINE_NUM = 12;
+const CIRCLE_R = 4;
 
 interface coordinate {
   X: number;
@@ -71,6 +72,7 @@ const Chart = (
     <svg class="line-chart-container__chart" viewBox="0 -30 700 400">
       ${xLines()}
       ${yLines()}
+      ${circles(coordinates)}
     </svg>
   `;
 };
@@ -95,6 +97,14 @@ const yLines = () =>
     )
     .join('');
 
+const circles = (coordinates: coordinate[]) => {
+  return coordinates
+    .map(
+      ({ X, Y }) =>
+        `<circle class="circle" cx="${X}" cy="${Y}" r="${CIRCLE_R}" />`,
+    )
+    .join('');
+};
 
 const getAmountCoordinates = (amounts: number[]) => {
   const maxAmount = Math.max(...amounts);
