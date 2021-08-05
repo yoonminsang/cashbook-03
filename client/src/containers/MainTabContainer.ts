@@ -10,8 +10,11 @@ class MainTabContainer extends View {
   initialState: any;
   state: any;
   MainTab: Function;
-  constructor({ $target }) {
+  modify: boolean;
+  constructor({ $target, state }) {
     super({ $target });
+    if (state) this.modify = true;
+    else this.modify = false;
     this.MainTab = MainTab;
     this.$target = $target;
     this.initialState = {
@@ -27,6 +30,7 @@ class MainTabContainer extends View {
       amount: '',
       modal: false,
       isActive: false,
+      accountId: null,
     };
     this.state = {
       ...this.initialState,
@@ -34,6 +38,7 @@ class MainTabContainer extends View {
       user: userStore.state,
       paymentList: paymentStore.state,
       categoryList: categoryStore.state,
+      ...state,
     };
     this.render();
     this.componentDidMount();
@@ -56,6 +61,7 @@ class MainTabContainer extends View {
     [dateStore, userStore, paymentStore, categoryStore].forEach((store) =>
       store.subscribe(this.getGlobalState),
     );
+    this.onActiveHandler();
   };
 
   onEventHandler = () => {
@@ -135,6 +141,7 @@ class MainTabContainer extends View {
       'input[type="date"]',
     ) as HTMLInputElement;
     if (!this.state.isActive) return;
+    const id = this.state.id;
     const split = date.split('-').map((v) => +v);
     const content = this.state.content;
     const amount = this.state.amount.replace(/[^0-9]/g, '');
@@ -142,11 +149,48 @@ class MainTabContainer extends View {
     const category_id = this.state.category.id;
     const payment_id = this.state.payment && this.state.payment.id;
 
-    await account.add({ content, amount, timestamp, category_id, payment_id });
-    this.setState({
-      ...this.state,
-      ...this.initialState,
-    });
+    if (this.modify) {
+      await account.modify({
+        id,
+        content,
+        amount,
+        timestamp,
+        category_id,
+        payment_id,
+      });
+      this.$target.remove();
+    } else {
+      await account.add({
+        content,
+        amount,
+        timestamp,
+        category_id,
+        payment_id,
+      });
+      this.setState({
+        ...this.state,
+        ...this.initialState,
+      });
+      const inputDate: HTMLInputElement =
+        this.$target.querySelector('input[type="date"]');
+      const inputContent: HTMLInputElement =
+        this.$target.querySelector('.input-content');
+      const inputAmount: HTMLInputElement =
+        this.$target.querySelector('.input-amount');
+
+      const year = this.state.date && this.state.date.year;
+      const month =
+        this.state.date &&
+        (this.state.date.month < 10
+          ? '0' + this.state.date.month
+          : this.state.date.month);
+      const tempDatee = new Date().getDate();
+      const datee = tempDatee < 10 ? '0' + tempDatee : tempDatee;
+
+      inputDate.value = `${year}-${month}-${datee}`;
+      inputContent.value = '';
+      inputAmount.value = '';
+    }
   };
 
   addPaymentHandler = async () => {

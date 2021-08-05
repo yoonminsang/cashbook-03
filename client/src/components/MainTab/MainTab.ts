@@ -11,7 +11,9 @@ const MainTab = ({
   amount,
   modal,
   isActive,
+  timestamp,
 }) => {
+  console.log('maintab', content, amount);
   const isIncomeToBoolean = Boolean(isIncome);
 
   const year = date && date.year;
@@ -19,7 +21,9 @@ const MainTab = ({
   const tempDatee = new Date().getDate();
   const datee = tempDatee < 10 ? '0' + tempDatee : tempDatee;
 
-  const now = `value='${year}-${month}-${datee}'`;
+  const now = timestamp
+    ? `value='${timestamp}'`
+    : `value='${year}-${month}-${datee}'`;
   const min = date && `min= "${year}-${month}-01"`;
   const max =
     date && `max="${year}-${month}-${new Date(year, month, 0).getDate()}"`;

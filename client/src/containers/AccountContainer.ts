@@ -1,6 +1,8 @@
 import Account from '../components/Account/Account';
 import View from '../utils/View';
 import accountStore from '../store/account';
+import MainTabContainer from './MainTabContainer';
+import { getAccountById } from '../utils/api/account';
 
 class AccountContainer extends View {
   initialState: any;
@@ -62,8 +64,22 @@ class AccountContainer extends View {
       this.setState({ ...this.state, modal: false });
     } else if (target.closest('.js-modal-cancel')) {
       this.setState({ ...this.state, modal: false });
+    } else if (target.closest('.account-item-inner')) {
+      const closest: HTMLElement = target.closest('.account-item-inner');
+      const id = closest.id;
+      const state = await getAccountById({ id });
+      state.category = { id: state.category_id, name: state.category_name };
+      state.payment = { id: state.payment_id, name: state.payment_name };
+      const $target = document.createElement('div');
+      $target.className = 'modal modify';
+      const mainTabContainer = new MainTabContainer({ $target, state });
+      this.$target.append(mainTabContainer.html);
     } else {
-      // this.setState({ ...this.state, modal: false });
+      if (this.$target.querySelector('.modal.modify')) {
+        if (!target.closest('.main-tab-inner')) {
+          this.$target.removeChild(this.$target.querySelector('.modal.modify'));
+        }
+      }
     }
   };
 }

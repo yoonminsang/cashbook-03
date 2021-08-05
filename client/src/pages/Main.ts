@@ -14,7 +14,10 @@ class Main {
     const headerContainer = new HeaderContainer({ $target: $header });
     const $mainTab = document.createElement('div');
     $mainTab.className = 'main-tab';
-    const mainTabContainer = new MainTabContainer({ $target: $mainTab });
+    const mainTabContainer = new MainTabContainer({
+      $target: $mainTab,
+      state: null,
+    });
     const $account = document.createElement('main');
     $account.className = 'account';
     const accountContainer = new AccountContainer({ $target: $account });
