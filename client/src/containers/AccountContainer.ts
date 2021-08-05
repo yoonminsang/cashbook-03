@@ -64,9 +64,8 @@ class AccountContainer extends View {
       this.setState({ ...this.state, modal: false });
     } else if (target.closest('.js-modal-cancel')) {
       this.setState({ ...this.state, modal: false });
-    } else if (target.closest('.account-item-inner')) {
-      const closest: HTMLElement = target.closest('.account-item-inner');
-      const id = closest.id;
+    } else if (target.closest('.js-modify')) {
+      const id = target.dataset.id;
       const state = await getAccountById({ id });
       state.category = { id: state.category_id, name: state.category_name };
       state.payment = { id: state.payment_id, name: state.payment_name };

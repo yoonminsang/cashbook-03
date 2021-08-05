@@ -13,7 +13,6 @@ const MainTab = ({
   isActive,
   timestamp,
 }) => {
-  console.log('maintab', content, amount);
   const isIncomeToBoolean = Boolean(isIncome);
 
   const year = date && date.year;

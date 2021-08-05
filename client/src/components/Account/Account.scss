@@ -2,6 +2,15 @@ main.account {
   width: 1200px;
   margin: 0 auto;
   margin-top: 48px;
+  .js-modify {
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    margin-left: 15px;
+    width: 16px;
+    height: 16px;
+    background: center / contain no-repeat url('../../public/images/modify.png');
+  }
   .account-header {
     display: flex;
     justify-content: space-between;
@@ -100,11 +109,17 @@ main.account {
             pointer-events: all;
             user-select: all;
           }
+          .js-modify {
+            opacity: 1;
+            pointer-events: all;
+            user-select: all;
+          }
         }
         > div {
           margin-left: 10px;
         }
         .category {
+          cursor: auto;
           display: flex;
           flex-direction: row;
           justify-content: center;
