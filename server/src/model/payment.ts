@@ -23,7 +23,7 @@ export const initPayment = async function (sequelize: Sequelize) {
       },
       delete_state: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        defaultValue: false,
         allowNull: false,
       },
     },

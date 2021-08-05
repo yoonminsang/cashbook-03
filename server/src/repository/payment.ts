@@ -6,7 +6,7 @@ export default class PaymentRepository {
       await Payment.findAll({
         where: {
           user_id: userId,
-          delete_state: true,
+          delete_state: false,
         },
         attributes: ['id', 'name'],
       })
