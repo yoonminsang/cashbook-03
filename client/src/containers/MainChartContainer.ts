@@ -1,3 +1,4 @@
+import MainChart from '../components/MainChart/MainChart';
 import LineChart from '../components/LineChart/LineChart';
 import accountStore from '../store/account';
 import dateStore from '../store/date';
@@ -23,10 +24,6 @@ class MainChartContainer extends View {
     return this.MainChart(this.state);
   };
 
-  showAnimation = () => {
-    showDonut();
-  };
-
   getGlobalState = () => {
     const nextState = { ...this.state };
     nextState.account = accountStore.state;
@@ -35,7 +32,6 @@ class MainChartContainer extends View {
   };
 
   componentDidMount = () => {
-    // setTimeout(() => this.showAnimation(), 500);
     accountStore.subscribe(this.getGlobalState);
     accountStore.subscribe(this.clearLineChart);
   };
