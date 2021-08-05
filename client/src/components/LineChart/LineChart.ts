@@ -74,6 +74,7 @@ const Chart = (
       ${yLines()}
       ${circles(coordinates)}
       ${path(coordinates)}
+      ${amountTexts(coordinates, amounts)}
     </svg>
   `;
 };
@@ -117,6 +118,19 @@ const path = (coordinates: coordinate[]) => {
   const pathLength = getPathLength(coordinates);
   return `<path class="path" d="M${start} ${lines}" stroke-dasharray="${pathLength}" stroke-dashoffset="${pathLength}" />`;
 };
+
+const amountTexts = (coordinates: coordinate[], amounts: number[]) => {
+  return coordinates
+    .map(
+      ({ X, Y }, i) => `
+        <text class="amount-text" x="${X}" y="${
+        Y - 12
+      }" text-anchor="middle">${amounts[i].toLocaleString('ko-KR')}</text>
+      `,
+    )
+    .join('');
+};
+
 const getAmountCoordinates = (amounts: number[]) => {
   const maxAmount = Math.max(...amounts);
   const SPACE = CHART_WIDTH / (RECENT_MONTHS + 1);

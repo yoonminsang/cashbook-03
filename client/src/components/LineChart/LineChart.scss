@@ -30,6 +30,11 @@
       fill: #eee;
     }
   }
+    & > .amount-text {
+      @include bold(medium);
+      fill: $title-active;
+    }
+
     & > .circle {
       fill: $primary;
 }
