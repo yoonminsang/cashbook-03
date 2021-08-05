@@ -1,16 +1,21 @@
 import AccountRepository from '../repository/account';
 
 const accountRepository = new AccountRepository();
+const RECENT_MONTHS = 6;
 
 export default class AccountService {
   async getAccounts(userId: string, filters: any) {
-    if (!filters.year) throw new Error('NO_YEAR');
+    if (!filters.year || !filters.month) throw new Error('NO_DATA');
 
     const { year, month, categoryId } = filters;
-    const startDate = new Date(parseInt(year), month ? parseInt(month) - 1 : 0);
-    const endDate = month
-      ? new Date(startDate.getFullYear(), startDate.getMonth() + 1)
-      : new Date(startDate.getFullYear() + 1, 0);
+    const yearNum = parseInt(year);
+    const monthIndex = parseInt(month) - 1;
+
+    const startDate = new Date(
+      yearNum,
+      categoryId ? monthIndex - RECENT_MONTHS + 1 : monthIndex,
+    );
+    const endDate = new Date(yearNum, monthIndex + 1);
 
     const accounts = await accountRepository.getAccounts(
       userId,
