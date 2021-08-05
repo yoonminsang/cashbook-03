@@ -73,6 +73,7 @@ const Chart = (
       ${xLines()}
       ${yLines()}
       ${circles(coordinates)}
+      ${path(coordinates)}
     </svg>
   `;
 };
@@ -106,6 +107,16 @@ const circles = (coordinates: coordinate[]) => {
     .join('');
 };
 
+const path = (coordinates: coordinate[]) => {
+  const start = `${coordinates[0].X},${coordinates[0].Y}`;
+  const lines = coordinates
+    .slice(1)
+    .map(({ X, Y }) => `L${X},${Y}`)
+    .join(' ');
+
+  const pathLength = getPathLength(coordinates);
+  return `<path class="path" d="M${start} ${lines}" stroke-dasharray="${pathLength}" stroke-dashoffset="${pathLength}" />`;
+};
 const getAmountCoordinates = (amounts: number[]) => {
   const maxAmount = Math.max(...amounts);
   const SPACE = CHART_WIDTH / (RECENT_MONTHS + 1);
@@ -116,4 +127,19 @@ const getAmountCoordinates = (amounts: number[]) => {
 
     return { X, Y };
   });
+};
+
+const getPathLength = (coordinates: coordinate[]) => {
+  let result = 0;
+  for (let i = 0; i < coordinates.length - 1; i++) {
+    result += getDistance(coordinates[i], coordinates[i + 1]);
+  }
+  return result;
+};
+
+const getDistance = (p1: coordinate, p2: coordinate) => {
+  const dX = p1.X - p2.X;
+  const dY = p1.Y - p2.Y;
+
+  return Math.sqrt(dX ** 2 + dY ** 2);
 };
