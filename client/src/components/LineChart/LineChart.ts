@@ -60,32 +60,29 @@ const Chart = (
 };
 
 const xLines = () =>
-  Array.from({ length: Y_LINE_NUM })
+  `<g class="line">${Array.from({ length: Y_LINE_NUM })
     .map(
       (_, i) =>
-        `<rect class="line" y=${
+        `<rect y=${
           (CHART_HEIGHT / (Y_LINE_NUM - 1)) * i
         } width="${CHART_WIDTH}" height="1" />`,
     )
-    .join('');
+    .join('')}</g>`;
 
 const yLines = () =>
-  Array.from({ length: RECENT_MONTHS + 2 })
+  `<g class="line">${Array.from({ length: RECENT_MONTHS + 2 })
     .map(
       (_, i) =>
-        `<rect class="line" x=${
+        `<rect x=${
           (CHART_WIDTH / (RECENT_MONTHS + 1)) * i
         } width="1" height="${CHART_HEIGHT}" />`,
     )
-    .join('');
+    .join('')}</g>`;
 
 const circles = (coordinates: coordinate[]) => {
-  return coordinates
-    .map(
-      ({ X, Y }) =>
-        `<circle class="circle" cx="${X}" cy="${Y}" r="${CIRCLE_R}" />`,
-    )
-    .join('');
+  return `<g class="circle">${coordinates
+    .map(({ X, Y }) => `<circle cx="${X}" cy="${Y}" r="${CIRCLE_R}" />`)
+    .join('')}</g>`;
 };
 
 const path = (coordinates: coordinate[]) => {
@@ -100,29 +97,29 @@ const path = (coordinates: coordinate[]) => {
 };
 
 const amountTexts = (coordinates: coordinate[], amounts: number[]) => {
-  return coordinates
+  return `<g class="amount-text">${coordinates
     .map(
       ({ X, Y }, i) => `
-        <text class="amount-text" x="${X}" y="${
-        Y - 12
-      }" text-anchor="middle">${amounts[i].toLocaleString('ko-KR')}</text>
+        <text x="${X}" y="${Y - 12}" text-anchor="middle">${amounts[
+        i
+      ].toLocaleString('ko-KR')}</text>
       `,
     )
-    .join('');
+    .join('')}</g>`;
 };
 
 const xLabels = (months: number[]) => {
   const SPACE = CHART_WIDTH / (RECENT_MONTHS + 1);
 
-  return Array.from(months)
+  return `<g class="x-label">${Array.from(months)
     .map(
       (month, i) => `
-        <text class="x-label" x="${(i + 1) * SPACE + 0.5}" y="${
+        <text x="${(i + 1) * SPACE + 0.5}" y="${
         CHART_HEIGHT + 35
       }" text-anchor="middle">${month}</text>
       `,
     )
-    .join('');
+    .join('')}</g>`;
 };
 
 const getAmountCoordinates = (amounts: number[]) => {
