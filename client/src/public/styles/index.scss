@@ -11,6 +11,7 @@
 
 #app {
   background-color: $background;
+  padding-bottom: 32px;
   min-height: 100vh;
 }
 
@@ -33,3 +34,5 @@ button {
 @import '../../components/Account/Account.scss';
 @import '../../components/MainChart/MainChart.scss';
 @import './error.scss';
+@import '../../components/LineChart/LineChart.scss';
+@import '../../components/StatAccountList/StatAccountList.scss';

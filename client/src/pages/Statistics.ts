@@ -15,6 +15,7 @@ class Statistics {
     $donut.className = 'main-chart';
     const mainChartContainer = new MainChartContainer({ $target: $donut });
     $fragment.append(headerContainer.html, mainChartContainer.html);
+
     this.$app.innerHTML = '';
     this.$app.appendChild($fragment);
   };

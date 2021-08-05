@@ -1,0 +1,78 @@
+$CHART-ANIMATION-SEC: 1.2s;
+
+.line-chart {
+  width: 848px;
+  margin: 20px auto 0;
+  padding: 32px 40px;
+
+  background-color: $off-white;
+  border: 1px solid #ccd3d3;
+  @include elevation-1;
+
+  &__title {
+    color: $title-active;
+    font-size: 22px;
+    line-height: 22px;
+  }
+
+  & .svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 32px;
+    padding-bottom: 0;
+  }
+
+  &__chart {
+    width: 701px;
+    height: 360px;
+
+    & > .line {
+      fill: #eee;
+    }
+
+    & > .x-label {
+      @include bold(large);
+      fill: $label;
+    }
+
+    & > .amount-text {
+      @include bold(medium);
+      fill: $title-active;
+
+      & > :last-child {
+        animation: current-amount 0.2s ease-in-out forwards;
+        animation-delay: $CHART-ANIMATION-SEC;
+      }
+    }
+
+    & > .circle {
+      fill: $primary;
+    }
+
+    & > .path {
+      stroke: $primary;
+      stroke-width: 2;
+      fill: none;
+
+      animation: draw $CHART-ANIMATION-SEC linear forwards;
+    }
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes current-amount {
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    fill: $primary-3;
+  }
+}
