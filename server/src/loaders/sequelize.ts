@@ -13,6 +13,14 @@ export const sequelizeLoader = async function () {
       host: dbOptions.host,
       dialect: 'mysql',
       timezone: '+09:00',
+      dialectOptions: {
+        charset: 'utf8mb4',
+        dateStrings: true,
+        typeCast: true,
+      },
+      define: {
+        timestamps: true,
+      },
     },
   );
 
