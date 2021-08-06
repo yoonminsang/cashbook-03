@@ -1,5 +1,11 @@
 # 우아한 가계부 - 3팀
 
+## 개요
+- [데모](https://github.com/woowa-techcamp-2021/cashbook-03/edit/main/README.md#데모)
+- [스크린샷](https://github.com/woowa-techcamp-2021/cashbook-03/edit/main/README.md#스크린샷)
+- [프로젝트 구조](https://github.com/woowa-techcamp-2021/cashbook-03/edit/main/README.md#프로젝트-구조)
+- [진행 과정](https://github.com/woowa-techcamp-2021/cashbook-03/edit/main/README.md#진행-과정)
+
 ## 데모
 - ### [프로젝트 링크](http://ec2-52-78-160-142.ap-northeast-2.compute.amazonaws.com/calendar)
 - ### 테스트용 계정
@@ -14,9 +20,7 @@
 
 
 
-## 프로젝트 설명
-
-### 디렉토리 구조
+## 프로젝트 구조
 
 #### 클라이언트
 ```bash
@@ -55,7 +59,7 @@ src
 #### ERD
 <img width="511" alt="스크린샷 2021-08-05 오후 11 19 54" src="https://user-images.githubusercontent.com/57904979/128365936-da2a4522-def0-4c3c-bff3-d38067276426.png">
 
-### 진행 과정
+## 진행 과정
 #### 목표
 - 팀원 둘 다 BE가 미완성인 상태에서 FE를 만들면 나중에 연동 작업 등에서 힘들어진다는 점에 공감하여 BE를 우선적으로 개발을 진행하기로 함
 - FE, BE 구조를 잘 잡는 데 신경을 많이 썼음
@@ -75,4 +79,4 @@ src
 - FE, BE 연동
 - 최종 배포
 
-### [활동 기록](https://github.com/woowa-techcamp-2021/cashbook-03/wiki/%ED%8C%80-%ED%99%9C%EB%8F%99-%EA%B8%B0%EB%A1%9D)
+#### [활동 기록](https://github.com/woowa-techcamp-2021/cashbook-03/wiki/%ED%8C%80-%ED%99%9C%EB%8F%99-%EA%B8%B0%EB%A1%9D)
