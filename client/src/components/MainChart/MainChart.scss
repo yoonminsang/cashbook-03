@@ -1,0 +1,76 @@
+article.main-chart {
+  margin: 0 auto;
+  margin-top: -30px;
+  width: 848px;
+  padding-bottom: 30px;
+  background: #ffffff;
+  border: 1px solid #d7d7d7;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  .donut-header {
+    font-size: 22px;
+    line-height: 22px;
+    color: $title-active;
+    margin-top: 35px;
+    display: flex;
+  }
+  .category-list {
+    margin-top: 31px;
+  }
+  .category-item-inner {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
+    padding-left: 0;
+    border-bottom: 1px solid $line;
+    margin-right: 42px;
+    > div {
+      margin-left: 10px;
+    }
+    .category {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 4px 8px;
+      width: 92px;
+      height: 30px;
+      border-radius: 999px;
+      color: #fff;
+    }
+    .content {
+      margin-left: 10px;
+      font-size: 18px;
+      line-height: 22px;
+      color: $title-active;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .amount {
+      margin-left: auto;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      color: $title-active;
+    }
+  }
+  .empty {
+    font-size: 50px;
+    font-family: Do Hyeon;
+    animation: 1s slide-left ease forwards;
+    transform: translateX(100%);
+    > div {
+      font-family: Noto Sans KR;
+      font-size: 20px;
+      color: $body;
+    }
+  }
+  @keyframes slide-left {
+    to {
+      transform: translateX(0);
+    }
+  }
+}

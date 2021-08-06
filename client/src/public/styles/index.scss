@@ -1,0 +1,40 @@
+@import './reset';
+@import './variables';
+@import './mixins';
+
+@import './font';
+@import './loader';
+
+* {
+  box-sizing: border-box;
+  font-family: Noto Sans KR;
+}
+
+#app {
+  background-color: $background;
+  padding-bottom: 32px;
+  min-height: 100vh;
+}
+
+button {
+  font-family: Noto Sans KR, sans-serif;
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+
+@import '../../components/Header/Header.scss';
+@import '../../components/SignHeader/SignHeader.scss';
+@import '../../components/SignMain/SignMain.scss';
+@import '../../components/MainTab/MainTab.scss';
+@import '../../components/Calendar/Calendar.scss';
+@import '../../components/Account/Account.scss';
+@import '../../components/MainChart/MainChart.scss';
+@import './error.scss';
+@import '../../components/LineChart/LineChart.scss';
+@import '../../components/StatAccountList/StatAccountList.scss';
+@import '../../components/CalendarAccountList/CalendarAccountList.scss';

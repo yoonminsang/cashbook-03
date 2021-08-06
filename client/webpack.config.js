@@ -23,7 +23,7 @@ export default () => {
     module: {
       rules: [
         {
-          test: /\.(png|jpg|jpeg|gif|svg)$/i,
+          test: /\.(png|jpg|jpeg|gif|svg|ico)$/i,
           use: {
             loader: 'file-loader',
             options: {
@@ -35,15 +35,12 @@ export default () => {
           test: /\.(js|ts)$/, // .js, .ts 확장자로 끝나는 모든 파일
           use: {
             loader: 'babel-loader', // babel-loader 적용
-            options: {
-              presets: ['@babel/preset-env', '@babel/preset-typescript'],
-              plugins: [
-                '@babel/proposal-class-properties',
-                '@babel/proposal-object-rest-spread',
-              ],
-            },
           },
           exclude: /(node_modules)/,
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: 'asset/resource',
         },
         {
           test: /\.s[ac]ss$/i,
@@ -61,6 +58,7 @@ export default () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
+        favicon: './src/public/images/favicon.ico',
       }), // HTML 파일을 후처리하는데 사용, 빌드 타임의 값을 넣거나 코드를 압축
       new CleanWebpackPlugin(), // 빌드 이전 결과물을 제거하는 플러그인
       new MiniCssExtractPlugin({
@@ -91,6 +89,7 @@ export default () => {
       port: 9000,
       writeToDisk: true,
       hot: true,
+      historyApiFallback: true,
       proxy: {
         '/api/': {
           // /api/로 시작하는 url은 아래의 전체 도메인을 추가하고, 옵션을 적용

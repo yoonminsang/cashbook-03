@@ -1,0 +1,93 @@
+.main-header {
+  width: 100%;
+  height: 194px;
+  background-color: $primary;
+  color: $off-white;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 904px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 28px;
+  }
+
+  &__logo {
+    @include display(small);
+  }
+
+  &__time {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 199px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &__month {
+        @include display(large);
+      }
+
+      &__year {
+        font-family: Do Hyeon;
+        font-size: 24px;
+        line-height: 30px;
+      }
+    }
+
+    &__left,
+    &__right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
+  }
+
+  &__nav {
+    width: 132px;
+
+    &__list {
+      display: flex;
+
+      & > * {
+        flex: 1;
+        height: 44px;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $primary-2;
+
+        &.active {
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  &__user {
+    position: absolute;
+    right: -120px;
+
+    & > * {
+      @include bold(large);
+    }
+  }
+}
+
+.change-month {
+  cursor: pointer;
+}

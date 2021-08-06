@@ -1,0 +1,7 @@
+.stat-account {
+  &__no-data {
+    @include display(small);
+    color: $placeholder;
+    text-align: center;
+  }
+}
