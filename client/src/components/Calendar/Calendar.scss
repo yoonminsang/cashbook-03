@@ -51,6 +51,11 @@ $week-height: 48px;
           border-right: 1px solid $line;
           border-bottom: 1px solid $line;
 
+          &:hover {
+            background-color: $background;
+            cursor: pointer;
+          }
+
           &:nth-child(7) {
             border-right: none;
           }
@@ -84,7 +89,7 @@ $week-height: 48px;
           }
 
           &.today {
-            background-color: $background;
+            // background-color: $background;
 
             & .week__day__date {
               color: $title-active;
