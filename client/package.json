@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js-pure": "^3.16.0",
+    "sanitize-html": "^2.4.0",
     "typescript": "^4.3.5"
   },
   "devDependencies": {

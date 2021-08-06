@@ -5,6 +5,7 @@ import paymentStore from '../store/payment';
 import categoryStore from '../store/category';
 import View from '../utils/View';
 import account from '../store/account';
+import sanitizeHtml from 'sanitize-html';
 
 class MainTabContainer extends View {
   initialState: any;
@@ -152,7 +153,8 @@ class MainTabContainer extends View {
     if (!this.state.isActive) return;
     const id = this.state.id;
     const split = date.split('-').map((v) => +v);
-    const content = this.state.content;
+    // const content = this.state.content;
+    const content = sanitizeHtml(this.state.content, { allowedTags: [] });
     const amount = this.state.amount.replace(/[^0-9]/g, '');
     const timestamp = new Date(split[0], split[1] - 1, split[2]).toISOString();
     const category_id = this.state.category.id;
