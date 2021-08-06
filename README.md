@@ -1,10 +1,10 @@
 # 우아한 가계부 - 3팀
 
 ## 개요
-- [데모](https://github.com/woowa-techcamp-2021/cashbook-03/blob/main/README.md#데모)
-- [스크린샷](https://github.com/woowa-techcamp-2021/cashbook-03/blob/main/README.md#스크린샷)
-- [프로젝트 구조](https://github.com/woowa-techcamp-2021/cashbook-03/blob/main/README.md#프로젝트-구조)
-- [진행 과정](https://github.com/woowa-techcamp-2021/cashbook-03/blob/main/README.md#진행-과정)
+- [데모](https://github.com/woowa-techcamp-2021/cashbook-03/tree/main#데모)
+- [스크린샷](https://github.com/woowa-techcamp-2021/cashbook-03/tree/main#스크린샷)
+- [프로젝트 구조](https://github.com/woowa-techcamp-2021/cashbook-03/tree/main#프로젝트-구조)
+- [진행 과정](https://github.com/woowa-techcamp-2021/cashbook-03/tree/main#진행-과정)
 
 ## 데모
 - ### [프로젝트 링크](http://ec2-52-78-160-142.ap-northeast-2.compute.amazonaws.com/calendar)
