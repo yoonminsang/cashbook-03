@@ -29,7 +29,7 @@ export const initAccount = async function (sequelize: Sequelize) {
         allowNull: false,
       },
       timestamp: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false,
       },
     },

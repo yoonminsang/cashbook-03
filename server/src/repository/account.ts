@@ -12,7 +12,14 @@ export default class AccountRepository {
         'id',
         'content',
         'amount',
-        'timestamp',
+        [
+          Sequelize.fn('date_format', Sequelize.col('timestamp'), '%Y-%m-%d'),
+          'timestamp',
+        ],
+        [
+          Sequelize.fn('date_format', Sequelize.col('timestamp'), '%Y-%m-%d'),
+          'date_col_formed',
+        ],
         [Sequelize.col('Category.id'), 'category_id'],
         [Sequelize.col('Category.name'), 'category_name'],
         [Sequelize.col('Category.color'), 'category_color'],
@@ -47,7 +54,10 @@ export default class AccountRepository {
         'id',
         'content',
         'amount',
-        'timestamp',
+        [
+          Sequelize.fn('date_format', Sequelize.col('timestamp'), '%Y-%m-%d'),
+          'timestamp',
+        ],
         [Sequelize.col('Category.id'), 'category_id'],
         [Sequelize.col('Category.name'), 'category_name'],
         [Sequelize.col('Category.color'), 'category_color'],
