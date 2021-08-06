@@ -46,8 +46,10 @@ const StatAccountItem = ({
     <li class="stat-account__item">
       <button class="stat-account__item__category" style="background:${category_color}">${category_name}</button>
       <div class="stat-account__item__content">${content}</div>
-      <div class="stat-account__item__payment">${payment_name}</div>
-      <div class="stat-account__item__amount">${amount}</div>
+      <div class="stat-account__item__payment">${payment_name || '수입'}</div>
+      <div class="stat-account__item__amount">${
+        payment_name ? '-' : '+'
+      }${amount}</div>
     </li>`;
 };
 
